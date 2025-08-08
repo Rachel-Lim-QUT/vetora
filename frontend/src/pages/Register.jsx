@@ -27,7 +27,7 @@ const Register = () => {
           id="name"
           name="name"
           type="text"
-          placeholder="Name"
+          placeholder="Enter your full name."
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
@@ -51,7 +51,7 @@ const Register = () => {
           id="username"
           name="username"
           type="text"
-          placeholder="Username"
+          placeholder="Enter your username."
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
@@ -62,12 +62,12 @@ const Register = () => {
           id="password"
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Enter your password."
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
-        
+
         <button type="submit" className="w-full bg-green-600 text-white p-2 rounded">
           Create
         </button>
