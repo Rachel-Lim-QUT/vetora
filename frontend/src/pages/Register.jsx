@@ -38,6 +38,7 @@ const Register = () => {
         <select
           id="role"
           name="role"
+          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
           required
         >
