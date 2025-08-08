@@ -31,6 +31,7 @@ const Register = () => {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
         
         <label for="role">Role:</label>
@@ -38,6 +39,7 @@ const Register = () => {
           id="role"
           name="role"
           className="w-full mb-4 p-2 border rounded"
+          required
         >
           <option value="" disabled selected>-- Please select your role. --</option>
           <option value="Doctor">Doctor</option>
@@ -55,6 +57,7 @@ const Register = () => {
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <label for="password">Password:</label>
@@ -66,6 +69,7 @@ const Register = () => {
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <button type="submit" className="w-full bg-green-600 text-white p-2 rounded">
