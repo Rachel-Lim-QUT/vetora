@@ -42,9 +42,9 @@ const Profile = () => {
       await axiosInstance.put('/api/auth/profile', formData, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      alert('Profile updated successfully!');
+      alert('Success! Profile updated.');
     } catch (error) {
-      alert('Failed to update profile. Please try again.');
+      alert('Error: Profile update failed. Please try again.');
     } finally {
       setLoading(false);
     }
