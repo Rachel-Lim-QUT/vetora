@@ -8,6 +8,7 @@ const Profile = () => {
     name: '',
     role: '',
     username: '',
+    password: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,6 +24,7 @@ const Profile = () => {
           name: response.data.name,
           role: response.data.role,
           username: response.data.username,
+          password: response.data.password,
         });
       } catch (error) {
         alert('Failed to fetch profile. Please try again.');
@@ -75,6 +77,12 @@ const Profile = () => {
           placeholder="Username"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          className="w-full mb-4 p-2 border rounded"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={formData.password}
           className="w-full mb-4 p-2 border rounded"
         />
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
