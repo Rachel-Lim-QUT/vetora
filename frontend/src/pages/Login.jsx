@@ -29,7 +29,7 @@ const Login = () => {
           id="username"
           name="username"
           type="text"
-          placeholder="Username"
+          placeholder="Enter your username."
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
@@ -40,12 +40,12 @@ const Login = () => {
           id="password"
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Enter your password."
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
-        
+
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
           Login
         </button>
