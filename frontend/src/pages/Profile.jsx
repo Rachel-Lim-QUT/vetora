@@ -6,7 +6,7 @@ const Profile = () => {
   const { user } = useAuth(); // Access user token from context
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    username: '',
     university: '',
     address: '',
   });
@@ -22,7 +22,7 @@ const Profile = () => {
         });
         setFormData({
           name: response.data.name,
-          email: response.data.email,
+          username: response.data.username,
           university: response.data.university || '',
           address: response.data.address || '',
         });
@@ -67,10 +67,10 @@ const Profile = () => {
           className="w-full mb-4 p-2 border rounded"
         />
         <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          type="text"
+          placeholder="Username"
+          value={formData.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
         <input
