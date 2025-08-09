@@ -56,12 +56,14 @@ const updateUserProfile = async (req, res) => {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: 'User not found' });
 
-        const { name, username } = req.body;
+        const { name, role, username, password } = req.body;
         user.name = name || user.name;
+        user.role = role || user.role;
         user.username = username || user.username;
+        user.password = password || user.password;
 
         const updatedUser = await user.save();
-        res.json({ id: updatedUser.id, name: updatedUser.name, username: updatedUser.username, token: generateToken(updatedUser.id) });
+        res.json({ id: updatedUser.id, name: updatedUser.name, role: updatedUser.role, username: updatedUser.username, password: updatedUser.password, token: generateToken(updatedUser.id) });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
