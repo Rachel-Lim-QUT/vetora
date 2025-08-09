@@ -81,6 +81,7 @@ const Profile = () => {
           value={formData.role}
           onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          readOnly
         />
 
         <label for="username">Username:</label>
