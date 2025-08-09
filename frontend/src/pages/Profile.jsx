@@ -78,6 +78,7 @@ const Profile = () => {
           type="text"
           placeholder="Role"
           value={formData.role}
+          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
 
@@ -98,6 +99,7 @@ const Profile = () => {
           name="password"
           type="password"
           placeholder="Password"
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
 
