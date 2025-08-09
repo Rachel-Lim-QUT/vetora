@@ -24,7 +24,6 @@ const Profile = () => {
           name: response.data.name,
           role: response.data.role,
           username: response.data.username,
-          password: response.data.password,
         });
       } catch (error) {
         alert('Failed to fetch profile. Please try again.');
