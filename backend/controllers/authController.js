@@ -1,4 +1,3 @@
-
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -43,7 +42,7 @@ const getProfile = async (req, res) => {
   
       res.status(200).json({
         name: user.name,
-        email: user.email,
+        username: user.username,
         university: user.university,
         address: user.address,
       });
