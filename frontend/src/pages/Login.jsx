@@ -33,6 +33,7 @@ const Login = () => {
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <label for="password">Password:</label>
@@ -44,6 +45,7 @@ const Login = () => {
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
