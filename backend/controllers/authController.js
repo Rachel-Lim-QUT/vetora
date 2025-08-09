@@ -44,6 +44,7 @@ const getProfile = async (req, res) => {
         name: user.name,
         role: user.role,
         username: user.username,
+        password: user.password,
       });
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
