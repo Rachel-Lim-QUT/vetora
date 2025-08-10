@@ -24,7 +24,6 @@ const Profile = () => {
           name: response.data.name,
           role: response.data.role,
           username: response.data.username,
-          password: response.data.password,
         });
       } catch (error) {
         alert('Failed to fetch profile. Please try again.');
@@ -43,9 +42,9 @@ const Profile = () => {
       await axiosInstance.put('/api/auth/profile', formData, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      alert('Profile updated successfully!');
+      alert('Success! Profile updated.');
     } catch (error) {
-      alert('Failed to update profile. Please try again.');
+      alert('Error: Profile update failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -69,6 +68,7 @@ const Profile = () => {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <label for="role">Role:</label>
@@ -78,7 +78,9 @@ const Profile = () => {
           type="text"
           placeholder="Role"
           value={formData.role}
+          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          disabled
         />
 
         <label for="username">Username:</label>
@@ -90,6 +92,7 @@ const Profile = () => {
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <label for="password">Password:</label>
@@ -98,7 +101,10 @@ const Profile = () => {
           name="password"
           type="password"
           placeholder="Password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
+          required
         />
 
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
