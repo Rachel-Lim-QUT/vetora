@@ -10,6 +10,7 @@ const PatientForm = () => {
                 type="text"
                 placeholder="Enter the patient's first name."
                 className="w-full mb-4 p-2 border rounded"
+                required
             />
 
             <label for="lname">Last Name:</label>
@@ -19,6 +20,7 @@ const PatientForm = () => {
                 type="text"
                 placeholder="Enter the patient's last name."
                 className="w-full mb-4 p-2 border rounded"
+                required
             />
 
             <label for="dob">Date of Birth:</label>
@@ -27,6 +29,7 @@ const PatientForm = () => {
                 name="dob"
                 type="date"
                 className="w-full mb-4 p-2 border rounded"
+                required
             />
 
             <label for="gender">Gender:</label>
