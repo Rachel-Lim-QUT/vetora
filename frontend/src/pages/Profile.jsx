@@ -50,6 +50,20 @@ const Profile = () => {
     }
   };
 
+  const handleDelete = async() => {
+    setLoading(true);
+    try {
+      await axiosInstance.delete('/api/auth/profile/', {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      alert('Success! Account deleted.');
+    } catch (error) {
+      alert('Error: Account deletion failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) {
     return <div className="text-center mt-20">Loading...</div>;
   }
