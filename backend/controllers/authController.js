@@ -52,11 +52,11 @@ const getProfile = async (req, res) => {
   };
 
 const updateUserProfile = async (req, res) => {
+    const { name, role, username, password } = req.body;
     try {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: 'Error 404: User not found.' });
 
-        const { name, role, username, password } = req.body;
         user.name = name || user.name;
         user.role = role || user.role;
         user.username = username || user.username;
