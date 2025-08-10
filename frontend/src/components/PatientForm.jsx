@@ -15,6 +15,12 @@ const PatientForm = () => {
                 className="w-full mb-4 p-2 border rounded"
             />
 
+            <input
+                name="dob"
+                type="date"
+                className="w-full mb-4 p-2 border rounded"
+            />
+
             <button className="w-full bg-blue-600 text-white p-2 rounded">
                 Create
             </button>
