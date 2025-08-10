@@ -31,6 +31,13 @@ const PatientForm = () => {
                 <option value="Other">Other</option>
             </select>
 
+            <input
+                name="phone"
+                type="tel"
+                placeholder="Phone Number"
+                className="w-full mb-4 p-2 border rounded"
+            />
+
             <button className="w-full bg-blue-600 text-white p-2 rounded">
                 Create
             </button>
