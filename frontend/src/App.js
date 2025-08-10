@@ -4,16 +4,18 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Tasks from './pages/Tasks';
+import Patients from './pages/Patients';
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      <Navbar/>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/tasks" element={<Tasks/>}/>
+        <Route path="/patients" element={<Patients/>}/>
       </Routes>
     </Router>
   );
