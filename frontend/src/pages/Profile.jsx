@@ -110,6 +110,10 @@ const Profile = () => {
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
           {loading ? 'Updating...' : 'Update'}
         </button>
+
+        <button type="button" className="w-full bg-red-600 text-white p-2 rounded">
+          Delete Account
+        </button>
       </form>
     </div>
   );
