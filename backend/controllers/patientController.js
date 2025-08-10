@@ -1,3 +1,5 @@
+const Patient = require('../models/Patient');
+
 // Create Patient
 const createPatient = async (req, res) => {
     const { fname, lname, dob, gender, phone, email } = req.body;
