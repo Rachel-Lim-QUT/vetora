@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
 const Profile = () => {
-  const { user } = useAuth(); // Access user token from context
+  const { user, logout } = useAuth(); // Access user token from context
   const [formData, setFormData] = useState({
     name: '',
     role: '',
@@ -11,6 +12,7 @@ const Profile = () => {
     password: '',
   });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch profile data from the backend
@@ -45,6 +47,22 @@ const Profile = () => {
       alert('Success! Profile updated.');
     } catch (error) {
       alert('Error: Profile update failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async() => {
+    setLoading(true);
+    try {
+      await axiosInstance.delete('/api/auth/profile/', {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      alert('Success! Account deleted.');
+      logout();
+      navigate('/');
+    } catch (error) {
+      alert('Error: Account deletion failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -107,8 +125,12 @@ const Profile = () => {
           required
         />
 
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+        <button type="submit" className="w-full bg-blue-600 text-white mb-4 p-2 rounded">
           {loading ? 'Updating...' : 'Update'}
+        </button>
+
+        <button type="button" onClick={handleDelete} className="w-full bg-red-600 text-white mb-4 p-2 rounded">
+          Delete Account
         </button>
       </form>
     </div>
