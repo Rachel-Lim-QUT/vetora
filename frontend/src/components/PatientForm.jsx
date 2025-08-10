@@ -8,7 +8,7 @@ const PatientForm = () => {
                 id="fname"
                 name="fname"
                 type="text"
-                placeholder="First Name"
+                placeholder="Enter the patient's first name."
                 className="w-full mb-4 p-2 border rounded"
             />
 
@@ -17,7 +17,7 @@ const PatientForm = () => {
                 id="lname"
                 name="lname"
                 type="text"
-                placeholder="Last Name"
+                placeholder="Enter the patient's last name."
                 className="w-full mb-4 p-2 border rounded"
             />
 
@@ -46,7 +46,7 @@ const PatientForm = () => {
                 id="phone"
                 name="phone"
                 type="tel"
-                placeholder="Phone Number"
+                placeholder="Enter the patient's phone number."
                 className="w-full mb-4 p-2 border rounded"
             />
 
@@ -55,7 +55,7 @@ const PatientForm = () => {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="Email Address"
+                placeholder="Enter the patient's email address."
                 className="w-full mb-4 p-2 border rounded"
             />
 
