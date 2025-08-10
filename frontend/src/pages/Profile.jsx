@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
 const Profile = () => {
-  const { user } = useAuth(); // Access user token from context
+  const { user, logout } = useAuth(); // Access user token from context
   const [formData, setFormData] = useState({
     name: '',
     role: '',
@@ -11,6 +12,7 @@ const Profile = () => {
     password: '',
   });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch profile data from the backend
@@ -57,6 +59,8 @@ const Profile = () => {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       alert('Success! Account deleted.');
+      logout();
+      navigate('/');
     } catch (error) {
       alert('Error: Account deletion failed. Please try again.');
     } finally {
