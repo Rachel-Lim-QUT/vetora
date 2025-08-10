@@ -9,6 +9,7 @@ const PatientForm = () => {
                 name="fname"
                 type="text"
                 placeholder="Enter the patient's first name."
+                value={formData.fname}
                 onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
                 required
@@ -20,6 +21,7 @@ const PatientForm = () => {
                 name="lname"
                 type="text"
                 placeholder="Enter the patient's last name."
+                value={formData.lname}
                 onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
                 required
@@ -30,6 +32,7 @@ const PatientForm = () => {
                 id="dob"
                 name="dob"
                 type="date"
+                value={formData.dob}
                 onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
                 required
@@ -54,6 +57,7 @@ const PatientForm = () => {
                 name="phone"
                 type="tel"
                 placeholder="Enter the patient's phone number."
+                value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             />
@@ -64,6 +68,7 @@ const PatientForm = () => {
                 name="email"
                 type="email"
                 placeholder="Enter the patient's email address."
+                value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             />
