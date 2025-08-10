@@ -125,7 +125,7 @@ const Profile = () => {
           {loading ? 'Updating...' : 'Update'}
         </button>
 
-        <button type="button" className="w-full bg-red-600 text-white mb-4 p-2 rounded">
+        <button type="button" onClick={handleDelete} className="w-full bg-red-600 text-white mb-4 p-2 rounded">
           Delete Account
         </button>
       </form>
