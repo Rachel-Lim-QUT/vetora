@@ -9,6 +9,7 @@ const PatientForm = () => {
                 name="fname"
                 type="text"
                 placeholder="Enter the patient's first name."
+                onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
                 required
             />
@@ -19,6 +20,7 @@ const PatientForm = () => {
                 name="lname"
                 type="text"
                 placeholder="Enter the patient's last name."
+                onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
                 required
             />
@@ -28,6 +30,7 @@ const PatientForm = () => {
                 id="dob"
                 name="dob"
                 type="date"
+                onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
                 required
             />
@@ -36,6 +39,7 @@ const PatientForm = () => {
             <select
                 id="gender"
                 name="gender"
+                onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             >
                 <option value="" disabled selected>-- Select a gender. --</option>
@@ -50,6 +54,7 @@ const PatientForm = () => {
                 name="phone"
                 type="tel"
                 placeholder="Enter the patient's phone number."
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             />
 
@@ -59,6 +64,7 @@ const PatientForm = () => {
                 name="email"
                 type="email"
                 placeholder="Enter the patient's email address."
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             />
 
