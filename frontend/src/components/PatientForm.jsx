@@ -21,6 +21,16 @@ const PatientForm = () => {
                 className="w-full mb-4 p-2 border rounded"
             />
 
+            <select
+                name="gender"
+                className="w-full mb-4 p-2 border rounded"
+            >
+                <option value="" disabled selected>-- Select a gender. --</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+            </select>
+
             <button className="w-full bg-blue-600 text-white p-2 rounded">
                 Create
             </button>
