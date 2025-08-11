@@ -1,4 +1,23 @@
+import { useState, useEffect } from "react";
+import { useAuth } from '../context/AuthContext';
+import axiosInstance from "../axiosConfig";
+
 const PatientForm = () => {
+    const { user } = useAuth();
+    const [formData, setFormData] = useState({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axiosInstance.post('/api/patients', formData, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            alert('Success! Patient file created.');
+        } catch (error) {
+            alert('Error: Patient file creation failed. Please try again.');
+        }
+    };
+
     return (
         <form className="bg-white p-6 shadow-md rounded mb-6">
             <h1 className="text-2xl font-bold mb-4">Create New Patient</h1>
