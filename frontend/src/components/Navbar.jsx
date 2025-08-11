@@ -16,22 +16,17 @@ const Navbar = () => {
       <div>
         {user ? (
           <>
+            <Link to="/patients" className="mr-4">Patients</Link>
             <Link to="/tasks" className="mr-4">CRUD</Link>
             <Link to="/profile" className="mr-4">Account</Link>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 px-4 py-2 rounded hover:bg-red-700"
-            >
+            <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded hover:bg-red-700">
               Logout
             </button>
           </>
         ) : (
           <>
             <Link to="/login" className="mr-4">Login</Link>
-            <Link
-              to="/register"
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-700"
-            >
+            <Link to="/register" className="bg-green-500 px-4 py-2 rounded hover:bg-green-700">
               Register
             </Link>
           </>
