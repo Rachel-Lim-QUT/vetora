@@ -75,6 +75,7 @@ const PatientForm = () => {
                 id="phone"
                 name="phone"
                 type="tel"
+                maxLength={10}
                 placeholder="Enter the patient's phone number."
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
