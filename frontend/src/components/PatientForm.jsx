@@ -19,7 +19,7 @@ const PatientForm = () => {
     };
 
     return (
-        <form className="bg-white p-6 shadow-md rounded mb-6">
+        <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
             <h1 className="text-2xl font-bold mb-4">Create New Patient</h1>
 
             <label for="fname">First Name:</label>
