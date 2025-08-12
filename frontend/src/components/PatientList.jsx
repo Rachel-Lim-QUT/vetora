@@ -18,6 +18,11 @@ const PatientList = ({ patients, setEditingPatient }) => {
                         >
                             Edit
                         </button>
+                        <button
+                            className="bg-red-500 text-white ml-2 px-4 py-2 rounded"
+                        >
+                            Delete
+                        </button>
                     </div>
                 </div>
             ))}
