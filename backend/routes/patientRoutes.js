@@ -1,9 +1,10 @@
 const express = require('express');
-const { createPatient, getPatient } = require('../controllers/patientController');
+const { createPatient, getPatient, updatePatient } = require('../controllers/patientController');
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-router.route('/').post(protect, createPatient);
-router.route('/').get(protect, getPatient);
+router.post('/', protect, createPatient);
+router.get('/', protect, getPatient);
+router.put('/:id', protect, updatePatient);
 
 module.exports= router;

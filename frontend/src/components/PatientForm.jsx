@@ -2,25 +2,50 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-const PatientForm = () => {
+const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+
+    useEffect(() => {
+        if (editingPatient) {
+            setFormData({
+                fname: editingPatient.fname,
+                lname: editingPatient.lname,
+                dob: editingPatient.dob,
+                gender: editingPatient.gender,
+                phone: editingPatient.phone,
+                email: editingPatient.email,
+            });
+        } else {
+            setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+        }
+    }, [editingPatient]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axiosInstance.post('/api/patients', formData, {
-                headers: { Authorization: `Bearer ${user.token}` },
-            });
-            alert('Success! Patient file created.');
+            if (editingPatient) {
+                const response = await axiosInstance.put(`/api/patients/${editingPatient._id}`, formData, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setPatients(patients.map((patient) => (patient._id === response.data._id ? response.data : patient)));
+            } else {
+                const response = await axiosInstance.post('/api/patients', formData, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setPatients([...patients, response.data]);
+            }
+            setEditingPatient(null);
+            setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+            alert('Success! Patient file saved.')
         } catch (error) {
-            alert('Error: Patient file creation failed. Please try again.');
+            alert('Error: Patient file save failed. Please try again.');
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-            <h1 className="text-2xl font-bold mb-4">Create New Patient</h1>
+            <h1 className="text-2xl font-bold mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
 
             <label for="fname">First Name:</label>
             <input
@@ -61,6 +86,7 @@ const PatientForm = () => {
             <select
                 id="gender"
                 name="gender"
+                value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             >
@@ -93,9 +119,24 @@ const PatientForm = () => {
                 className="w-full mb-4 p-2 border rounded"
             />
 
-            <button className="w-full bg-blue-600 text-white p-2 rounded">
-                Create
-            </button>
+            <div>
+                {editingPatient ? (
+                    <>
+                        <button type="submit" className="w-full bg-blue-600 text-white mb-4 p-2 rounded">
+                            Update
+                        </button>
+                        <button type="button" onClick={() => setEditingPatient(null)} className="w-full bg-gray-600 text-white p-2 rounded">
+                            Cancel
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+                            Create
+                        </button>
+                    </>
+                )}
+            </div>
         </form>
     );
 };

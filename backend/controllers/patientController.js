@@ -1,4 +1,9 @@
 const Patient = require('../models/Patient');
+const jwt = require('jsonwebtoken');
+
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+};
 
 // Create Patient
 const createPatient = async (req, res) => {
@@ -28,4 +33,25 @@ const getPatient = async (req, res) => {
     }
 };
 
-module.exports = { createPatient, getPatient };
+// Update Patient
+const updatePatient = async (req, res) => {
+    const { fname, lname, dob, gender, phone, email } = req.body;
+    try {
+        const patient = await Patient.findById(req.params.id);
+        if (!patient) return res.status(404).json({ message: 'Error 404: Patient not found.' });
+        
+        patient.fname = fname || patient.fname;
+        patient.lname = lname || patient.lname;
+        patient.dob = dob || patient.dob;
+        patient.gender = gender || patient.gender;
+        patient.phone = phone || patient.phone;
+        patient.email = email || patient.email;
+
+        const updatedPatient = await patient.save();
+        res.json(updatedPatient);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { createPatient, getPatient, updatePatient };
