@@ -30,6 +30,11 @@ const PatientList = () => {
                     <p><b>Gender</b>: {patient.gender}</p>
                     <p><b>Phone</b>: {patient.phone}</p>
                     <p><b>Email Address</b>: {patient.email}</p>
+                    <div className="mt-2">
+                        <button className="bg-yellow-500 text-white px-4 py-2 rounded">
+                            Edit
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>
