@@ -37,7 +37,7 @@ const getPatient = async (req, res) => {
 const updatePatient = async (req, res) => {
     const { fname, lname, dob, gender, phone, email } = req.body;
     try {
-        const patient = await Patient.findById(req.patient.id);
+        const patient = await Patient.findById(req.params.id);
         if (!patient) return res.status(404).json({ message: 'Error 404: Patient not found.' });
         
         patient.fname = fname || patient.fname;
