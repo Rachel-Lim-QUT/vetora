@@ -21,7 +21,7 @@ const PatientList = () => {
     }, [user]);
 
     return (
-        <div>
+        <div className="bg-white mb-6 p-6 rounded shadow-md">
             {patients.map((patient) => (
                 <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
                     <p>{patient.fname}</p>
