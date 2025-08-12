@@ -54,4 +54,16 @@ const updatePatient = async (req, res) => {
     }
 };
 
-module.exports = { createPatient, getPatient, updatePatient };
+// Delete Patient
+const deletePatient = async (req, res) => {
+    try {
+        const patient = await Patient.findById(req.params.id);
+        // Write error handling here.
+        await patient.remove();
+        res.json({ message: 'Patient deleted.' });
+    } catch (error) {
+        // Write error handling here.
+    }
+};
+
+module.exports = { createPatient, getPatient, updatePatient, deletePatient };
