@@ -3,8 +3,8 @@ const { createPatient, getPatient, updatePatient } = require('../controllers/pat
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-router.route('/').post(protect, createPatient);
-router.route('/').get(protect, getPatient);
-router.route('/').put(protect, updatePatient);
+router.post('/', protect, createPatient);
+router.get('/', protect, getPatient);
+router.put('/:id', protect, updatePatient);
 
 module.exports= router;
