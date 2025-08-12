@@ -48,16 +48,7 @@ const updatePatient = async (req, res) => {
         patient.email = email || patient.email;
 
         const updatedPatient = await patient.save();
-        res.json({
-            id: updatedPatient.id,
-            fname: updatedPatient.fname,
-            lname: updatedPatient.lname,
-            dob: updatedPatient.dob,
-            gender: updatedPatient.gender,
-            phone: updatedPatient.phone,
-            email: updatedPatient.email,
-            token: generateToken(updatedPatient.id)
-        });
+        res.json(updatedPatient);
     } catch (error) {
         // Write error handling here.
     }
