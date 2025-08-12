@@ -25,9 +25,8 @@ const PatientList = () => {
             <h1 className="font-bold mb-4 text-2xl">Patient List</h1>
             {patients.map((patient) => (
                 <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
-                    <p>{patient.fname}</p>
-                    <p>{patient.lname}</p>
-                    <p>{patient.dob}</p>
+                    <p><b>Name</b>: {patient.lname}, {patient.fname}</p>
+                    <p><b>Date of Birth</b>: {patient.dob}</p>
                 </div>
             ))}
         </div>
