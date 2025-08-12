@@ -9,9 +9,10 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
             await axiosInstance.delete(`/api/patients/${patientID}`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
+            alert('Success! Patient deleted.')
             setPatients(patients.filter((patient) => patient._id !== patientID ));
         } catch (error) {
-            // Write error handling here.
+            alert('Error: Failed to delete patient.')
         }
     };
 
