@@ -58,11 +58,11 @@ const updatePatient = async (req, res) => {
 const deletePatient = async (req, res) => {
     try {
         const patient = await Patient.findById(req.params.id);
-        // Write error handling here.
+        if (!patient) return res.status(404).json({ message: 'Error 404: Patient not found. ' });
         await patient.remove();
         res.json({ message: 'Patient deleted.' });
     } catch (error) {
-        // Write error handling here.
+        res.status(500).json({ message: error.message });
     }
 };
 
