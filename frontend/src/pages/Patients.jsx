@@ -33,6 +33,7 @@ const Patients = () => {
             />
             <PatientList
                 patients={patients}
+                setPatients={setPatients}
                 setEditingPatient={setEditingPatient}
             />
         </div>
