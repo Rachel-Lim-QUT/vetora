@@ -1,4 +1,20 @@
-const PatientList = ({ patients, setEditingPatient }) => {
+import { useAuth } from "../context/AuthContext";
+import axiosInstance from "../axiosConfig";
+
+const PatientList = ({ patients, setPatients, setEditingPatient }) => {
+    const { user } = useAuth();
+
+    const handleDelete = async (patientID) => {
+        try {
+            await axiosInstance.delete(`/api/patients/${patientID}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            setPatients(patients.filter((patient) => patient._id !== patientID ));
+        } catch (error) {
+            // Write error handling here.
+        }
+    };
+
     return (
         <div className="bg-white mb-6 p-6 rounded shadow-md">
             <h1 className="font-bold mb-4 text-2xl">Patient List</h1>
