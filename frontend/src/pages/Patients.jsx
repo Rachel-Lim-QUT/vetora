@@ -7,6 +7,7 @@ import PatientList from "../components/PatientList";
 const Patients = () => {
     const { user } = useAuth();
     const [patients, setPatients] = useState([]);
+    const [editingPatient, setEditingPatient] = useState(null);
 
     useEffect(() => {
         const fetchPatients = async () => {
