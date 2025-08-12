@@ -37,9 +37,9 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             }
             setEditingPatient(null);
             setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
-            // Write success handling here.
+            alert('Success! Patient file saved.')
         } catch (error) {
-            alert('Error: Patient file creation failed. Please try again.');
+            alert('Error: Patient file save failed. Please try again.');
         }
     };
 
