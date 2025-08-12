@@ -85,6 +85,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             <select
                 id="gender"
                 name="gender"
+                value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                 className="w-full mb-4 p-2 border rounded"
             >
