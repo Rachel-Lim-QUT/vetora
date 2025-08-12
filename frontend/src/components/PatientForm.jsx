@@ -119,11 +119,24 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 className="w-full mb-4 p-2 border rounded"
             />
 
-            <button
-                type="submit"
-                className="w-full bg-blue-600 text-white p-2 rounded">
-                {editingPatient ? 'Update' : 'Create'}
-            </button>
+            <div>
+                {editingPatient ? (
+                    <>
+                        <button type="submit" className="w-full bg-blue-600 text-white mb-4 p-2 rounded">
+                            Update
+                        </button>
+                        <button type="button" onClick={() => setEditingPatient(null)} className="w-full bg-gray-600 text-white p-2 rounded">
+                            Cancel
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+                            Create
+                        </button>
+                    </>
+                )}
+            </div>
         </form>
     );
 };
