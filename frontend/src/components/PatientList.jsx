@@ -35,6 +35,7 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                             Edit
                         </button>
                         <button
+                            onClick={() => handleDelete(patient._id)}
                             className="bg-red-500 text-white ml-2 px-4 py-2 rounded"
                         >
                             Delete
