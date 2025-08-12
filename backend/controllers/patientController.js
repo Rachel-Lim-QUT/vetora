@@ -18,4 +18,14 @@ const createPatient = async (req, res) => {
     }
 };
 
-module.exports = { createPatient };
+// Get Patient
+const getPatient = async (req, res) => {
+    try {
+        const patients = await Patient.find({ userID: req.user.id });
+        res.json(patients);
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+};
+
+module.exports = { createPatient, getPatient };
