@@ -19,6 +19,18 @@ const PatientList = () => {
         };
         if (user) fetchPatients();
     }, [user]);
-}
+
+    return (
+        <div>
+            {patients.map((patient) => (
+                <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
+                    <p>{patient.fname}</p>
+                    <p>{patient.lname}</p>
+                    <p>{patient.dob}</p>
+                </div>
+            ))}
+        </div>
+    );
+};
 
 export default PatientList;
