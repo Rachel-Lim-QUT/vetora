@@ -2,17 +2,41 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-const PatientForm = () => {
+const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+
+    useEffect(() => {
+        if (editingPatient) {
+            setFormData({
+                fname: editingPatient.fname,
+                lname: editingPatient.lname,
+                dob: editingPatient.dob,
+                gender: editingPatient.gender,
+                phone: editingPatient.phone,
+                email: editingPatient.email,
+            });
+        } else {
+            setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+        }
+    }, [editingPatient]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axiosInstance.post('/api/patients', formData, {
-                headers: { Authorization: `Bearer ${user.token}` },
-            });
-            alert('Success! Patient file created.');
+            if (editingPatient) {
+                const response = await axiosInstance.put(`/api/patients/${editingPatient._id}`, formData, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setPatients(patients.map((patient) => (patient._id === response.data._id ? response.data : patient)));
+            } else {
+                const response = await axiosInstance.post('/api/patients', formData, {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setPatients([...patients, response.data]);
+            }
+            setEditingPatient(null);
+            // Write success handling here.
         } catch (error) {
             alert('Error: Patient file creation failed. Please try again.');
         }
@@ -20,7 +44,7 @@ const PatientForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-            <h1 className="text-2xl font-bold mb-4">Create New Patient</h1>
+            <h1 className="text-2xl font-bold mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
 
             <label for="fname">First Name:</label>
             <input
@@ -93,8 +117,10 @@ const PatientForm = () => {
                 className="w-full mb-4 p-2 border rounded"
             />
 
-            <button className="w-full bg-blue-600 text-white p-2 rounded">
-                Create
+            <button
+                type="submit"
+                className="w-full bg-blue-600 text-white p-2 rounded">
+                {editingPatient ? 'Update' : 'Create'}
             </button>
         </form>
     );
