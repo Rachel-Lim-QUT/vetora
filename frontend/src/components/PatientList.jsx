@@ -14,7 +14,7 @@ const PatientList = () => {
                 });
                 setPatients(response.data);
             } catch (error) {
-                alert('Failed to fetch patient.')
+                alert('Error: Failed to fetch patient.')
             }
         };
         if (user) fetchPatients();
