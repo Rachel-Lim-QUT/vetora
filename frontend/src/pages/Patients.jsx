@@ -24,18 +24,22 @@ const Patients = () => {
     }, [user]);
 
     return (
-        <div className="container mx-auto p-6">
-            <PatientForm
-                patients={patients}
-                setPatients={setPatients}
-                editingPatient={editingPatient}
-                setEditingPatient={setEditingPatient}
-            />
-            <PatientList
-                patients={patients}
-                setPatients={setPatients}
-                setEditingPatient={setEditingPatient}
-            />
+        <div className="grid grid-cols-5 gap-6 p-6">
+            <div className="col-span-2">
+                <PatientForm
+                    patients={patients}
+                    setPatients={setPatients}
+                    editingPatient={editingPatient}
+                    setEditingPatient={setEditingPatient}
+                />
+            </div>
+            <div className="col-span-3">
+                <PatientList
+                    patients={patients}
+                    setPatients={setPatients}
+                    setEditingPatient={setEditingPatient}
+                />
+            </div>
         </div>
     );
 };
