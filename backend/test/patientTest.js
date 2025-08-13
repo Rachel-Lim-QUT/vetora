@@ -145,67 +145,62 @@ describe('updatePatient Function Test', () => {
     });
 });
 
+describe('getPatient Function Test', () => {
 
+    it('should return patients for the given user', async () => {
+        // Mock User ID
+        const userID = new mongoose.Types.ObjectId();
 
-describe('GetTask Function Test', () => {
+        // Mock Patient Data
+        const patients = [
+        { _id: new mongoose.Types.ObjectId(), fname: "Test", lname: "One", dob: "2001-01-01", userID },
+        { _id: new mongoose.Types.ObjectId(), fname: "Test", lname: "Two", dob: "2002-02-02", userID }
+        ];
 
-  it('should return tasks for the given user', async () => {
-    // Mock user ID
-    const userId = new mongoose.Types.ObjectId();
+        // Stub Patient.find to return mock patients.
+        const findStub = sinon.stub(Patient, 'find').resolves(patients);
 
-    // Mock task data
-    const tasks = [
-      { _id: new mongoose.Types.ObjectId(), title: "Task 1", userId },
-      { _id: new mongoose.Types.ObjectId(), title: "Task 2", userId }
-    ];
+        // Mock Request & Response
+        const req = { user: { id: userID } };
+        const res = {
+        json: sinon.spy(),
+        status: sinon.stub().returnsThis()
+        };
 
-    // Stub Task.find to return mock tasks
-    const findStub = sinon.stub(Task, 'find').resolves(tasks);
+        // Call getPatient function.
+        await getPatient(req, res);
 
-    // Mock request & response
-    const req = { user: { id: userId } };
-    const res = {
-      json: sinon.spy(),
-      status: sinon.stub().returnsThis()
-    };
+        // Assertions
+        expect(findStub.calledOnceWith({ userID })).to.be.true;
+        expect(res.json.calledWith(patients)).to.be.true;
+        expect(res.status.called).to.be.false; // No error status should be set.
 
-    // Call function
-    await getTasks(req, res);
+        // Restore stubbed methods.
+        findStub.restore();
+    });
 
-    // Assertions
-    expect(findStub.calledOnceWith({ userId })).to.be.true;
-    expect(res.json.calledWith(tasks)).to.be.true;
-    expect(res.status.called).to.be.false; // No error status should be set
+    it('should return 500 if an error occurs', async () => {
+        // Stub Patient.find to throw an error.
+        const findStub = sinon.stub(Patient, 'find').throws(new Error('DB Error'));
 
-    // Restore stubbed methods
-    findStub.restore();
-  });
+        // Mock Request & Response
+        const req = { user: { id: new mongoose.Types.ObjectId() } };
+        const res = {
+        json: sinon.spy(),
+        status: sinon.stub().returnsThis()
+        };
 
-  it('should return 500 on error', async () => {
-    // Stub Task.find to throw an error
-    const findStub = sinon.stub(Task, 'find').throws(new Error('DB Error'));
+        // Call getPatient function.
+        await getPatient(req, res);
 
-    // Mock request & response
-    const req = { user: { id: new mongoose.Types.ObjectId() } };
-    const res = {
-      json: sinon.spy(),
-      status: sinon.stub().returnsThis()
-    };
+        // Assertions
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
 
-    // Call function
-    await getTasks(req, res);
-
-    // Assertions
-    expect(res.status.calledWith(500)).to.be.true;
-    expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
-
-    // Restore stubbed methods
-    findStub.restore();
-  });
-
+        // Restore stubbed methods.
+        findStub.restore();
+    });
 });
-
-
 
 describe('DeleteTask Function Test', () => {
 
