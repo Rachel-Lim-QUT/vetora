@@ -5,77 +5,74 @@ const app = require('../server');
 const connectDB = require('../config/db');
 const mongoose = require('mongoose');
 const sinon = require('sinon');
-const Task = require('../models/Task');
-const { updateTask,getTasks,addTask,deleteTask } = require('../controllers/taskController');
+const Patient = require('../models/Patient');
+const { createPatient, getPatient, updatePatient, deletePatient } = require('../controllers/patientController');
 const { expect } = chai;
 
 chai.use(chaiHttp);
 let server;
 let port;
 
+describe('createPatient Function Test', () => {
 
-describe('AddTask Function Test', () => {
-
-  it('should create a new task successfully', async () => {
-    // Mock request data
+  it('should create a new patient successfully', async () => {
+    // Mock Request Data
     const req = {
       user: { id: new mongoose.Types.ObjectId() },
-      body: { title: "New Task", description: "Task description", deadline: "2025-12-31" }
+      body: { fname: "Test", lname: "Test", dob: "2000-02-02", gender: "Other", phone: "0400000000", email: "test@example.com" }
     };
 
-    // Mock task that would be created
-    const createdTask = { _id: new mongoose.Types.ObjectId(), ...req.body, userId: req.user.id };
+    // Mock patient that would be created.
+    const createdPatient = { _id: new mongoose.Types.ObjectId(), ...req.body, userID: req.user.id };
 
-    // Stub Task.create to return the createdTask
-    const createStub = sinon.stub(Task, 'create').resolves(createdTask);
+    // Stub Patient.create to return the createdPatient.
+    const createStub = sinon.stub(Patient, 'create').resolves(createdPatient);
 
-    // Mock response object
+    // Mock Response Object
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.spy()
     };
 
-    // Call function
-    await addTask(req, res);
+    // Call createPatient function.
+    await createPatient(req, res);
 
     // Assertions
-    expect(createStub.calledOnceWith({ userId: req.user.id, ...req.body })).to.be.true;
+    expect(createStub.calledOnceWith({ userID: req.user.id, ...req.body })).to.be.true;
     expect(res.status.calledWith(201)).to.be.true;
-    expect(res.json.calledWith(createdTask)).to.be.true;
+    expect(res.json.calledWith(createdPatient)).to.be.true;
 
-    // Restore stubbed methods
+    // Restore stubbed methods.
     createStub.restore();
   });
 
   it('should return 500 if an error occurs', async () => {
-    // Stub Task.create to throw an error
-    const createStub = sinon.stub(Task, 'create').throws(new Error('DB Error'));
+    // Stub Patient.create to throw an error.
+    const createStub = sinon.stub(Patient, 'create').throws(new Error('DB Error'));
 
-    // Mock request data
+    // Mock Request Data
     const req = {
       user: { id: new mongoose.Types.ObjectId() },
-      body: { title: "New Task", description: "Task description", deadline: "2025-12-31" }
+      body: { fname: "Test", lname: "Test", dob: "2000-02-02", gender: "Other", phone: "0400000000", email: "test@example.com" }
     };
 
-    // Mock response object
+    // Mock Response Object
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.spy()
     };
 
-    // Call function
-    await addTask(req, res);
+    // Call createPatient function.
+    await createPatient(req, res);
 
     // Assertions
     expect(res.status.calledWith(500)).to.be.true;
     expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
 
-    // Restore stubbed methods
+    // Restore stubbed methods.
     createStub.restore();
   });
-
 });
-
 
 describe('Update Function Test', () => {
 
