@@ -44,8 +44,8 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-            <h1 className="text-2xl font-bold mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
+        <form onSubmit={handleSubmit} className="bg-white mb-6 p-6 rounded shadow-md">
+            <h1 className="font-bold text-2xl mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
 
             <label for="fname">First Name:</label>
             <input
@@ -55,7 +55,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 placeholder="Enter the patient's first name."
                 value={formData.fname}
                 onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
-                className="w-full mb-4 p-2 border rounded"
+                className="mb-4 p-2 w-full border rounded"
                 required
             />
 
@@ -67,7 +67,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 placeholder="Enter the patient's last name."
                 value={formData.lname}
                 onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
-                className="w-full mb-4 p-2 border rounded"
+                className="mb-4 p-2 w-full border rounded"
                 required
             />
 
@@ -78,7 +78,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 type="date"
                 value={formData.dob}
                 onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                className="w-full mb-4 p-2 border rounded"
+                className="mb-4 p-2 w-full border rounded"
                 required
             />
 
@@ -88,7 +88,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 name="gender"
                 value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                className="w-full mb-4 p-2 border rounded"
+                className="mb-4 p-2 w-full border rounded"
             >
                 <option value="" disabled selected>-- Select a gender. --</option>
                 <option value="Female">Female</option>
@@ -105,7 +105,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 placeholder="Enter the patient's phone number."
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full mb-4 p-2 border rounded"
+                className="mb-4 p-2 w-full border rounded"
             />
 
             <label for="email">Email Address:</label>
@@ -116,22 +116,32 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 placeholder="Enter the patient's email address."
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full mb-4 p-2 border rounded"
+                className="mb-4 p-2 w-full border rounded"
             />
 
             <div>
                 {editingPatient ? (
                     <>
-                        <button type="submit" className="w-full bg-blue-600 text-white mb-4 p-2 rounded">
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
+                        >
                             Update
                         </button>
-                        <button type="button" onClick={() => setEditingPatient(null)} className="w-full bg-gray-600 text-white p-2 rounded">
+                        <button
+                            type="button"
+                            onClick={() => setEditingPatient(null)}
+                            className="bg-gray-600 text-white p-2 w-full rounded"
+                        >
                             Cancel
                         </button>
                     </>
                 ) : (
                     <>
-                        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white p-2 w-full rounded"
+                        >
                             Create
                         </button>
                     </>

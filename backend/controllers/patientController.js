@@ -1,9 +1,4 @@
 const Patient = require('../models/Patient');
-const jwt = require('jsonwebtoken');
-
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
-};
 
 // Create Patient
 const createPatient = async (req, res) => {
