@@ -17,8 +17,8 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
     };
 
     return (
-        <div className="bg-white mb-6 p-6 rounded shadow-md">
-            <h1 className="font-bold mb-4 text-2xl">Patient List</h1>
+        <div className="bg-white max-w-md mb-6 p-6 rounded shadow-md">
+            <h1 className="font-bold text-2xl mb-4">Patient List</h1>
             {patients.map((patient) => (
                 <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
 
