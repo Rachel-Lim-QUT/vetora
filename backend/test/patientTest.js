@@ -74,83 +74,75 @@ describe('createPatient Function Test', () => {
     });
 });
 
-describe('Update Function Test', () => {
+describe('updatePatient Function Test', () => {
 
-  it('should update task successfully', async () => {
-    // Mock task data
-    const taskId = new mongoose.Types.ObjectId();
-    const existingTask = {
-      _id: taskId,
-      title: "Old Task",
-      description: "Old Description",
-      completed: false,
-      deadline: new Date(),
-      save: sinon.stub().resolvesThis(), // Mock save method
-    };
-    // Stub Task.findById to return mock task
-    const findByIdStub = sinon.stub(Task, 'findById').resolves(existingTask);
+    it('should update patient details successfully', async () => {
+        // Mock Patient Data
+        const patientID = new mongoose.Types.ObjectId();
+        const existingPatient = {
+            _id: patientID,
+            fname: "Test",
+            lname: "Test",
+            dob: new Date(),
+            gender: "Other",
+            phone: "0400000000",
+            email: "test@example.com",
+            save: sinon.stub().resolvesThis(), // Mock Save Method
+        };
 
-    // Mock request & response
-    const req = {
-      params: { id: taskId },
-      body: { title: "New Task", completed: true }
-    };
-    const res = {
-      json: sinon.spy(), 
-      status: sinon.stub().returnsThis()
-    };
+        // Stub Patient.findById to return mock task.
+        const findByIdStub = sinon.stub(Patient, 'findById').resolves(existingPatient);
 
-    // Call function
-    await updateTask(req, res);
+        // Mock Request & Response
+        const req = {
+        params: { id: patientID },
+        body: { fname: "New", lname: "New" }
+        };
+        const res = {
+        json: sinon.spy(), 
+        status: sinon.stub().returnsThis()
+        };
 
-    // Assertions
-    expect(existingTask.title).to.equal("New Task");
-    expect(existingTask.completed).to.equal(true);
-    expect(res.status.called).to.be.false; // No error status should be set
-    expect(res.json.calledOnce).to.be.true;
+        // Call updatePatient function.
+        await updatePatient(req, res);
 
-    // Restore stubbed methods
-    findByIdStub.restore();
-  });
+        // Assertions
+        expect(existingPatient.fname).to.equal("New");
+        expect(existingPatient.lname).to.equal("New");
+        expect(res.status.called).to.be.false; // No error status should be set.
+        expect(res.json.calledOnce).to.be.true;
 
+        // Restore stubbed methods.
+        findByIdStub.restore();
+    });
 
+    it('should return 404 if patient is not found', async () => {
+        const findByIdStub = sinon.stub(Patient, 'findById').resolves(null);
 
-  it('should return 404 if task is not found', async () => {
-    const findByIdStub = sinon.stub(Task, 'findById').resolves(null);
+        const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
+        const res = { status: sinon.stub().returnsThis(), json: sinon.spy() };
 
-    const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.spy()
-    };
+        await updatePatient(req, res);
 
-    await updateTask(req, res);
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWith({ message: 'Error 404: Patient not found.' })).to.be.true;
 
-    expect(res.status.calledWith(404)).to.be.true;
-    expect(res.json.calledWith({ message: 'Task not found' })).to.be.true;
+        findByIdStub.restore();
+    });
 
-    findByIdStub.restore();
-  });
+    it('should return 500 if an error occurs', async () => {
+        const findByIdStub = sinon.stub(Patient, 'findById').throws(new Error('DB Error'));
 
-  it('should return 500 on error', async () => {
-    const findByIdStub = sinon.stub(Task, 'findById').throws(new Error('DB Error'));
+        const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
+        const res = { status: sinon.stub().returnsThis(), json: sinon.spy() };
 
-    const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.spy()
-    };
+        await updatePatient(req, res);
 
-    await updateTask(req, res);
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.called).to.be.true;
 
-    expect(res.status.calledWith(500)).to.be.true;
-    expect(res.json.called).to.be.true;
-
-    findByIdStub.restore();
-  });
-
-
-
+        findByIdStub.restore();
+    });
 });
 
 
