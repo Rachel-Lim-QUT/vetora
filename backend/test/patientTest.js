@@ -15,63 +15,63 @@ let port;
 
 describe('createPatient Function Test', () => {
 
-  it('should create a new patient successfully', async () => {
-    // Mock Request Data
-    const req = {
-      user: { id: new mongoose.Types.ObjectId() },
-      body: { fname: "Test", lname: "Test", dob: "2000-02-02", gender: "Other", phone: "0400000000", email: "test@example.com" }
-    };
+    it('should create a new patient successfully', async () => {
+        // Mock Request Data
+        const req = {
+        user: { id: new mongoose.Types.ObjectId() },
+        body: { fname: "Test", lname: "Test", dob: "2000-02-02", gender: "Other", phone: "0400000000", email: "test@example.com" }
+        };
 
-    // Mock patient that would be created.
-    const createdPatient = { _id: new mongoose.Types.ObjectId(), ...req.body, userID: req.user.id };
+        // Mock patient that would be created.
+        const createdPatient = { _id: new mongoose.Types.ObjectId(), ...req.body, userID: req.user.id };
 
-    // Stub Patient.create to return the createdPatient.
-    const createStub = sinon.stub(Patient, 'create').resolves(createdPatient);
+        // Stub Patient.create to return the createdPatient.
+        const createStub = sinon.stub(Patient, 'create').resolves(createdPatient);
 
-    // Mock Response Object
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.spy()
-    };
+        // Mock Response Object
+        const res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.spy()
+        };
 
-    // Call createPatient function.
-    await createPatient(req, res);
+        // Call createPatient function.
+        await createPatient(req, res);
 
-    // Assertions
-    expect(createStub.calledOnceWith({ userID: req.user.id, ...req.body })).to.be.true;
-    expect(res.status.calledWith(201)).to.be.true;
-    expect(res.json.calledWith(createdPatient)).to.be.true;
+        // Assertions
+        expect(createStub.calledOnceWith({ userID: req.user.id, ...req.body })).to.be.true;
+        expect(res.status.calledWith(201)).to.be.true;
+        expect(res.json.calledWith(createdPatient)).to.be.true;
 
-    // Restore stubbed methods.
-    createStub.restore();
-  });
+        // Restore stubbed methods.
+        createStub.restore();
+    });
 
-  it('should return 500 if an error occurs', async () => {
-    // Stub Patient.create to throw an error.
-    const createStub = sinon.stub(Patient, 'create').throws(new Error('DB Error'));
+    it('should return 500 if an error occurs', async () => {
+        // Stub Patient.create to throw an error.
+        const createStub = sinon.stub(Patient, 'create').throws(new Error('DB Error'));
 
-    // Mock Request Data
-    const req = {
-      user: { id: new mongoose.Types.ObjectId() },
-      body: { fname: "Test", lname: "Test", dob: "2000-02-02", gender: "Other", phone: "0400000000", email: "test@example.com" }
-    };
+        // Mock Request Data
+        const req = {
+        user: { id: new mongoose.Types.ObjectId() },
+        body: { fname: "Test", lname: "Test", dob: "2000-02-02", gender: "Other", phone: "0400000000", email: "test@example.com" }
+        };
 
-    // Mock Response Object
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.spy()
-    };
+        // Mock Response Object
+        const res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.spy()
+        };
 
-    // Call createPatient function.
-    await createPatient(req, res);
+        // Call createPatient function.
+        await createPatient(req, res);
 
-    // Assertions
-    expect(res.status.calledWith(500)).to.be.true;
-    expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
+        // Assertions
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
 
-    // Restore stubbed methods.
-    createStub.restore();
-  });
+        // Restore stubbed methods.
+        createStub.restore();
+    });
 });
 
 describe('Update Function Test', () => {
