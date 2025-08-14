@@ -51,6 +51,6 @@ git push -u origin main
 https://qut-ifn636-rl.atlassian.net/jira/software/projects/CURA/summary
 
 **Public URL**<br>
-http://3.107.97.69
+http://3.106.240.69
 
 ---
