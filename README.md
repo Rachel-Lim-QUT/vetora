@@ -34,7 +34,7 @@ https://qut-ifn636-rl.atlassian.net/jira/software/projects/CURA/summary
 ---
 
 **Public URL**
-http://3.27.159.153
+http://3.107.97.69
 
 ---
 
