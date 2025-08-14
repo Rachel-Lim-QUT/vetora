@@ -6,7 +6,7 @@ Cura+ is a healthcare appointments and records system that was developed for the
 
 **Project Setup Instructions**
 
-Pre-Requisites
+Prerequisites
 
 - Git       (https://git-scm.com/)
 - MongoDB   (https://www.mongodb.com/)
@@ -28,14 +28,17 @@ To connect your local repository to GitHub, run the following commands:
 
 ---
 
-**Jira Project Link**: https://qut-ifn636-rl.atlassian.net/jira/software/projects/CURA/summary
+**Jira Project Link**
+https://qut-ifn636-rl.atlassian.net/jira/software/projects/CURA/summary
 
 ---
 
-**Public URL**: http://13.211.134.67
+**Public URL**
+http://3.27.159.153
 
 ---
 
+**Notes**
 For test purposes, please login with the following details:
 
 **Username**: rlim
