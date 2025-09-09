@@ -1,58 +1,33 @@
-Test
-
-About Cura+
----
-Cura+ is a healthcare appointments and records system that was developed for the purposes of IFN636 Software Life Cycle Management's Assessment 1: Software Requirements Analysis & Design. It aims to emulate practice management software for general practices. It currently supports CRUD (Create, Read, Update, Delete) operations for user account and patient file management.
-
-For test purposes, please login with the following details:<br>
-**Username:** rlim<br>
-**Password:** admin
-
+About Vetora
 ---
 
-**Project Setup Instructions**
+Vetora is a pet clinic management system that was developed for the purposes of IFN636 Software Life Cycle Management's Assessment 2: Software, Development, Testing, and Configuration. It aims to facilitate day-to-day operations of Australian general-practice veterinary clinics. It currently supports CRUD (Create, Read, Update, Delete) operations for user, patient file, and appointment management.
 
-<u>Dependencies</u><br>
+Setup
+---
+
+**Requirements**<br>
 Git (https://git-scm.com/)<br>
 MongoDB (https://www.mongodb.com/)<br>
 Node.js (https://nodejs.org/en)<br>
+Visual Studio Code (https://code.visualstudio.com/)<br>
 
-**Step 1. Clone Cura+**<br>
-In Windows Powershell (or your preferred CLI), run the following commands:
-
-```
-git clone https://github.com/Rachel-Lim-QUT/cura-plus.git
-```
-
-```
-cd cura-plus
-```
+**Step 1. Set Up Local Repository**<br>
+Launch Command Prompt (or your preferred CLI):
+1. ```git clone https://github.com/Rachel-Lim-QUT/vetora.git```
+2. ```cd vetora```
 
 **Step 2. Connect Remote Repository**<br>
-To connect your local repository to GitHub, run the following commands:
+To connect your local repository to your GitHub repository:
+1. ```git remote remove origin```
+2. ```git remote add origin <YOUR REMOTE REPOSITORY URL>```
+3. ```git branch -M main```
+4. ```git push -u origin main```
 
-```
-git remote remove origin
-```
-
-```
-git remote add origin [ YOUR REMOTE REPOSITORY URL ]
-```
-
-```
-git branch -M main
-```
-
-```
-git push -u origin main
-```
-
----
-
-**Jira Project**<br>
-https://qut-ifn636-rl.atlassian.net/jira/software/projects/CURA/summary
-
-**Public URL**<br>
-http://3.106.240.69
-
----
+**Step 3. Set Up Vetora**<br>
+Launch Visual Studio Code and open your project folder:
+1. Create a .env file in the **backend** folder.
+2. Set your MONGO_URI.
+3. Select Terminal > New Terminal.
+4. Run ```npm run install-all``` in the **root** folder.
+5. Run ```npm start``` to test.
