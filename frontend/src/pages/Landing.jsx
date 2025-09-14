@@ -1,10 +1,12 @@
+import logo from '../images/temp-logo.gif';
+
 const Landing = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center">
 
             {/* clinic logo */}
             <img
-                // src={}
+                src={logo}
                 alt="Vetora logo"
                 className="w-40 h-40 mb-6"
             />
