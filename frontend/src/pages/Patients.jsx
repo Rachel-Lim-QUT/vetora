@@ -1,3 +1,5 @@
+import Navbar from './components/Navbar';
+
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
@@ -24,23 +26,26 @@ const Patients = () => {
     }, [user]);
 
     return (
-        <div className="grid grid-cols-5 gap-6 p-6">
-            <div className="col-span-2">
-                <PatientForm
-                    patients={patients}
-                    setPatients={setPatients}
-                    editingPatient={editingPatient}
-                    setEditingPatient={setEditingPatient}
-                />
+        <>
+            <Navbar />
+            <div className="grid grid-cols-5 gap-6 p-6">
+                <div className="col-span-2">
+                    <PatientForm
+                        patients={patients}
+                        setPatients={setPatients}
+                        editingPatient={editingPatient}
+                        setEditingPatient={setEditingPatient}
+                    />
+                </div>
+                <div className="col-span-3">
+                    <PatientList
+                        patients={patients}
+                        setPatients={setPatients}
+                        setEditingPatient={setEditingPatient}
+                    />
+                </div>
             </div>
-            <div className="col-span-3">
-                <PatientList
-                    patients={patients}
-                    setPatients={setPatients}
-                    setEditingPatient={setEditingPatient}
-                />
-            </div>
-        </div>
+        </>
     );
 };
 
