@@ -12,11 +12,16 @@ const registerUser = async (req, res) => {
         const userExists = await User.findOne({ username });
         if (userExists) return res.status(409).json({ message: 'Error 409: User already exists.' });
 
-        const salt = await bcrypt.genSalt(10);
-        const hashed = await bcrypt.hash(password, salt);
-
-        const user = await User.create({ fname,lname, clinic, role, username, password: hashed });
-        return res.status(201).json({ id: user.id, fname: user.fname, lname: user.lname, clinic: user.clinic, role: user.role, username: user.username, token: generateToken(user.id) });
+        const user = await User.create({ fname, lname, clinic, role, username, password });
+        return res.status(201).json({
+            id: user.id,
+            fname: user.fname,
+            lname: user.lname,
+            clinic: user.clinic,
+            role: user.role,
+            username: user.username,
+            token: generateToken(user.id)
+        });
     } catch (error) {
         console.error('REGISTER error:', error.message);
         return res.status(500).json({ message: 'Server error' });
