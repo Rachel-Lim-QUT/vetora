@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar';
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -53,7 +51,7 @@ const Profile = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async() => {
     setLoading(true);
     try {
       await axiosInstance.delete('/api/auth/profile/', {
@@ -74,77 +72,74 @@ const Profile = () => {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="max-w-md mx-auto mt-20">
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
-          <h1 className="font-bold text-2xl text-center mb-4">Account Details</h1>
+    <div className="max-w-md mx-auto mt-20">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
+        <h1 className="font-bold text-2xl text-center mb-4">Account Details</h1>
 
-          <label for="name">Name:</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
+        <label for="name">Name:</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="mb-4 p-2 w-full border rounded"
+          required
+        />
 
-          <label for="role">Role:</label>
-          <input
-            id="role"
-            name="role"
-            type="text"
-            placeholder="Role"
-            value={formData.role}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            disabled
-          />
+        <label for="role">Role:</label>
+        <input
+          id="role"
+          name="role"
+          type="text"
+          placeholder="Role"
+          value={formData.role}
+          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+          className="mb-4 p-2 w-full border rounded"
+          disabled
+        />
 
-          <label for="username">Username:</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            placeholder="Username"
-            value={formData.username}
-            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
+        <label for="username">Username:</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          placeholder="Username"
+          value={formData.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+          className="mb-4 p-2 w-full border rounded"
+          required
+        />
 
-          <label for="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          className="mb-4 p-2 w-full border rounded"
+          required
+        />
 
-          <button
-            type="submit"
-            className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
-          >
-            {loading ? 'Updating...' : 'Update'}
-          </button>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
+        >
+          {loading ? 'Updating...' : 'Update'}
+        </button>
 
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="bg-red-600 text-white p-2 w-full rounded"
-          >
-            Delete Account
-          </button>
-        </form>
-      </div>
-    </>
+        <button
+          type="button"
+          onClick={handleDelete}
+          className="bg-red-600 text-white p-2 w-full rounded"
+        >
+          Delete Account
+        </button>
+      </form>
+    </div>
   );
 };
 

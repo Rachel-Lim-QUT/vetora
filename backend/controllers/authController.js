@@ -7,15 +7,19 @@ const generateToken = (id) => {
 };
 
 const registerUser = async (req, res) => {
-    const { name, role, username, password } = req.body;
+    const { fname, lname, clinic, role, username, password } = req.body;
     try {
         const userExists = await User.findOne({ username });
-        if (userExists) return res.status(400).json({ message: 'Error 400: User already exists.' });
+        if (userExists) return res.status(409).json({ message: 'Error 409: User already exists.' });
 
-        const user = await User.create({ name, role, username, password });
-        res.status(201).json({ id: user.id, name: user.name, role: user.role, username: user.username, token: generateToken(user.id) });
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash(password, salt);
+
+        const user = await User.create({ fname,lname, clinic, role, username, password: hashed });
+        return res.status(201).json({ id: user.id, fname: user.fname, lname: user.lname, clinic: user.clinic, role: user.role, username: user.username, token: generateToken(user.id) });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('REGISTER error:', error.message);
+        return res.status(500).json({ message: 'Server error' });
     }
 };
 
