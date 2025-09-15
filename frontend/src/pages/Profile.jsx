@@ -143,18 +143,6 @@ const Profile = () => {
             required
           />
 
-          <label for="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
-
           <button
             type="submit"
             className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
