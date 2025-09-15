@@ -1,3 +1,5 @@
+
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/temp-logo.gif';
 
 const Landing = () => {
@@ -20,28 +22,26 @@ const Landing = () => {
             <div className="flex flex-col gap-4 w-40 mx-auto">
 
                 {/* login */}
-                <button className="px-6 py-2
+                <Link to="/Login" className="px-6 py-2
                     rounded-full
                     bg-gray-200
                     text-gray-800
                     text-center
-                    hover:bg-gray-300
-                    transition"
+                    hover:bg-gray-300"
                 >
                     Login
-                </button>
+                </Link>
 
                 {/* register */}
-                <button className="px-6 py-2
+                <Link to="/Register" className="px-6 py-2
                     rounded-full
                     bg-gray-200
                     text-gray-800
                     text-center
-                    hover:bg-gray-300
-                    transition"
+                    hover:bg-gray-300"
                 >
                     Register
-                </button>
+                </Link>
             </div>
         </div>
     );
