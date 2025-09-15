@@ -25,7 +25,7 @@ const Login = () => {
 
   return (
     <div>
-      <div className="max-w-md mx-auto mt-auto">
+      <div className="max-w-md mx-auto mt-20">
         <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
           <h1 className="text-2xl font-bold mb-4 text-center">Login to Cura+</h1>
 
