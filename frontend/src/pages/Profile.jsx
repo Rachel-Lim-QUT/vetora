@@ -8,7 +8,9 @@ import axiosInstance from '../axiosConfig';
 const Profile = () => {
   const { user, logout } = useAuth();
   const [formData, setFormData] = useState({
-    name: '',
+    fname: '',
+    lname: '',
+    clinic: '',
     role: '',
     username: '',
     password: '',
@@ -24,7 +26,9 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setFormData({
-          name: response.data.name,
+          fname: response.data.fname,
+          lname: response.data.lname,
+          clinic: response.data.clinic,
           role: response.data.role,
           username: response.data.username,
         });
@@ -80,16 +84,39 @@ const Profile = () => {
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
           <h1 className="font-bold text-2xl text-center mb-4">Account Details</h1>
 
-          <label for="name">Name:</label>
+          <label for="fname">First Name:</label>
           <input
-            id="name"
-            name="name"
+            id="fname"
+            name="fname"
             type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="First Name"
+            value={formData.fname}
+            onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
             className="mb-4 p-2 w-full border rounded"
             required
+          />
+
+          <label for="lname">Last Name:</label>
+          <input
+            id="lname"
+            name="lname"
+            type="text"
+            placeholder="Last Name"
+            value={formData.lname}
+            onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
+            className="mb-4 p-2 w-full border rounded"
+            required
+          />
+
+          <label for="clinic">Clinic:</label>
+          <input
+            id="clinic"
+            name="clinic"
+            type="text"
+            placeholder="Clinic"
+            value={formData.clinic}
+            className="mb-4 p-2 w-full border rounded"
+            disabled
           />
 
           <label for="role">Role:</label>
