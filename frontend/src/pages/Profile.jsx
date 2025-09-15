@@ -152,6 +152,13 @@ const Profile = () => {
 
           <button
             type="button"
+            className="bg-gray-600 text-white mb-4 p-2 w-full rounded"          
+          >
+            Change Password
+          </button>
+
+          <button
+            type="button"
             onClick={handleDelete}
             className="bg-red-600 text-white p-2 w-full rounded"
           >
