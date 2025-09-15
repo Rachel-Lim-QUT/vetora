@@ -29,5 +29,6 @@ Launch Visual Studio Code and open your project folder:
 1. Create a .env file in the **backend** folder.
 2. Set your MONGO_URI.
 3. Select Terminal > New Terminal.
-4. Run ```npm run install-all``` in the **root** folder.
-5. Run ```npm start``` to test.
+4. Run ```npm install mongodb``` in the **root** folder.
+5. Run ```npm run install-all``` in the **root** folder.
+6. Run ```npm start``` to test.

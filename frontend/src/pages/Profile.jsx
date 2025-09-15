@@ -1,3 +1,5 @@
+import Navbar from '../components/Navbar';
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -75,6 +77,7 @@ const Profile = () => {
 
   return (
     <>
+      <Navbar />
       <div className="max-w-md mx-auto mt-20">
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
           <h1 className="font-bold text-2xl text-center mb-4">Account Details</h1>
