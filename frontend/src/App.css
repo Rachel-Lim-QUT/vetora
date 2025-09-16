@@ -48,3 +48,7 @@
 .back-image {
   width: 50%;
 }
+
+.pill-button {
+  border-radius: 24px;
+}

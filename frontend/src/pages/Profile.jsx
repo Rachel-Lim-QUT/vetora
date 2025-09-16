@@ -1,3 +1,4 @@
+import '../App.css';
 import Navbar from '../components/Navbar';
 
 import { useState, useEffect } from 'react';
@@ -154,7 +155,7 @@ const Profile = () => {
 
           <button
             type="submit"
-            className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
+            className="pill-button bg-blue-600 hover:bg-blue-700 text-white mb-4 p-2 w-full"
           >
             {loading ? 'Updating...' : 'Update'}
           </button>
@@ -162,7 +163,7 @@ const Profile = () => {
           <button
             type="button"
             onClick={handleChangePassword}
-            className="bg-gray-600 text-white mb-4 p-2 w-full rounded"          
+            className="pill-button bg-gray-600 hover:bg-gray-700 text-white mb-4 p-2 w-full"          
           >
             Change Password
           </button>
@@ -170,7 +171,7 @@ const Profile = () => {
           <button
             type="button"
             onClick={handleDelete}
-            className="bg-red-600 text-white p-2 w-full rounded"
+            className="pill-button bg-red-600 hover:bg-red-700 text-white p-2 w-full"
           >
             Delete Account
           </button>
