@@ -57,6 +57,10 @@ const Profile = () => {
     }
   };
 
+  const handleChangePassword = async () => {
+    alert('Contact Admin\nadmin@vetora.com.au')
+  }
+
   const handleDelete = async () => {
     setLoading(true);
     try {
@@ -152,6 +156,7 @@ const Profile = () => {
 
           <button
             type="button"
+            onClick={handleChangePassword}
             className="bg-gray-600 text-white mb-4 p-2 w-full rounded"          
           >
             Change Password
