@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-const getProfile = async (req, res) => {
+const getUser = async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
       if (!user) {
@@ -58,7 +58,9 @@ const getProfile = async (req, res) => {
       }
   
       res.status(200).json({
-        name: user.name,
+        fname: user.fname,
+        lname: user.lname,
+        clinic: user.clinic,
         role: user.role,
         username: user.username,
         password: user.password,
@@ -98,4 +100,4 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getProfile, updateUserProfile, deleteUser };
+module.exports = { registerUser, loginUser, getUser, updateUserProfile, deleteUser };

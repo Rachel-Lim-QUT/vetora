@@ -1,3 +1,4 @@
+import '../App.css';
 import Navbar from '../components/Navbar';
 
 import { useState, useEffect } from 'react';
@@ -8,7 +9,9 @@ import axiosInstance from '../axiosConfig';
 const Profile = () => {
   const { user, logout } = useAuth();
   const [formData, setFormData] = useState({
-    name: '',
+    fname: '',
+    lname: '',
+    clinic: '',
     role: '',
     username: '',
     password: '',
@@ -24,7 +27,9 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setFormData({
-          name: response.data.name,
+          fname: response.data.fname,
+          lname: response.data.lname,
+          clinic: response.data.clinic,
           role: response.data.role,
           username: response.data.username,
         });
@@ -53,6 +58,10 @@ const Profile = () => {
     }
   };
 
+  const handleChangePassword = async () => {
+    alert('Contact Admin\nadmin@vetora.com.au')
+  }
+
   const handleDelete = async () => {
     setLoading(true);
     try {
@@ -76,20 +85,48 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-md mx-auto mt-20">
+      <div className="max-w-lg mx-auto mt-20">
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
-          <h1 className="font-bold text-2xl text-center mb-4">Account Details</h1>
+          <h1 className="font-bold text-2xl text-center mb-4">Your Profile</h1>
 
-          <label for="name">Name:</label>
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label for="fname">First Name:</label>
+              <input
+                id="fname"
+                name="fname"
+                type="text"
+                placeholder="First Name"
+                value={formData.fname}
+                onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
+                className="mb-4 p-2 w-full border rounded"
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label for="lname">Last Name:</label>
+              <input
+                id="lname"
+                name="lname"
+                type="text"
+                placeholder="Last Name"
+                value={formData.lname}
+                onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
+                className="mb-4 p-2 w-full border rounded"
+                required
+              />
+            </div>
+          </div>
+
+          <label for="clinic">Clinic:</label>
           <input
-            id="name"
-            name="name"
+            id="clinic"
+            name="clinic"
             type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="Clinic"
+            value={formData.clinic}
             className="mb-4 p-2 w-full border rounded"
-            required
+            disabled
           />
 
           <label for="role">Role:</label>
@@ -116,29 +153,25 @@ const Profile = () => {
             required
           />
 
-          <label for="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
-
           <button
             type="submit"
-            className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
+            className="pill-button bg-blue-600 hover:bg-blue-700 text-white mb-4 p-2 w-full"
           >
             {loading ? 'Updating...' : 'Update'}
           </button>
 
           <button
             type="button"
+            onClick={handleChangePassword}
+            className="pill-button bg-gray-600 hover:bg-gray-700 text-white mb-4 p-2 w-full"          
+          >
+            Change Password
+          </button>
+
+          <button
+            type="button"
             onClick={handleDelete}
-            className="bg-red-600 text-white p-2 w-full rounded"
+            className="pill-button bg-red-600 hover:bg-red-700 text-white p-2 w-full"
           >
             Delete Account
           </button>

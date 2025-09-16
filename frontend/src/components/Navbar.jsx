@@ -12,24 +12,17 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">Cura+</Link>
+      <Link to="/patients" className="text-2xl font-bold">Vetora</Link>
       <div>
-        {user ? (
-          <>
-            <Link to="/patients" className="mr-4">Patients</Link>
-            <Link to="/profile" className="mr-4">Account</Link>
-            <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded hover:bg-red-700">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="mr-4">Login</Link>
-            <Link to="/register" className="bg-green-500 px-4 py-2 rounded hover:bg-green-700">
-              Register
-            </Link>
-          </>
-        )}
+        <Link to="" className="mr-4">Appointments</Link>
+        <Link to="/patients" className="mr-4">Patients</Link>
+        <Link to="/profile" className="mr-4">Profile</Link>
+        <button
+          onClick={handleLogout}
+          className="pill-button bg-red-500 hover:bg-red-700 px-4 py-2"
+        >
+          Logout
+        </button>
       </div>
     </nav>
   );
