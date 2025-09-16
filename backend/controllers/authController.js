@@ -71,18 +71,27 @@ const getUser = async (req, res) => {
   };
 
 const updateUserProfile = async (req, res) => {
-    const { name, role, username, password } = req.body;
+    const { fname, lname, clinic, role, username, password } = req.body;
     try {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: 'Error 404: User not found.' });
 
-        user.name = name || user.name;
+        user.fname = fname || user.fname;
+        user.lname = lname || user.lname;
+        user.clinic = clinic || user.clinic;
         user.role = role || user.role;
         user.username = username || user.username;
         user.password = password || user.password;
 
         const updatedUser = await user.save();
-        res.json({ id: updatedUser.id, name: updatedUser.name, role: updatedUser.role, username: updatedUser.username, password: updatedUser.password, token: generateToken(updatedUser.id) });
+        res.json({ 
+          id: updatedUser.id,
+          fname: updatedUser.fname,
+          lname: updatedUser.lname,
+          clinic: updatedUser.clinic,
+          role: updatedUser.role,
+          username: updatedUser.username,
+       });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

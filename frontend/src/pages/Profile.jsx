@@ -14,7 +14,6 @@ const Profile = () => {
     clinic: '',
     role: '',
     username: '',
-    password: '',
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -47,7 +46,13 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axiosInstance.put('/api/auth/profile', formData, {
+      const payload = {
+      fname: formData.fname,
+      lname: formData.lname,
+      username: formData.username,
+ 
+    };
+      await axiosInstance.put('/api/auth/profile', payload, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       alert('Success! Profile updated.');
@@ -91,7 +96,7 @@ const Profile = () => {
 
           <div className="flex gap-4">
             <div className="flex-1">
-              <label for="fname">First Name:</label>
+              <label htmlFor="fname">First Name:</label>
               <input
                 id="fname"
                 name="fname"
@@ -104,7 +109,7 @@ const Profile = () => {
               />
             </div>
             <div className="flex-1">
-              <label for="lname">Last Name:</label>
+              <label htmlFor="lname">Last Name:</label>
               <input
                 id="lname"
                 name="lname"
@@ -118,7 +123,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <label for="clinic">Clinic:</label>
+          <label htmlFor="clinic">Clinic:</label>
           <input
             id="clinic"
             name="clinic"
@@ -129,19 +134,20 @@ const Profile = () => {
             disabled
           />
 
-          <label for="role">Role:</label>
+          <label htmlFor="role">Role:</label>
           <input
             id="role"
             name="role"
             type="text"
             placeholder="Role"
             value={formData.role}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             className="mb-4 p-2 w-full border rounded"
             disabled
           />
 
-          <label for="username">Username:</label>
+        
+
+          <label htmlFor="username">Username:</label>
           <input
             id="username"
             name="username"
