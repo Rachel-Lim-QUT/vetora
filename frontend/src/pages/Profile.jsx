@@ -84,33 +84,38 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-md mx-auto mt-20">
+      <div className="max-w-lg mx-auto mt-20">
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
           <h1 className="font-bold text-2xl text-center mb-4">Your Profile</h1>
 
-          <label for="fname">First Name:</label>
-          <input
-            id="fname"
-            name="fname"
-            type="text"
-            placeholder="First Name"
-            value={formData.fname}
-            onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
-
-          <label for="lname">Last Name:</label>
-          <input
-            id="lname"
-            name="lname"
-            type="text"
-            placeholder="Last Name"
-            value={formData.lname}
-            onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
-            className="mb-4 p-2 w-full border rounded"
-            required
-          />
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label for="fname">First Name:</label>
+              <input
+                id="fname"
+                name="fname"
+                type="text"
+                placeholder="First Name"
+                value={formData.fname}
+                onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
+                className="mb-4 p-2 w-full border rounded"
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label for="lname">Last Name:</label>
+              <input
+                id="lname"
+                name="lname"
+                type="text"
+                placeholder="Last Name"
+                value={formData.lname}
+                onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
+                className="mb-4 p-2 w-full border rounded"
+                required
+              />
+            </div>
+          </div>
 
           <label for="clinic">Clinic:</label>
           <input
