@@ -14,6 +14,7 @@ const Navbar = () => {
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
       <Link to="/" className="text-2xl font-bold">Vetora</Link>
       <div>
+        <Link to="" className="mr-4">Appointments</Link>
         <Link to="/patients" className="mr-4">Patients</Link>
         <Link to="/profile" className="mr-4">Profile</Link>
         <button
