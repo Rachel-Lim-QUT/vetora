@@ -194,6 +194,13 @@ const Register = () => {
         >
           Cancel
         </Link>
+
+        {/* back image */}
+        <img
+          src={backImage}
+          alt="Back"
+          className="back-image"
+        />
       </div>
     </div>
   );
