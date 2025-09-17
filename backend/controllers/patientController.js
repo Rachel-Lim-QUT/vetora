@@ -2,16 +2,25 @@ const Patient = require('../models/Patient');
 
 // Create Patient
 const createPatient = async (req, res) => {
-    const { fname, lname, dob, gender, phone, email } = req.body;
+    const { photo, name, age, gender, species, breed, color, owner_fname, owner_lname, owner_phone, owner_email } = req.body;
     try {
-        const patient = await Patient.create({ userID: req.user.id, fname, lname, dob, gender, phone, email });
+        const patient = await Patient.create({
+            userID: req.user.id, photo, name, age, gender, species, breed, color,
+            owner_fname, owner_lname, owner_phone, owner_email
+        });
+        
         res.status(201).json({
-            fname: patient.fname,
-            lname: patient.lname,
-            dob: patient.dob,
+            photo: patient.photo,
+            name: patient.name,
+            age: patient.age,
             gender: patient.gender,
-            phone: patient.phone,
-            email: patient.email,
+            species: patient.species,
+            breed: patient.breed,
+            color: patient.color,
+            owner_fname: patient.owner_fname,
+            owner_lname: patient.owner_lname,
+            owner_phone: patient.owner_phone,
+            owner_email: patient.owner_email,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
