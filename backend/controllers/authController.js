@@ -70,7 +70,7 @@ const getUser = async (req, res) => {
     }
   };
 
-const updateUserProfile = async (req, res) => {
+const updateUser = async (req, res) => {
     const { fname, lname, clinic, role, username, password } = req.body;
     try {
         const user = await User.findById(req.user.id);
@@ -109,4 +109,4 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getUser, updateUserProfile, deleteUser };
+module.exports = { registerUser, loginUser, getUser, updateUser, deleteUser };

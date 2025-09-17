@@ -50,8 +50,7 @@ const Profile = () => {
       fname: formData.fname,
       lname: formData.lname,
       username: formData.username,
- 
-    };
+      };
       await axiosInstance.put('/api/auth/profile', payload, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
@@ -144,8 +143,6 @@ const Profile = () => {
             className="mb-4 p-2 w-full border rounded"
             disabled
           />
-
-        
 
           <label htmlFor="username">Username:</label>
           <input
