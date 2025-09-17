@@ -16,6 +16,7 @@ const Profile = () => {
     username: '',
   });
   const [loading, setLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const Profile = () => {
       alert('Error: Account deletion failed. Please try again.');
     } finally {
       setLoading(false);
+      setShowConfirm(false);
     }
   };
 
@@ -173,13 +175,41 @@ const Profile = () => {
 
           <button
             type="button"
-            onClick={handleDelete}
+            onClick={() => setShowConfirm(true)}
             className="pill-button bg-red-600 hover:bg-red-700 text-white p-2 w-full"
           >
             Delete Account
           </button>
         </form>
+
       </div>
+      {/* show confirm */}
+      {showConfirm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+          <div className="bg-white p-6 rounded shadow text-center max-w-sm mx-4">
+            <p className="mb-4 font-medium text-lg">
+              Are you sure you want to delete your account?
+            </p>
+
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded-full"
+              >
+                Yes
+              </button>
+
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="px-4 py-2 bg-gray-300 rounded-full"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )
+      }
     </>
   );
 };
