@@ -30,9 +30,9 @@ const Navbar = () => {
 
       {/* center */}
       <div className="flex items-center">
-        <Link to="" className="mr-4">Appointments</Link>
-        <Link to="/patients" className="mr-4">Patients</Link>
-        {/* <Link to="/owner">Owners</Link> */}
+        <Link to="" className="mr-8">Appointments</Link>
+        <Link to="/patients" className="mr-8">Patients</Link>
+        <Link to="">Owners</Link>
       </div>
 
       {/* right */}
