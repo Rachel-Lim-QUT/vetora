@@ -154,7 +154,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 </div>
             </div>
 
-            <h2 className="mb-4">Owner Details</h2>
+            <h2 className="font-bold mb-4">Owner Details</h2>
             <div className="flex gap-4">
                 <div className="flex-1">
                     <label for="owner_fname">First Name:</label>
