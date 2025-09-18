@@ -2,13 +2,33 @@ const Patient = require('../models/Patient');
 
 // Create Patient
 const createPatient = async (req, res) => {
-    const { photo, name, age, gender, species, breed, color, owner_fname, owner_lname, owner_phone, owner_email } = req.body;
+    const { photo,
+        name,
+        age,
+        gender,
+        species,
+        breed,
+        color,
+        fname,
+        lname,
+        phone,
+        email } = req.body;
     try {
         const patient = await Patient.create({
-            userID: req.user.id, photo, name, age, gender, species, breed, color,
-            owner_fname, owner_lname, owner_phone, owner_email
+            userID: req.user.id,
+            photo,
+            name,
+            age,
+            gender,
+            species,
+            breed,
+            color,
+            fname,
+            lname,
+            phone,
+            email
         });
-        
+
         res.status(201).json({
             photo: patient.photo,
             name: patient.name,
@@ -17,10 +37,10 @@ const createPatient = async (req, res) => {
             species: patient.species,
             breed: patient.breed,
             color: patient.color,
-            owner_fname: patient.owner_fname,
-            owner_lname: patient.owner_lname,
-            owner_phone: patient.owner_phone,
-            owner_email: patient.owner_email,
+            fname: patient.fname,
+            lname: patient.lname,
+            phone: patient.phone,
+            email: patient.email,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -43,7 +63,7 @@ const updatePatient = async (req, res) => {
     try {
         const patient = await Patient.findById(req.params.id);
         if (!patient) return res.status(404).json({ message: 'Error 404: Patient not found.' });
-        
+
         patient.fname = fname || patient.fname;
         patient.lname = lname || patient.lname;
         patient.dob = dob || patient.dob;

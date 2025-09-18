@@ -22,23 +22,23 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
             {patients.map((patient) => (
                 <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
 
-                    <p><b>Name</b>: {patient.name} {patient.owner_lname}</p>
-                    <p><b>Owner</b>: {patient.owner_fname} {patient.owner_lname}</p>
+                    <p><b>Name</b>: {patient.name} {patient.lname}</p>
+                    <p><b>Owner</b>: {patient.fname} {patient.lname}</p>
                     <p><b>Phone</b>: {patient.phone}</p>
 
                     <div className="mt-2">
                         <button
-                            onClick={() => setEditingPatient(patient)}
+                            // onClick={() => setEditingPatient(patient)}
                             className="bg-yellow-500 text-white px-4 py-2 rounded"
                         >
-                            Edit
+                            View
                         </button>
-                        <button
+                        {/* <button
                             onClick={() => handleDelete(patient._id)}
                             className="bg-red-500 text-white ml-2 px-4 py-2 rounded"
                         >
                             Delete
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             ))}
