@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+
 import logo from '../images/temp-logo.gif';
+import profile from '../images/profile-icon.png';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -13,7 +15,8 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <div className="flex item-container">
+      {/* left */}
+      <div className="flex items-center">
         <Link to="/homepage">
           <img
             src={logo}
@@ -24,10 +27,19 @@ const Navbar = () => {
           Vetora
         </Link>
       </div>
-      <div>
+
+      {/* center */}
+      <div className="flex items-center">
         <Link to="" className="mr-4">Appointments</Link>
         <Link to="/patients" className="mr-4">Patients</Link>
-        <Link to="/profile" className="mr-4">Profile</Link>
+        {/* <Link to="/owner">Owners</Link> */}
+      </div>
+
+      {/* right */}
+      <div className="flex items-center">
+        <Link to="/profile">
+          <img src={profile} alt="profile" className="h-8 w-8 mr-2" />
+        </Link>
         <button
           onClick={handleLogout}
           className="pill-button bg-red-500 hover:bg-red-700 px-4 py-2"
@@ -35,7 +47,7 @@ const Navbar = () => {
           Logout
         </button>
       </div>
-    </nav>
+    </nav >
   );
 };
 
