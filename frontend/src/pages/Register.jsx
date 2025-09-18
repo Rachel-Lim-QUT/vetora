@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
+import backImage from '../images/temp-back.gif';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -194,6 +195,13 @@ const Register = () => {
         >
           Cancel
         </Link>
+
+        {/* back image */}
+        <img
+          src={backImage}
+          alt="Back"
+          className="back-image"
+        />
       </div>
     </div>
   );
