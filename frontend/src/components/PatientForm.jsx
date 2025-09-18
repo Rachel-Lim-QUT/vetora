@@ -4,7 +4,19 @@ import axiosInstance from "../axiosConfig";
 
 const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient }) => {
     const { user } = useAuth();
-    const [formData, setFormData] = useState({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
+    const [formData, setFormData] = useState({
+        photo: '',
+        name: '',
+        age: '',
+        gender: '',
+        species: '',
+        breed: '',
+        color: '',
+        owner_fname: '',
+        owner_lname: '',
+        owner_phone: '',
+        owner_email: ''
+    });
 
     useEffect(() => {
         if (editingPatient) {
@@ -47,77 +59,154 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         <form onSubmit={handleSubmit} className="bg-white mb-6 p-6 rounded shadow-md">
             <h1 className="font-bold text-2xl mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
 
-            <label for="fname">First Name:</label>
+            <label for="photo">Photo:</label>
             <input
-                id="fname"
-                name="fname"
-                type="text"
-                placeholder="Enter the patient's first name."
-                value={formData.fname}
-                onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-                required
+                id="photo"
+                name="photo"
+                type="file"
+                accept="image/jpeg, image/png"
+                value={formData.photo}
+                onChange={(e) => setFormData({ ...formData, photo: e.target.value })}
+                className="mb-4 pt-1 w-full"
             />
 
-            <label for="lname">Last Name:</label>
-            <input
-                id="lname"
-                name="lname"
-                type="text"
-                placeholder="Enter the patient's last name."
-                value={formData.lname}
-                onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-                required
-            />
+            <div className="flex gap-4">
+                <div className="flex-1">
+                    <label for="name">Name:</label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+                <div className="flex-1">
+                    <label for="age">Age:</label>
+                    <input
+                        id="age"
+                        name="age"
+                        type="text"
+                        value={formData.age}
+                        onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+            </div>
 
-            <label for="dob">Date of Birth:</label>
-            <input
-                id="dob"
-                name="dob"
-                type="date"
-                value={formData.dob}
-                onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-                required
-            />
+            <div className="flex gap-4">
+                <div className="flex-1">
+                    <label for="gender">Gender:</label>
+                    <select
+                        id="gender"
+                        name="gender"
+                        value={formData.gender}
+                        onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    >
+                        <option value="" disabled selected>-- Select a gender --</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                </div>
+                <div className="flex-1">
+                    <label for="species">Species:</label>
+                    <input
+                        id="species"
+                        name="species"
+                        type="text"
+                        value={formData.species}
+                        onChange={(e) => setFormData({ ...formData, species: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+            </div>
 
-            <label for="gender">Gender:</label>
-            <select
-                id="gender"
-                name="gender"
-                value={formData.gender}
-                onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-            >
-                <option value="" disabled selected>-- Select a gender. --</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Other">Other</option>
-            </select>
+            <div className="flex gap-4">
+                <div className="flex-1">
+                    <label for="breed">Breed:</label>
+                    <input
+                        id="breed"
+                        name="breed"
+                        type="text"
+                        value={formData.breed}
+                        onChange={(e) => setFormData({ ...formData, breed: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+                <div className="flex-1">
+                    <label for="color">Color:</label>
+                    <input
+                        id="color"
+                        name="color"
+                        type="text"
+                        value={formData.color}
+                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+            </div>
 
-            <label for="phone">Phone Number:</label>
-            <input
-                id="phone"
-                name="phone"
-                type="tel"
-                maxLength={10}
-                placeholder="Enter the patient's phone number."
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-            />
+            <h2 className="font-bold mb-4">Owner Details</h2>
+            <div className="flex gap-4">
+                <div className="flex-1">
+                    <label for="owner_fname">First Name:</label>
+                    <input
+                        id="owner_fname"
+                        name="owner_fname"
+                        type="text"
+                        value={formData.owner_fname}
+                        onChange={(e) => setFormData({ ...formData, owner_fname: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+                <div className="flex-1">
+                    <label for="owner_lname">Last Name:</label>
+                    <input
+                        id="owner_lname"
+                        name="owner_lname"
+                        type="text"
+                        value={formData.owner_lname}
+                        onChange={(e) => setFormData({ ...formData, owner_lname: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                        required
+                    />
+                </div>
+            </div>
 
-            <label for="email">Email Address:</label>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Enter the patient's email address."
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-            />
+            <div className="flex gap-4">
+                <div className="flex-1">
+                    <label for="owner_phone">Phone Number:</label>
+                    <input
+                        id="owner_phone"
+                        name="owner_phone"
+                        type="tel"
+                        maxLength={10}
+                        value={formData.owner_phone}
+                        onChange={(e) => setFormData({ ...formData, owner_phone: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                    />
+                </div>
+                <div className="flex-1">
+                    <label for="owner_email">Email Address:</label>
+                    <input
+                        id="owner_email"
+                        name="owner_email"
+                        type="email"
+                        value={formData.owner_email}
+                        onChange={(e) => setFormData({ ...formData, owner_email: e.target.value })}
+                        className="mb-4 p-2 w-full border rounded"
+                    />
+                </div>
+            </div>
 
             <div>
                 {editingPatient ? (
@@ -140,7 +229,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     <>
                         <button
                             type="submit"
-                            className="bg-blue-600 text-white p-2 w-full rounded"
+                            className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full rounded"
                         >
                             Create
                         </button>
