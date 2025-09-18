@@ -94,17 +94,6 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 required
             />
 
-            <label for="dob">Date of Birth:</label>
-            <input
-                id="dob"
-                name="dob"
-                type="date"
-                value={formData.dob}
-                onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-                required
-            />
-
             <label for="gender">Gender:</label>
             <select
                 id="gender"
