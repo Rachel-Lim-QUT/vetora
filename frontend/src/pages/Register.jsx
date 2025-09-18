@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
+import backImage from '../images/temp-back.gif';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -169,11 +170,10 @@ const Register = () => {
           <button
             type="submit"
             disabled={submitting}
-            className={`w-full rounded-full py-2 font-medium ${
-              submitting
+            className={`w-full rounded-full py-2 font-medium ${submitting
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-            }`}
+              }`}
           >
             {submitting ? 'Registering…' : 'Register'}
           </button>
