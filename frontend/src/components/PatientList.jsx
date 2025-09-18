@@ -10,7 +10,7 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             alert('Success! Patient deleted.')
-            setPatients(patients.filter((patient) => patient._id !== patientID ));
+            setPatients(patients.filter((patient) => patient._id !== patientID));
         } catch (error) {
             alert('Error: Failed to delete patient.')
         }
@@ -22,12 +22,10 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
             {patients.map((patient) => (
                 <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
 
-                    <p><b>Name</b>: {patient.lname}, {patient.fname}</p>
-                    <p><b>Date of Birth</b>: {patient.dob}</p>
-                    <p><b>Gender</b>: {patient.gender}</p>
+                    <p><b>Name</b>: {patient.name} {patient.owner_lname}</p>
+                    <p><b>Owner</b>: {patient.owner_fname} {patient.owner_lname}</p>
                     <p><b>Phone</b>: {patient.phone}</p>
-                    <p><b>Email Address</b>: {patient.email}</p>
-                    
+
                     <div className="mt-2">
                         <button
                             onClick={() => setEditingPatient(patient)}

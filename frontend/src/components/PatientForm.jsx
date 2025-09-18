@@ -12,10 +12,10 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         species: '',
         breed: '',
         color: '',
-        owner_fname: '',
-        owner_lname: '',
-        owner_phone: '',
-        owner_email: ''
+        fname: '',
+        lname: '',
+        phone: '',
+        email: ''
     });
 
     useEffect(() => {
@@ -157,25 +157,25 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             <h2 className="font-bold mb-4">Owner Details</h2>
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="owner_fname">First Name:</label>
+                    <label for="fname">First Name:</label>
                     <input
-                        id="owner_fname"
-                        name="owner_fname"
+                        id="fname"
+                        name="fname"
                         type="text"
-                        value={formData.owner_fname}
-                        onChange={(e) => setFormData({ ...formData, owner_fname: e.target.value })}
+                        value={formData.fname}
+                        onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                         required
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="owner_lname">Last Name:</label>
+                    <label for="lname">Last Name:</label>
                     <input
-                        id="owner_lname"
-                        name="owner_lname"
+                        id="lname"
+                        name="lname"
                         type="text"
-                        value={formData.owner_lname}
-                        onChange={(e) => setFormData({ ...formData, owner_lname: e.target.value })}
+                        value={formData.lname}
+                        onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                         required
                     />
@@ -184,25 +184,25 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
 
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="owner_phone">Phone Number:</label>
+                    <label for="phone">Phone Number:</label>
                     <input
-                        id="owner_phone"
-                        name="owner_phone"
+                        id="phone"
+                        name="phone"
                         type="tel"
                         maxLength={10}
-                        value={formData.owner_phone}
-                        onChange={(e) => setFormData({ ...formData, owner_phone: e.target.value })}
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="owner_email">Email Address:</label>
+                    <label for="email">Email Address:</label>
                     <input
-                        id="owner_email"
-                        name="owner_email"
+                        id="email"
+                        name="email"
                         type="email"
-                        value={formData.owner_email}
-                        onChange={(e) => setFormData({ ...formData, owner_email: e.target.value })}
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                     />
                 </div>

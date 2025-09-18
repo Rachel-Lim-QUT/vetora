@@ -10,10 +10,10 @@ const patientSchema = new mongoose.Schema({
     breed:      { type: String, required: true },
     color:      { type: String, required: true },
     // Owner Details
-    owner_fname:    { type: String, required: true },
-    owner_lname:    { type: String, required: true },
-    owner_phone:    { type: String, required: true },
-    owner_email:    { type: String, required: true },
+    fname:    { type: String, required: true },
+    lname:    { type: String, required: true },
+    phone:    { type: String, required: true },
+    email:    { type: String, required: true },
 });
 
 module.exports = mongoose.model('Patient', patientSchema);
