@@ -229,7 +229,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     <>
                         <button
                             type="submit"
-                            className="bg-blue-600 text-white p-2 w-full rounded"
+                            className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full rounded"
                         >
                             Create
                         </button>
