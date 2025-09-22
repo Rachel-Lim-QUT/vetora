@@ -19,67 +19,81 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
     };
 
     return (
-        <div>
-            {/* {patients.map((patient) => ( */}
-            <div key={patients._id}>
+        <div className="grid grid-cols-5 gap-6 p-6">
 
-                {/* row for columns */}
-                <div className="grid grid-cols-3 gap-6 p-6">
-                    {/* column 1 */}
-                    <div className="bg-gray-100 mb-4 p-4 rounded shadow">
-                        <p><b>Name</b>: {patients.name} {patients.lname}</p>
-                        <p><b>Gender</b>: {patients.gender}</p>
-                        <p><b>Breed</b>: {patients.breed}</p>
+            {/* left side (pfp) */}
+            <div className="col-span-2">
+                <img
+                    src={patients.photo}
+                    alt="patient pfp"
+                    className="w-80 h-80 mb-6"
+                />
+                <p>{patients.photo}</p>
+            </div>
+
+            {/* right side (patient details) */}
+            <div className="col-span-3">
+                <div key={patients._id}>
+
+                    {/* row for columns */}
+                    <div className="grid grid-cols-3 gap-6 p-6">
+                        {/* column 1 */}
+                        <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                            <p><b>Name</b>: {patients.name} {patients.lname}</p>
+                            <p><b>Gender</b>: {patients.gender}</p>
+                            <p><b>Breed</b>: {patients.breed}</p>
+                        </div>
+
+                        {/* column 2 */}
+                        <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                            <p><b>Age</b>: {patients.age}</p>
+                            <p><b>Species</b>: {patients.species}</p>
+                            <p><b>Color</b>: {patients.color}</p>
+                        </div>
+
+                        {/* column 3 */}
+                        <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                            <p><b>Owner</b>: {patients.fname}</p>
+                            <p><b>Phone</b>: {patients.phone}</p>
+
+                            {/* this button should take you to the owners profile page */}
+                            <button
+                                // onClick={() => handleDelete(patient._id)}
+                                className="bg-yellow-500 text-white px-4 py-2 rounded"
+                            >
+                                View
+                            </button>
+                        </div>
                     </div>
 
-                    {/* column 2 */}
-                    <div className="bg-gray-100 mb-4 p-4 rounded shadow">
-                        <p><b>Age</b>: {patients.age}</p>
-                        <p><b>Species</b>: {patients.species}</p>
-                        <p><b>Color</b>: {patients.color}</p>
+                    {/* row for history */}
+                    <div className="mt-2 p-6">
+                        <label for="history">History:</label>
+                        <textarea
+                            id="history"
+                            name="history"
+                            type="text"
+                            className="h-80 mb-4 p-2 w-full border rounded"
+                        // value=formData.history
+                        />
                     </div>
 
-                    {/* column 3 */}
-                    <div className="bg-gray-100 mb-4 p-4 rounded shadow">
-                        <p><b>Owner</b>: {patients.fname}</p>
-                        <p><b>Phone</b>: {patients.phone}</p>
-
-                        {/* this button should take you to the owners profile page */}
+                    {/* row buttons */}
+                    <div className="mt-2 p-6">
+                        <Link to=""
+                            className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
+                            Edit
+                        </Link>
                         <button
-                            // onClick={() => handleDelete(patient._id)}
-                            className="bg-yellow-500 text-white px-4 py-2 rounded"
+                            onClick={() => handleDelete(patients._id)}
+                            className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
                         >
-                            View
+                            Delete
                         </button>
                     </div>
                 </div>
-
-                <div className="mt-2 p-6">
-                    <label for="history">History:</label>
-                    <textarea
-                        id="history"
-                        name="history"
-                        type="text"
-                        className="h-80 mb-4 p-2 w-full border rounded"
-                        // value=formData.history
-                    />
-                </div>
-
-                {/* row for buttons */}
-                <div className="mt-2 p-6">
-                    <Link to=""
-                        className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
-                        Edit
-                    </Link>
-                    <button
-                        onClick={() => handleDelete(patients._id)}
-                        className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
-                    >
-                        Delete
-                    </button>
-                </div>
+                {/* ))} */}
             </div>
-            {/* ))} */}
         </div >
     );
 };

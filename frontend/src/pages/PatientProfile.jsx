@@ -6,8 +6,6 @@ import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 import PatientDetails from "../components/PatientDetails"; // change to deatiled patient view
 
-import patientpfp from '../images/temp-patient-pfp.gif';
-
 const PatientProfile = () => {
     const { id } = useParams();
     const { user } = useAuth();
@@ -30,23 +28,9 @@ const PatientProfile = () => {
     return (
         <>
             <Navbar />
-            {/* left side */}
-            <div className="grid grid-cols-5 gap-6 p-6">
-                <div className="col-span-2">
-                    <img
-                        src={patientpfp}
-                        alt="patient pfp"
-                        className="w-80 h-80 mb-6"
-                    />
-                </div>
-
-                {/* right side */}
-                <div className="col-span-3">
-                    <PatientDetails
-                        patients={patients}
-                    />
-                </div>
-            </div>
+            <PatientDetails
+                patients={patients}
+            />
         </>
     );
 };
