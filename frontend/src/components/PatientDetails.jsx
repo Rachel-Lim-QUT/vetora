@@ -61,6 +61,7 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                         name="history"
                         type="text"
                         className="h-80 mb-4 p-2 w-full border rounded"
+                        // value=formData.history
                     />
                 </div>
 
