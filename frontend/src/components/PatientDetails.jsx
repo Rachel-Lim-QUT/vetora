@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
 const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const handleDelete = async (patientID) => {
         try {
@@ -12,7 +13,8 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             alert('Success! Patient deleted.')
-            setPatients(patients.filter((patient) => patient._id !== patientID));
+            navigate('/patients');
+            // setPatients(patients.filter((patient) => patient._id !== patientID));
         } catch (error) {
             alert('Error: Failed to delete patient.')
         }
@@ -61,7 +63,7 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                         name="history"
                         type="text"
                         className="h-80 mb-4 p-2 w-full border rounded"
-                        // value=formData.history
+                    // value={formData.history}
                     />
                 </div>
 
