@@ -1,11 +1,22 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from "../context/AuthContext";
+import { useState, useEffect } from "react";
+import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-const PatientList = ({ patients, setPatients, setEditingPatient }) => {
+const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
     const { user } = useAuth();
 
-    // };
+    const handleDelete = async (patientID) => {
+        try {
+            await axiosInstance.delete(`/api/patients/${patientID}`, {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            alert('Success! Patient deleted.')
+            setPatients(patients.filter((patient) => patient._id !== patientID));
+        } catch (error) {
+            alert('Error: Failed to delete patient.')
+        }
+    };
 
     return (
         <div className="bg-white mb-6 p-6 rounded shadow-md">
@@ -22,6 +33,12 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                             className="bg-yellow-500 text-white px-4 py-2 rounded">
                             View
                         </Link>
+                        <button
+                            onClick={() => handleDelete(patient._id)}
+                            className="bg-red-500 text-white ml-2 px-4 py-2 rounded"
+                        >
+                            Delete
+                        </button>
                     </div>
                 </div>
             ))
@@ -30,4 +47,4 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
     );
 };
 
-export default PatientList;
+export default PatientDetails;
