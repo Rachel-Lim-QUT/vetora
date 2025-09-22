@@ -222,6 +222,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                         name="phone"
                         type="tel"
                         maxLength={10}
+                        pattern="[0-9]{10}"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
