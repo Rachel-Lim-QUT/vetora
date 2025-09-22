@@ -2,17 +2,21 @@ const Patient = require('../models/Patient');
 
 // Create Patient
 const createPatient = async (req, res) => {
-    const { photo,
+    const {
+        photo,
         name,
         age,
         gender,
         species,
         breed,
         color,
+        history,
         fname,
         lname,
         phone,
-        email } = req.body;
+        email
+    } = req.body;
+
     try {
         const patient = await Patient.create({
             userID: req.user.id,
@@ -23,6 +27,7 @@ const createPatient = async (req, res) => {
             species,
             breed,
             color,
+            history,
             fname,
             lname,
             phone,
@@ -37,6 +42,7 @@ const createPatient = async (req, res) => {
             species: patient.species,
             breed: patient.breed,
             color: patient.color,
+            history: patient.history,
             fname: patient.fname,
             lname: patient.lname,
             phone: patient.phone,
