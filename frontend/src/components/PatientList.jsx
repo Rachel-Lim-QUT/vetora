@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import axiosInstance from "../axiosConfig";
 
@@ -27,12 +28,10 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                     <p><b>Phone</b>: {patient.phone}</p>
 
                     <div className="mt-2">
-                        <button
-                            // onClick={() => setEditingPatient(patient)}
-                            className="bg-yellow-500 text-white px-4 py-2 rounded"
-                        >
+                        <Link to="/patientprofile"
+                            className="bg-yellow-500 text-white px-4 py-2 rounded">
                             View
-                        </button>
+                        </Link>
                         {/* <button
                             onClick={() => handleDelete(patient._id)}
                             className="bg-red-500 text-white ml-2 px-4 py-2 rounded"
@@ -41,8 +40,9 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                         </button> */}
                     </div>
                 </div>
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 };
 
