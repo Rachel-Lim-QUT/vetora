@@ -5,6 +5,7 @@ import axiosInstance from "../axiosConfig";
 
 const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
     const { user } = useAuth();
+    const [showConfirm, setShowConfirm] = useState(false);
     const navigate = useNavigate();
 
     const handleDelete = async (patientID) => {
@@ -17,6 +18,8 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
             // setPatients(patients.filter((patient) => patient._id !== patientID));
         } catch (error) {
             alert('Error: Failed to delete patient.')
+        } finally {
+            setShowConfirm(false);
         }
     };
 
@@ -74,15 +77,43 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                         Edit
                     </Link>
                     <button
-                        onClick={() => handleDelete(patients._id)}
+                        // onClick={() => handleDelete(patients._id)}
+                        onClick={() => setShowConfirm(true)}
                         className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
                     >
                         Delete
                     </button>
                 </div>
             </div>
-            {/* ))} */}
-        </div >
+
+            {/* show confirm */}
+            {showConfirm && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+                    <div className="bg-white p-6 rounded shadow text-center max-w-sm mx-4">
+                        <p className="mb-4 font-medium text-lg">
+                            Are you sure you want to delete patient profile?
+                        </p>
+
+                        <div className="flex justify-center gap-4">
+                            <button
+                                onClick={() => handleDelete(patients._id)}
+                                className="px-4 py-2 bg-red-600 text-white rounded-full"
+                            >
+                                Yes
+                            </button>
+
+                            <button
+                                onClick={() => setShowConfirm(false)}
+                                className="px-4 py-2 bg-gray-300 rounded-full"
+                            >
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )
+            }
+        </div>
     );
 };
 
