@@ -19,30 +19,67 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
     };
 
     return (
-        <div className="bg-white mb-6 p-6 rounded shadow-md">
-            {patients.map((patient) => (
-                <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
+        <div>
+            {/* {patients.map((patient) => ( */}
+            <div key={patients._id}>
 
-                    <p><b>Name</b>: {patient.name} {patient.lname}</p>
-                    <p><b>Owner</b>: {patient.fname} {patient.lname}</p>
-                    <p><b>Phone</b>: {patient.phone}</p>
+                {/* row for columns */}
+                <div className="grid grid-cols-3 gap-6 p-6">
+                    {/* column 1 */}
+                    <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                        <p><b>Name</b>: {patients.name} {patients.lname}</p>
+                        <p><b>Gender</b>: {patients.gender}</p>
+                        <p><b>Breed</b>: {patients.breed}</p>
+                    </div>
 
-                    <div className="mt-2">
-                        <Link to="/patientprofile"
-                            className="bg-yellow-500 text-white px-4 py-2 rounded">
-                            View
-                        </Link>
+                    {/* column 2 */}
+                    <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                        <p><b>Age</b>: {patients.age}</p>
+                        <p><b>Species</b>: {patients.species}</p>
+                        <p><b>Color</b>: {patients.color}</p>
+                    </div>
+
+                    {/* column 3 */}
+                    <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                        <p><b>Owner</b>: {patients.fname}</p>
+                        <p><b>Phone</b>: {patients.phone}</p>
+
+                        {/* this button should take you to the owners profile page */}
                         <button
-                            onClick={() => handleDelete(patient._id)}
-                            className="bg-red-500 text-white ml-2 px-4 py-2 rounded"
+                            // onClick={() => handleDelete(patient._id)}
+                            className="bg-yellow-500 text-white px-4 py-2 rounded"
                         >
-                            Delete
+                            View
                         </button>
                     </div>
                 </div>
-            ))
-            }
-        </div>
+
+                <div className="mt-2 p-6">
+                    <label for="history">History:</label>
+                    <textarea
+                        id="history"
+                        name="history"
+                        type="text"
+                        className="h-80 mb-4 p-2 w-full border rounded"
+                    />
+                </div>
+
+                {/* row for buttons */}
+                <div className="mt-2 p-6">
+                    <Link to=""
+                        className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
+                        Edit
+                    </Link>
+                    <button
+                        onClick={() => handleDelete(patients._id)}
+                        className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+            {/* ))} */}
+        </div >
     );
 };
 

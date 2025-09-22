@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
@@ -8,14 +9,14 @@ import PatientDetails from "../components/PatientDetails"; // change to deatiled
 import patientpfp from '../images/temp-patient-pfp.gif';
 
 const PatientProfile = () => {
+    const { id } = useParams();
     const { user } = useAuth();
     const [patients, setPatients] = useState([]);
-    const [editingPatient, setEditingPatient] = useState(null);
 
     useEffect(() => {
         const fetchPatients = async () => {
             try {
-                const response = await axiosInstance.get('/api/patients/', {
+                const response = await axiosInstance.get(`/api/patients/${id}`, { // added ${id} and changed ' to `
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
                 setPatients(response.data);
@@ -43,7 +44,6 @@ const PatientProfile = () => {
                 <div className="col-span-3">
                     <PatientDetails
                         patients={patients}
-
                     />
                 </div>
             </div>

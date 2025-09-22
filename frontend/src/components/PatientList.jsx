@@ -5,8 +5,6 @@ import axiosInstance from "../axiosConfig";
 const PatientList = ({ patients, setPatients, setEditingPatient }) => {
     const { user } = useAuth();
 
-    // };
-
     return (
         <div className="bg-white mb-6 p-6 rounded shadow-md">
             <h1 className="font-bold text-2xl mb-4">Patient List</h1>
@@ -18,8 +16,8 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                     <p><b>Phone</b>: {patient.phone}</p>
 
                     <div className="mt-2">
-                        <Link to="/patientprofile"
-                            className="bg-yellow-500 text-white px-4 py-2 rounded">
+                        <Link to={`/patientprofile/${patient._id}`}
+                            className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
                             View
                         </Link>
                     </div>

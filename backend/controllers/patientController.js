@@ -50,7 +50,17 @@ const createPatient = async (req, res) => {
 // Get Patient
 const getPatient = async (req, res) => {
     try {
-        const patients = await Patient.find({ userID: req.user.id });
+        const patients = await Patient.findById(req.params.id); // changed req.user,id to whats showing
+        res.json(patients);
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+};
+
+// get all patient (notes from jen, delete this later but added this and updated the get patient above)
+const getAllPatient = async (req, res) => {
+    try {
+        const patients = await Patient.find();
         res.json(patients);
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -90,4 +100,4 @@ const deletePatient = async (req, res) => {
     }
 };
 
-module.exports = { createPatient, getPatient, updatePatient, deletePatient };
+module.exports = { createPatient, getPatient, getAllPatient, updatePatient, deletePatient };
