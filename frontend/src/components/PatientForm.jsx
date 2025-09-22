@@ -174,7 +174,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="color" className="required">Color</label>
+                    <label for="color">Color</label>
                     <input
                         id="color"
                         name="color"
@@ -182,7 +182,6 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                         value={formData.color}
                         onChange={(e) => setFormData({ ...formData, color: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
-                        required
                     />
                 </div>
             </div>
@@ -230,7 +229,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="email" className="required">Email Address</label>
+                    <label for="email">Email Address</label>
                     <input
                         id="email"
                         name="email"
@@ -238,7 +237,6 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
-                        required
                     />
                 </div>
             </div>
