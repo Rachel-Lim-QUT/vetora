@@ -224,6 +224,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
+                        required
                     />
                 </div>
                 <div className="flex-1">
@@ -235,6 +236,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
+                        required
                     />
                 </div>
             </div>
