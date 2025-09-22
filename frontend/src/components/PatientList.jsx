@@ -6,20 +6,31 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
     const { user } = useAuth();
 
     return (
-        <div className="bg-white mb-6 p-6 rounded shadow-md">
-            <h1 className="font-bold text-2xl mb-4">Patient List</h1>
+        <div>
             {patients.map((patient) => (
-                <div key={patient._id} className="bg-gray-100 mb-4 p-4 rounded shadow">
+                <div key={patient._id} className="flex items-start bg-gray-100 mb-4 p-4 rounded shadow">
 
-                    <p><b>Name</b>: {patient.name} {patient.lname}</p>
-                    <p><b>Owner</b>: {patient.fname} {patient.lname}</p>
-                    <p><b>Phone</b>: {patient.phone}</p>
+                    {/* left side (pfp) */}
+                    <div className="mr-4">
+                        <img
+                            src={patient.photo}
+                            alt="patient pfp"
+                            className="w-30 h-30 pr-4"
+                        />
+                    </div>
 
-                    <div className="mt-2">
-                        <Link to={`/patientprofile/${patient._id}`}
-                            className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
-                            View
-                        </Link>
+                    {/* right side (patient details) */}
+                    <div className="flex-1">
+                        <p><b>Name</b>: {patient.name} {patient.lname}</p>
+                        <p><b>Owner</b>: {patient.fname} {patient.lname}</p>
+                        <p><b>Phone</b>: {patient.phone}</p>
+
+                        <div className="mt-2">
+                            <Link to={`/patientprofile/${patient._id}`}
+                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
+                                View
+                            </Link>
+                        </div>
                     </div>
                 </div>
             ))
