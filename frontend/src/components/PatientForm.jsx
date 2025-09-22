@@ -50,6 +50,13 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             setEditingPatient(null);
             setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
             alert('Success! Patient file saved.')
+
+            // refreshing the patient list after creating profile
+            const response = await axiosInstance.get('/api/patients', {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            setPatients(response.data);
+
         } catch (error) {
             alert('Error: Patient file save failed. Please try again.');
         }
