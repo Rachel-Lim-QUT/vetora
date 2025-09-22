@@ -144,15 +144,18 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 </div>
                 <div className="flex-1">
                     <label for="species">Species:</label>
-                    <input
+                    <select
                         id="species"
                         name="species"
-                        type="text"
                         value={formData.species}
                         onChange={(e) => setFormData({ ...formData, species: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                         required
-                    />
+                    >
+                        <option value="" disabled selected>-- Select a species --</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Dog">Dog</option>
+                    </select>
                 </div>
             </div>
 
