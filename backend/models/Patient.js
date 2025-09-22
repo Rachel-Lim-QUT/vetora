@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 
 const patientSchema = new mongoose.Schema({
-    userID:     { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    photo:      { type: String },
-    name:       { type: String, required: true },
-    age:        { type: String, required: true },
-    gender:     { type: String, required: true },
-    species:    { type: String, required: true },
-    breed:      { type: String, required: true },
-    color:      { type: String, required: true },
+    userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    photo: { type: String },
+    name: { type: String, required: true },
+    age: { type: String, required: true },
+    gender: { type: String, required: true },
+    species: { type: String, required: true },
+    breed: { type: String, required: true },
+    color: { type: String, required: true },
+
     // Owner Details
-    owner_fname:    { type: String, required: true },
-    owner_lname:    { type: String, required: true },
-    owner_phone:    { type: String, required: true },
-    owner_email:    { type: String, required: true },
+    fname: { type: String, required: true },
+    lname: { type: String, required: true },
+    phone: { type: String, required: true },
+    email: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Patient', patientSchema);

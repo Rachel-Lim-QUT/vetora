@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
+import amore from '../images/amore.gif';
+import coolcat from '../images/coolcat.png';
+import chatting from '../images/chatting.gif';
+
 const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient }) => {
     const { user } = useAuth();
+
     const [formData, setFormData] = useState({
         photo: '',
         name: '',
@@ -12,11 +17,22 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         species: '',
         breed: '',
         color: '',
-        owner_fname: '',
-        owner_lname: '',
-        owner_phone: '',
-        owner_email: ''
+        fname: '',
+        lname: '',
+        phone: '',
+        email: ''
     });
+
+    const pfps = [
+        { name: 'amore', src: amore },
+        { name: 'coolcat', src: coolcat },
+        { name: 'chatting', src: chatting }
+    ]
+
+    const selectIcon = (src) => {
+        setFormData({ ...formData, photo: src })
+        console.log(src)
+    }
 
     useEffect(() => {
         if (editingPatient) {
@@ -50,6 +66,13 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             setEditingPatient(null);
             setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
             alert('Success! Patient file saved.')
+
+            // refreshing the patient list after creating profile
+            const response = await axiosInstance.get('/api/patients', {
+                headers: { Authorization: `Bearer ${user.token}` },
+            });
+            setPatients(response.data);
+
         } catch (error) {
             alert('Error: Patient file save failed. Please try again.');
         }
@@ -59,16 +82,22 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         <form onSubmit={handleSubmit} className="bg-white mb-6 p-6 rounded shadow-md">
             <h1 className="font-bold text-2xl mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
 
-            <label for="photo">Photo:</label>
-            <input
-                id="photo"
-                name="photo"
-                type="file"
-                accept="image/jpeg, image/png"
-                value={formData.photo}
-                onChange={(e) => setFormData({ ...formData, photo: e.target.value })}
-                className="mb-4 pt-1 w-full"
-            />
+            <label for="photo">Select an icon:</label>
+            <ul className="flex gap-4 my-4">
+                {pfps.map(pfp => (
+                    <li key={pfp.name}>
+                        <button
+                            onClick={() => selectIcon(pfp.src)}
+                            className="focus:outline-none"
+                        >
+                            <img
+                                src={pfp.src}
+                                alt={pfp.name}
+                                className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
+                            />
+                        </button>
+                    </li>))}
+            </ul>
 
             <div className="flex gap-4">
                 <div className="flex-1">
@@ -157,25 +186,25 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             <h2 className="font-bold mb-4">Owner Details</h2>
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="owner_fname">First Name:</label>
+                    <label for="fname">First Name:</label>
                     <input
-                        id="owner_fname"
-                        name="owner_fname"
+                        id="fname"
+                        name="fname"
                         type="text"
-                        value={formData.owner_fname}
-                        onChange={(e) => setFormData({ ...formData, owner_fname: e.target.value })}
+                        value={formData.fname}
+                        onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                         required
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="owner_lname">Last Name:</label>
+                    <label for="lname">Last Name:</label>
                     <input
-                        id="owner_lname"
-                        name="owner_lname"
+                        id="lname"
+                        name="lname"
                         type="text"
-                        value={formData.owner_lname}
-                        onChange={(e) => setFormData({ ...formData, owner_lname: e.target.value })}
+                        value={formData.lname}
+                        onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                         required
                     />
@@ -184,25 +213,25 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
 
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="owner_phone">Phone Number:</label>
+                    <label for="phone">Phone Number:</label>
                     <input
-                        id="owner_phone"
-                        name="owner_phone"
+                        id="phone"
+                        name="phone"
                         type="tel"
                         maxLength={10}
-                        value={formData.owner_phone}
-                        onChange={(e) => setFormData({ ...formData, owner_phone: e.target.value })}
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="owner_email">Email Address:</label>
+                    <label for="email">Email Address:</label>
                     <input
-                        id="owner_email"
-                        name="owner_email"
+                        id="email"
+                        name="email"
                         type="email"
-                        value={formData.owner_email}
-                        onChange={(e) => setFormData({ ...formData, owner_email: e.target.value })}
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
                     />
                 </div>
@@ -236,7 +265,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     </>
                 )}
             </div>
-        </form>
+        </form >
     );
 };
 
