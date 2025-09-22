@@ -7,7 +7,7 @@ const patientSchema = new mongoose.Schema({
     age:        { type: String, required: true },
     gender:     { type: String, required: true },
     species:    { type: String, required: true },
-    breed:      { type: String, required: true },
+    breed:      { type: String },
     color:      { type: String, required: true },
     history:    { type: String },
 
