@@ -169,7 +169,6 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                         value={formData.breed}
                         onChange={(e) => setFormData({ ...formData, breed: e.target.value })}
                         className="mb-4 p-2 w-full border rounded"
-                        required
                     />
                 </div>
                 <div className="flex-1">
