@@ -8,14 +8,14 @@ const patientSchema = new mongoose.Schema({
     gender:     { type: String, required: true },
     species:    { type: String, required: true },
     breed:      { type: String },
-    color:      { type: String, required: true },
+    color:      { type: String },
     history:    { type: String },
 
     // Owner Details
     fname: { type: String, required: true },
     lname: { type: String, required: true },
     phone: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String },
 });
 
 module.exports = mongoose.model('Patient', patientSchema);
