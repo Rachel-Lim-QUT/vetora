@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
+import amore from '../images/amore.gif';
+import coolcat from '../images/coolcat.png';
+import chatting from '../images/chatting.gif';
+
 const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient }) => {
     const { user } = useAuth();
+
     const [formData, setFormData] = useState({
         photo: '',
         name: '',
@@ -17,6 +22,17 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         phone: '',
         email: ''
     });
+
+    const pfps = [
+        { name: 'amore', src: amore },
+        { name: 'coolcat', src: coolcat },
+        { name: 'chatting', src: chatting }
+    ]
+
+    const selectIcon = (src) => {
+        setFormData({ ...formData, photo: src })
+        console.log(src)
+    }
 
     useEffect(() => {
         if (editingPatient) {
@@ -66,16 +82,22 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         <form onSubmit={handleSubmit} className="bg-white mb-6 p-6 rounded shadow-md">
             <h1 className="font-bold text-2xl mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
 
-            <label for="photo">Photo:</label>
-            <input
-                id="photo"
-                name="photo"
-                type="file"
-                accept="image/jpeg, image/png"
-                value={formData.photo}
-                onChange={(e) => setFormData({ ...formData, photo: e.target.value })}
-                className="mb-4 pt-1 w-full"
-            />
+            <label for="photo">Select an icon:</label>
+            <ul className="flex gap-4 my-4">
+                {pfps.map(pfp => (
+                    <li key={pfp.name}>
+                        <button
+                            onClick={() => selectIcon(pfp.src)}
+                            className="focus:outline-none"
+                        >
+                            <img
+                                src={pfp.src}
+                                alt={pfp.name}
+                                className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
+                            />
+                        </button>
+                    </li>))}
+            </ul>
 
             <div className="flex gap-4">
                 <div className="flex-1">
@@ -243,7 +265,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     </>
                 )}
             </div>
-        </form>
+        </form >
     );
 };
 

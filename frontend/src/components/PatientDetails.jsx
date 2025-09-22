@@ -22,44 +22,44 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
         <div className="grid grid-cols-5 gap-6 p-6">
 
             {/* left side (pfp) */}
-            <div className="col-span-2">
+            <div className="col-span-2 flex flex-col items-center">
                 <img
                     src={patients.photo}
                     alt="patient pfp"
                     className="w-80 h-80 mb-6"
                 />
-                <p>{patients.photo}</p>
+                <h1 className="">{patients.name}</h1>
             </div>
 
             {/* right side (patient details) */}
-            <div className="col-span-3">
+            <div className="col-span-3 bg-gray-100 rounded shadow">
                 <div key={patients._id}>
 
                     {/* row for columns */}
                     <div className="grid grid-cols-3 gap-6 p-6">
                         {/* column 1 */}
-                        <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                        <div>
                             <p><b>Name</b>: {patients.name} {patients.lname}</p>
                             <p><b>Gender</b>: {patients.gender}</p>
                             <p><b>Breed</b>: {patients.breed}</p>
                         </div>
 
                         {/* column 2 */}
-                        <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                        <div>
                             <p><b>Age</b>: {patients.age}</p>
                             <p><b>Species</b>: {patients.species}</p>
                             <p><b>Color</b>: {patients.color}</p>
                         </div>
 
                         {/* column 3 */}
-                        <div className="bg-gray-100 mb-4 p-4 rounded shadow">
+                        <div>
                             <p><b>Owner</b>: {patients.fname}</p>
                             <p><b>Phone</b>: {patients.phone}</p>
 
                             {/* this button should take you to the owners profile page */}
                             <button
                                 // onClick={() => handleDelete(patient._id)}
-                                className="bg-yellow-500 text-white px-4 py-2 rounded"
+                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded"
                             >
                                 View
                             </button>
@@ -67,19 +67,19 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                     </div>
 
                     {/* row for history */}
-                    <div className="mt-2 p-6">
+                    <div className="px-6">
                         <label for="history">History:</label>
                         <textarea
                             id="history"
                             name="history"
                             type="text"
-                            className="h-80 mb-4 p-2 w-full border rounded"
+                            className="h-80 w-full border rounded"
                         // value=formData.history
                         />
                     </div>
 
                     {/* row buttons */}
-                    <div className="mt-2 p-6">
+                    <div className="p-6">
                         <Link to=""
                             className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
                             Edit
