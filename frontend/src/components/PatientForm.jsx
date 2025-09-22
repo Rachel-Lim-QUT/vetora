@@ -1,3 +1,5 @@
+import '../App.css';
+
 import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
@@ -101,7 +103,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
 
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="name">Name:</label>
+                    <label for="name" className="required">Name</label>
                     <input
                         id="name"
                         name="name"
@@ -113,7 +115,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="age">Age:</label>
+                    <label for="age" className="required">Age</label>
                     <input
                         id="age"
                         name="age"
@@ -128,7 +130,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
 
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="gender">Gender:</label>
+                    <label for="gender" className="required">Gender</label>
                     <select
                         id="gender"
                         name="gender"
@@ -143,7 +145,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     </select>
                 </div>
                 <div className="flex-1">
-                    <label for="species">Species:</label>
+                    <label for="species" className="required">Species</label>
                     <select
                         id="species"
                         name="species"
@@ -161,7 +163,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
 
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="breed">Breed:</label>
+                    <label for="breed">Breed</label>
                     <input
                         id="breed"
                         name="breed"
@@ -172,7 +174,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="color">Color:</label>
+                    <label for="color" className="required">Color</label>
                     <input
                         id="color"
                         name="color"
@@ -188,7 +190,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
             <h2 className="font-bold mb-4">Owner Details</h2>
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="fname">First Name:</label>
+                    <label for="fname" className="required">First Name</label>
                     <input
                         id="fname"
                         name="fname"
@@ -200,7 +202,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="lname">Last Name:</label>
+                    <label for="lname" className="required">Last Name</label>
                     <input
                         id="lname"
                         name="lname"
@@ -215,7 +217,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
 
             <div className="flex gap-4">
                 <div className="flex-1">
-                    <label for="phone">Phone Number:</label>
+                    <label for="phone" className="required">Phone Number</label>
                     <input
                         id="phone"
                         name="phone"
@@ -228,7 +230,7 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                     />
                 </div>
                 <div className="flex-1">
-                    <label for="email">Email Address:</label>
+                    <label for="email" className="required">Email Address</label>
                     <input
                         id="email"
                         name="email"
