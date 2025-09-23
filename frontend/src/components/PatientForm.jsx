@@ -1,6 +1,6 @@
 import '../App.css';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
@@ -8,7 +8,7 @@ import amore from '../images/amore.gif';
 import coolcat from '../images/coolcat.png';
 import chatting from '../images/chatting.gif';
 
-const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient }) => {
+const PatientForm = ({ patients, setPatients }) => {
     const { user } = useAuth();
 
     const [formData, setFormData] = useState({
@@ -36,53 +36,37 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
         console.log(src)
     }
 
-    useEffect(() => {
-        if (editingPatient) {
-            setFormData({
-                fname: editingPatient.fname,
-                lname: editingPatient.lname,
-                dob: editingPatient.dob,
-                gender: editingPatient.gender,
-                phone: editingPatient.phone,
-                email: editingPatient.email,
-            });
-        } else {
-            setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
-        }
-    }, [editingPatient]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (editingPatient) {
-                const response = await axiosInstance.put(`/api/patients/${editingPatient._id}`, formData, {
-                    headers: { Authorization: `Bearer ${user.token}` },
-                });
-                setPatients(patients.map((patient) => (patient._id === response.data._id ? response.data : patient)));
-            } else {
-                const response = await axiosInstance.post('/api/patients', formData, {
-                    headers: { Authorization: `Bearer ${user.token}` },
-                });
-                setPatients([...patients, response.data]);
-            }
-            setEditingPatient(null);
-            setFormData({ fname: '', lname: '', dob: '', gender: '', phone: '', email: '' });
-            alert('Success! Patient file saved.')
-
-            // refreshing the patient list after creating profile
-            const response = await axiosInstance.get('/api/patients', {
-                headers: { Authorization: `Bearer ${user.token}` },
+            const response = await axiosInstance.post('/api/patients', formData, { headers: { Authorization: `Bearer ${user.token}` }, });
+            setPatients([...patients, response.data]);
+            setFormData({ 
+                photo: '',
+                name: '',
+                age: '',
+                gender: '',
+                species: '',
+                breed: '',
+                color: '',
+                fname: '',
+                lname: '',
+                phone: '',
+                email: ''
             });
-            setPatients(response.data);
-
+            alert('Success! Patient record created.')
         } catch (error) {
-            alert('Error: Patient file save failed. Please try again.');
+            alert('Error: Unable to create patient record. Please try again.')
+        } finally {
+            // Jennifer's note: Refreshes the patient list after creating a patient profile
+            const response = await axiosInstance.get('/api/patients', { headers: { Authorization: `Bearer ${user.token}` }, });
+            setPatients(response.data);
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="bg-white mb-6 p-6 rounded shadow-md">
-            <h1 className="font-bold text-2xl mb-4">{editingPatient ? 'Update Patient Details' : 'Create New Patient'}</h1>
+            <h1 className="font-bold text-2xl mb-4">Create New Patient</h1>
 
             <label for="photo">Select an icon:</label>
             <ul className="flex gap-4 my-4">
@@ -98,7 +82,8 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                                 className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
                             />
                         </button>
-                    </li>))}
+                    </li>
+                ))}
             </ul>
 
             <div className="flex gap-4">
@@ -242,34 +227,12 @@ const PatientForm = ({ patients, setPatients, editingPatient, setEditingPatient 
                 </div>
             </div>
 
-            <div>
-                {editingPatient ? (
-                    <>
-                        <button
-                            type="submit"
-                            className="bg-blue-600 text-white mb-4 p-2 w-full rounded"
-                        >
-                            Update
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setEditingPatient(null)}
-                            className="bg-gray-600 text-white p-2 w-full rounded"
-                        >
-                            Cancel
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button
-                            type="submit"
-                            className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full rounded"
-                        >
-                            Create
-                        </button>
-                    </>
-                )}
-            </div>
+            <button
+                type="submit"
+                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full rounded"
+            >
+                Create
+            </button>
         </form >
     );
 };
