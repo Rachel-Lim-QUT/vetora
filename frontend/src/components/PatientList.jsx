@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import axiosInstance from "../axiosConfig";
 
-const PatientList = ({ patients, setPatients, setEditingPatient }) => {
+const PatientList = ({ patients, setPatients }) => {
     const { user } = useAuth();
 
     return (
@@ -33,9 +33,8 @@ const PatientList = ({ patients, setPatients, setEditingPatient }) => {
                         </div>
                     </div>
                 </div>
-            ))
-            }
-        </div >
+            ))}
+        </div>
     );
 };
 
