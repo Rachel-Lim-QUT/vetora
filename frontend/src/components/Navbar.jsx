@@ -5,7 +5,7 @@ import logo from '../images/temp-logo.gif';
 import profile from '../images/profile-icon.png';
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -47,7 +47,7 @@ const Navbar = () => {
           Logout
         </button>
       </div>
-    </nav >
+    </nav>
   );
 };
 
