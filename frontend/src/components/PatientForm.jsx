@@ -171,61 +171,67 @@ const PatientForm = ({ patients, setPatients }) => {
                 </div>
             </div>
 
-            <h2 className="font-bold mb-4">Owner Details</h2>
-            <div className="flex gap-4">
-                <div className="flex-1">
-                    <label for="fname" className="required">First Name</label>
-                    <input
-                        id="fname"
-                        name="fname"
-                        type="text"
-                        value={formData.fname}
-                        onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
-                        required
-                    />
-                </div>
-                <div className="flex-1">
-                    <label for="lname" className="required">Last Name</label>
-                    <input
-                        id="lname"
-                        name="lname"
-                        type="text"
-                        value={formData.lname}
-                        onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
-                        required
-                    />
-                </div>
-            </div>
+            {/* Fieldset for Owner Details */}
+            <fieldset>
+                <legend className="font-bold mb-4">Owner Details</legend>
 
-            <div className="flex gap-4">
-                <div className="flex-1">
-                    <label for="phone" className="required">Phone Number</label>
-                    <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        maxLength={10}
-                        pattern="[0-9]{10}"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
-                        required
-                    />
+                {/* First Name & Last Name Row */}
+                <div className="flex gap-4">
+                    <div className="flex-1">
+                        <label for="fname" className="required">First Name</label>
+                        <input
+                            id="fname"
+                            name="fname"
+                            type="text"
+                            value={formData.fname}
+                            onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
+                            className="mb-4 p-2 w-full border rounded"
+                            required
+                        />
+                    </div>
+                    <div className="flex-1">
+                        <label for="lname" className="required">Last Name</label>
+                        <input
+                            id="lname"
+                            name="lname"
+                            type="text"
+                            value={formData.lname}
+                            onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
+                            className="mb-4 p-2 w-full border rounded"
+                            required
+                        />
+                    </div>
                 </div>
-                <div className="flex-1">
-                    <label for="email">Email Address</label>
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
-                    />
+
+                {/* Phone Number & Email Address Row */}
+                <div className="flex gap-4">
+                    <div className="flex-1">
+                        <label for="phone" className="required">Phone Number</label>
+                        <input
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            maxLength={10}
+                            pattern="[0-9]{10}"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            className="mb-4 p-2 w-full border rounded"
+                            required
+                        />
+                    </div>
+                    <div className="flex-1">
+                        <label for="email">Email Address</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            className="mb-4 p-2 w-full border rounded"
+                        />
+                    </div>
                 </div>
-            </div>
+            </fieldset>
 
             <button
                 type="submit"
