@@ -3,10 +3,44 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
+    const PatientDetails = ({ patients, setPatients }) => {
     const { user } = useAuth();
     const [showConfirm, setShowConfirm] = useState(false);
     const navigate = useNavigate();
+    const [editMode, setEditMode] = useState(false);
+    const [form, setForm] = useState({
+    photo: "", name: "", age: "", gender: "", species: "",
+    breed: "", color: "", history: "", fname: "", lname: "",
+    phone: "", email: "" });
+
+    const startEdit = () => {
+    setForm({
+      photo: patients.photo || "",
+      name: patients.name || "",
+      age: patients.age || "",
+      gender: patients.gender || "",
+      species: patients.species || "",
+      breed: patients.breed || "",
+      color: patients.color || "",
+      history: patients.history || "",
+      fname: patients.fname || "",
+      lname: patients.lname || "",
+      phone: patients.phone || "",
+      email: patients.email || ""
+    });
+    setEditMode(true);
+   };
+    const onChange = (e) => setForm(s => ({ ...s, [e.target.name]: e.target.value }));
+
+    const save = async (e) => {
+    e.preventDefault();
+    const { data } = await axiosInstance.put(`/api/patients/${patients._id}`, form, {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    setPatients(data);
+    setEditMode(false);
+   };
+
 
     const handleDelete = async (patientID) => {
         try {
@@ -44,30 +78,85 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                     <div className="grid grid-cols-3 gap-6 p-6">
                         {/* column 1 */}
                         <div>
-                            <p><b>Name</b>: {patients.name} {patients.lname}</p>
-                            <p><b>Gender</b>: {patients.gender}</p>
-                            <p><b>Breed</b>: {patients.breed}</p>
+                            {!editMode ? (
+                              <>
+                                <p><b>Name</b>: {patients.name} {patients.lname}</p>
+                                <p><b>Gender</b>: {patients.gender}</p>
+                                <p><b>Breed</b>: {patients.breed}</p>
+                              </>
+                         ) : (
+                              <>
+                            <div className="mb-2">
+                                <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+                                <input name="name"  className="p-2 border rounded w-full mb-2" value={form.name}  onChange={onChange} />
+                            </div>
+                            <div className="mb-2">
+                                <label htmlFor="gender" className="block text-sm font-medium mb-1">Gender</label>
+                                <select name="gender" className="p-2 border rounded w-full mb-2" value={form.gender} onChange={onChange}>
+                                  <option>Female</option><option>Male</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
+                                <input name="breed" className="p-2 border rounded w-full" value={form.breed} onChange={onChange} />
+                            </div>
+                             </>
+                           )}
                         </div>
 
                         {/* column 2 */}
                         <div>
-                            <p><b>Age</b>: {patients.age}</p>
-                            <p><b>Species</b>: {patients.species}</p>
-                            <p><b>Color</b>: {patients.color}</p>
+                            {!editMode ? (
+                                <>
+                                <p><b>Age</b>: {patients.age}</p>
+                                <p><b>Species</b>: {patients.species}</p>
+                                <p><b>Color</b>: {patients.color}</p>
+                                </>
+                                ) : (
+                                    <>
+                                <div className="mb-2">
+                                    <label htmlFor="age" className="block text-sm font-medium mb-1">Age</label>  
+                                    <input name="age" className="p-2 border rounded w-full mb-2" value={form.age} onChange={onChange} />
+                                </div>
+                                <div className="mb-2">
+                                    <label htmlFor="species" className="block text-sm font-medium mb-1">Species</label>
+                                    <select name="species" className="p-2 border rounded w-full mb-2" value={form.species} onChange={onChange}>
+                                        <option>Cat</option><option>Dog</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
+                                    <input name="color" className="p-2 border rounded w-full" value={form.color} onChange={onChange} />
+                                </div>
+                               </>
+                               
+                             )}
+                                
                         </div>
 
                         {/* column 3 */}
                         <div>
-                            <p><b>Owner</b>: {patients.fname}</p>
-                            <p><b>Phone</b>: {patients.phone}</p>
+                            {!editMode ? (
+                                <>
+                                    <p><b>Owner</b>: {patients.fname}</p>
+                                    <p><b>Phone</b>: {patients.phone}</p>
+                                   
+                                </>
+                                ) : (
+                                <>
+                                <div className="mb-2">
+                                     <label htmlFor="fname" className="block text-sm font-medium mb-1">Owner First Name</label>
+                                    <input name="fname" className="p-2 border rounded w-full mb-2" value={form.fname} onChange={onChange} />
+                                </div>
+                                <div>
+                                    <label htmlFor="phone" className="block text-sm font-medium mb-1">Phone</label>
+                                    <input name="phone" className="p-2 border rounded w-full" value={form.phone} onChange={onChange} />
+                                </div>
+                                </>
+                                )}
+                            
 
-                            {/* this button should take you to the owners profile page */}
-                            <button
-                                // onClick={() => handleDelete(patient._id)}
-                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded"
-                            >
-                                View
-                            </button>
+                            
                         </div>
                     </div>
 
@@ -85,10 +174,9 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
 
                     {/* row for buttons */}
                     <div className="mt-2 p-6">
-                        <Link to=""
-                            className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
-                            Edit
-                        </Link>
+                        {!editMode ? (
+                            <>
+                         <button onClick={startEdit} className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">Edit</button>
                         <button
                             // onClick={() => handleDelete(patients._id)}
                             onClick={() => setShowConfirm(true)}
@@ -96,9 +184,30 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                         >
                             Delete
                         </button>
-                    </div>
+                    </>
+                    ) : (
+                     <>
+                        
+                        <button
+                            onClick={save}
+                            className="pill-button bg-blue-600 text-white px-4 py-2 rounded"
+                         >
+                            Save
+                         </button>
+                         <button
+                          type="button"
+                          onClick={() => setEditMode(false)}
+                          className="pill-button bg-gray-400 text-white px-4 py-2 rounded"
+                         >
+                          Cancel
+                         </button>
+                        </>
+                    )}
                 </div>
-            </div>
+             </div>
+         </div>
+            
+
 
             {/* show confirm */}
             {showConfirm && (

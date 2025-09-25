@@ -6,10 +6,10 @@ import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 import PatientDetails from "../components/PatientDetails"; // change to deatiled patient view
 
-const PatientProfile = () => {
+    const PatientProfile = () => {
     const { id } = useParams();
     const { user } = useAuth();
-    const [patients, setPatients] = useState([]);
+    const [patients, setPatients] = useState({});
 
     useEffect(() => {
         const fetchPatients = async () => {
@@ -23,16 +23,19 @@ const PatientProfile = () => {
             }
         };
         if (user) fetchPatients();
-    }, [user]);
+    }, [user, id]);
 
     return (
-        <>
-            <Navbar />
-            <PatientDetails
-                patients={patients}
-            />
-        </>
-    );
+  <>
+    <Navbar />
+    {patients._id && (
+      <PatientDetails
+        patients={patients}
+        setPatients={setPatients}
+      />
+    )}
+  </>
+);
 };
 
 export default PatientProfile;
