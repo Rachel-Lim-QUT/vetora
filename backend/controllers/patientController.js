@@ -56,7 +56,7 @@ const createPatient = async (req, res) => {
 // Get Patient
 const getPatient = async (req, res) => {
     try {
-        const patients = await Patient.findById(req.params.id); // changed req.user,id to whats showing
+        const patients = await Patient.findById(req.params.id); // changed req.user.id to whats showing
         res.json(patients);
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -78,27 +78,37 @@ const updatePatient = async (req, res) => {
     const { fname, lname, dob, gender, phone, email } = req.body;
     try {
         const allowed = [
-      'photo','name','age','gender','species','breed','color',
-      'history','fname','lname','phone','email' ];
-      const updates = {};
-      allowed.forEach(k => { if (k in req.body) updates[k] = req.body[k]; });
+            'photo',
+            'name',
+            'age',
+            'gender',
+            'species',
+            'breed',
+            'color',
+            'history',
+            'fname',
+            'lname',
+            'phone',
+            'email'
+        ];
+        const updates = {};
+        allowed.forEach(k => { if (k in req.body) updates[k] = req.body[k]; });
 
-      const query = req.user?.id
-      ? { _id: req.params.id, userID: req.user.id }
-      : { _id: req.params.id };
+        const query = req.user?.id
+        ? { _id: req.params.id, userID: req.user.id }
+        : { _id: req.params.id };
 
-      const updated = await Patient.findOneAndUpdate(
-      query,
-      { $set: updates },
-      { new: true, runValidators: true } //Show updated version
-    );
+        const updated = await Patient.findOneAndUpdate(
+        query,
+        { $set: updates },
+        { new: true, runValidators: true } // Show updated version
+        );
 
-        
         if (!updated) return res.status(404).json({ message: 'Patient not found' });
-    res.json(updated); // for front
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+        res.json(updated); // for front
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 // Delete Patient
