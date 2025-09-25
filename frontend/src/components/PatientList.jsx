@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from "../context/AuthContext";
-import axiosInstance from "../axiosConfig";
 
-const PatientList = ({ patients, setPatients }) => {
-    const { user } = useAuth();
+const PatientList = ({ patients }) => {
 
     return (
         <div>
@@ -26,8 +23,10 @@ const PatientList = ({ patients, setPatients }) => {
                         <p><b>Phone</b>: {patient.phone}</p>
 
                         <div className="mt-2">
-                            <Link to={`/patientprofile/${patient._id}`}
-                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
+                            <Link
+                                to={`/patientprofile/${patient._id}`}
+                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded"
+                            >
                                 View
                             </Link>
                         </div>
