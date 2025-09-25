@@ -217,16 +217,30 @@ const PatientDetails = ({ patients, setPatients }) => {
                     </div>
 
                     {/* row for history */}
-                    <div className="mt-2 p-6">
-                        <label for="history">History:</label>
-                        <textarea
-                            id="history"
-                            name="history"
-                            type="text"
-                            className="h-80 mb-4 p-2 w-full border rounded"
-                            // value={formData.history}
-                        />
-                    </div>
+                    {!editMode ? (
+                        <div className="mt-2 p-6">
+                            <label for="history">History:</label>
+                            <textarea
+                                id="history"
+                                name="history"
+                                type="text"
+                                className="h-80 mb-4 p-2 w-full border rounded"
+                                value={patients.history}
+                            />
+                        </div>
+                    ) : (
+                        <div className="mt-2 p-6">
+                            <label for="history">History:</label>
+                            <textarea
+                                id="history"
+                                name="history"
+                                type="text"
+                                className="h-80 mb-4 p-2 w-full border rounded"
+                                value={form.history}
+                                onChange={onChange}
+                            />
+                        </div>
+                    )}
 
                     {/* row for buttons */}
                     <div className="mt-2 p-6">
