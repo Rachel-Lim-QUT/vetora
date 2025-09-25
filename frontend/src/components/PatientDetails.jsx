@@ -1,12 +1,57 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
+const PatientDetails = ({ patients, setPatients }) => {
     const { user } = useAuth();
     const [showConfirm, setShowConfirm] = useState(false);
+    const [editMode, setEditMode] = useState(false);
     const navigate = useNavigate();
+
+    const [form, setForm] = useState({
+        photo: "",
+        name: "",
+        age: "",
+        gender: "",
+        species: "",
+        breed: "",
+        color: "",
+        history: "",
+        fname: "",
+        lname: "",
+        phone: "",
+        email: ""
+    });
+
+    const startEdit = () => {
+        setForm({
+            photo: patients.photo || "",
+            name: patients.name || "",
+            age: patients.age || "",
+            gender: patients.gender || "",
+            species: patients.species || "",
+            breed: patients.breed || "",
+            color: patients.color || "",
+            history: patients.history || "",
+            fname: patients.fname || "",
+            lname: patients.lname || "",
+            phone: patients.phone || "",
+            email: patients.email || ""
+        });
+        setEditMode(true);
+    };
+
+    const onChange = (e) => setForm(s => ({ ...s, [e.target.name]: e.target.value }));
+
+    const save = async (e) => {
+        e.preventDefault();
+        const { data } = await axiosInstance.put(`/api/patients/${patients._id}`, form, {
+            headers: { Authorization: `Bearer ${user.token}` },
+        });
+        setPatients(data);
+        setEditMode(false);
+    };
 
     const handleDelete = async (patientID) => {
         try {
@@ -15,7 +60,6 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
             });
             alert('Success! Patient deleted.')
             navigate('/patients');
-            // setPatients(patients.filter((patient) => patient._id !== patientID));
         } catch (error) {
             alert('Error: Failed to delete patient.')
         } finally {
@@ -31,7 +75,7 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                 <img
                     src={patients.photo}
                     alt="patient pfp"
-                    className="w-80 h-80 mb-6"
+                    className="w-96 h-96 mb-6"
                 />
                 <h1 className="">{patients.name}</h1>
             </div>
@@ -44,58 +88,225 @@ const PatientDetails = ({ patients, setPatients, setEditingPatient }) => {
                     <div className="grid grid-cols-3 gap-6 p-6">
                         {/* column 1 */}
                         <div>
-                            <p><b>Name</b>: {patients.name} {patients.lname}</p>
-                            <p><b>Gender</b>: {patients.gender}</p>
-                            <p><b>Breed</b>: {patients.breed}</p>
+                            {!editMode ? (
+                                <>
+                                <p><b>Name</b>: {patients.name} {patients.lname}</p>
+                                <p><b>Gender</b>: {patients.gender}</p>
+                                <p><b>Breed</b>: {patients.breed}</p>
+                                </>
+                            ) : (
+                                <>
+                                <div className="mb-2">
+                                    <label htmlFor="name" className="required block text-sm font-medium mb-1">Name</label>
+                                    <input
+                                        id="name"
+                                        name="name"
+                                        type="text"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.name}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label htmlFor="gender" className="required block text-sm font-medium mb-1">Gender</label>
+                                    <select
+                                        id="gender"
+                                        name="gender"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.gender}
+                                        onChange={onChange}
+                                        required
+                                    >
+                                        <option>Female</option>
+                                        <option>Male</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
+                                    <input
+                                        id="breed"
+                                        name="breed"
+                                        text="text"
+                                        className="p-2 border rounded w-full"
+                                        value={form.breed}
+                                        onChange={onChange}
+                                    />
+                                </div>
+                                </>
+                            )}
                         </div>
 
                         {/* column 2 */}
                         <div>
-                            <p><b>Age</b>: {patients.age}</p>
-                            <p><b>Species</b>: {patients.species}</p>
-                            <p><b>Color</b>: {patients.color}</p>
+                            {!editMode ? (
+                                <>
+                                <p><b>Age</b>: {patients.age}</p>
+                                <p><b>Species</b>: {patients.species}</p>
+                                <p><b>Color</b>: {patients.color}</p>
+                                </>
+                            ) : (
+                                <>
+                                <div className="mb-2">
+                                    <label htmlFor="age" className="required block text-sm font-medium mb-1">Age</label>  
+                                    <input
+                                        id="age"
+                                        name="age"
+                                        type="text"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.age}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label htmlFor="species" className="required block text-sm font-medium mb-1">Species</label>
+                                    <select
+                                        id="species"
+                                        name="species"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.species}
+                                        onChange={onChange}
+                                        required
+                                    >
+                                        <option>Cat</option>
+                                        <option>Dog</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
+                                    <input
+                                        id="color"
+                                        name="color"
+                                        type="text"
+                                        className="p-2 border rounded w-full"
+                                        value={form.color}
+                                        onChange={onChange}
+                                    />
+                                </div>
+                                </>
+                            )} 
                         </div>
 
                         {/* column 3 */}
                         <div>
-                            <p><b>Owner</b>: {patients.fname}</p>
-                            <p><b>Phone</b>: {patients.phone}</p>
-
-                            {/* this button should take you to the owners profile page */}
-                            <button
-                                // onClick={() => handleDelete(patient._id)}
-                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded"
-                            >
-                                View
-                            </button>
+                            {!editMode ? (
+                                <>
+                                <p><b>Owner</b>: {patients.fname} {patients.lname}</p>
+                                <p><b>Phone</b>: {patients.phone}</p>
+                                <p><b>Email</b>: {patients.email}</p>
+                                </>
+                            ) : (
+                                <>
+                                <div className="mb-2">
+                                    <label htmlFor="fname" className="required block text-sm font-medium mb-1">Owner's First Name</label>
+                                    <input
+                                        id="fname"
+                                        name="fname"
+                                        type="text"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.fname}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label htmlFor="lname" className="required block text-sm font-medium mb-1">Owner's Last Name</label>  
+                                    <input
+                                        id="lname"
+                                        name="lname"
+                                        type="text"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.lname}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label htmlFor="phone" className="required block text-sm font-medium mb-1">Phone</label>
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        maxLength={10}
+                                        pattern="[0-9]{10}"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.phone}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label for="email" className="block text-sm font-medium mb-1">Email</label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.email}
+                                        onChange={onChange}
+                                    />
+                                </div>
+                                </>
+                            )}
                         </div>
                     </div>
 
                     {/* row for history */}
-                    <div className="mt-2 p-6">
-                        <label for="history">History:</label>
-                        <textarea
-                            id="history"
-                            name="history"
-                            type="text"
-                            className="h-80 mb-4 p-2 w-full border rounded"
-                            // value={formData.history}
-                        />
-                    </div>
+                    {!editMode ? (
+                        <div className="mt-2 p-6">
+                            <label for="history">History:</label>
+                            <textarea
+                                id="history"
+                                name="history"
+                                type="text"
+                                className="h-80 mb-4 p-2 w-full border rounded"
+                                value={patients.history}
+                            />
+                        </div>
+                    ) : (
+                        <div className="mt-2 p-6">
+                            <label for="history">History:</label>
+                            <textarea
+                                id="history"
+                                name="history"
+                                type="text"
+                                className="h-80 mb-4 p-2 w-full border rounded"
+                                value={form.history}
+                                onChange={onChange}
+                            />
+                        </div>
+                    )}
 
                     {/* row for buttons */}
                     <div className="mt-2 p-6">
-                        <Link to=""
-                            className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">
-                            Edit
-                        </Link>
-                        <button
-                            // onClick={() => handleDelete(patients._id)}
-                            onClick={() => setShowConfirm(true)}
-                            className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
-                        >
-                            Delete
-                        </button>
+                        {!editMode ? (
+                            <>
+                            <button onClick={startEdit} className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">Edit</button>
+                            <button
+                                onClick={() => setShowConfirm(true)}
+                                className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
+                            >
+                                Delete
+                            </button>
+                            </>
+                        ) : (
+                            <>
+                            <button
+                                onClick={save}
+                                className="pill-button bg-blue-600 text-white px-4 py-2 rounded"
+                            >
+                                Save
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setEditMode(false)}
+                                className="pill-button bg-gray-400 text-white ml-2 px-4 py-2 rounded"
+                            >
+                                Cancel
+                            </button>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

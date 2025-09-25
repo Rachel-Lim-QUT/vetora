@@ -73,6 +73,7 @@ const PatientForm = ({ patients, setPatients }) => {
                 {pfps.map(pfp => (
                     <li key={pfp.name}>
                         <button
+                            type="button"
                             onClick={() => selectIcon(pfp.src)}
                             className="focus:outline-none"
                         >
