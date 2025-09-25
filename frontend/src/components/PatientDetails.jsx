@@ -94,7 +94,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <p><b>Gender</b>: {patients.gender}</p>
                                 <p><b>Breed</b>: {patients.breed}</p>
                                 </>
-                                ) : (
+                            ) : (
                                 <>
                                 <div className="mb-2">
                                     <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
@@ -138,7 +138,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <p><b>Species</b>: {patients.species}</p>
                                 <p><b>Color</b>: {patients.color}</p>
                                 </>
-                                ) : (
+                            ) : (
                                 <>
                                 <div className="mb-2">
                                     <label htmlFor="age" className="block text-sm font-medium mb-1">Age</label>  
@@ -181,7 +181,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <p><b>Owner</b>: {patients.fname} {patients.lname}</p>
                                 <p><b>Phone</b>: {patients.phone}</p> 
                                 </>
-                                ) : (
+                            ) : (
                                 <>
                                 <div className="mb-2">
                                     <label htmlFor="fname" className="block text-sm font-medium mb-1">Owner First Name</label>
