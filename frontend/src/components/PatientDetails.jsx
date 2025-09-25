@@ -138,7 +138,7 @@ import axiosInstance from "../axiosConfig";
                         <div>
                             {!editMode ? (
                                 <>
-                                    <p><b>Owner</b>: {patients.fname}</p>
+                                    <p><b>Owner</b>: {patients.fname} {patients.lname}</p>
                                     <p><b>Phone</b>: {patients.phone}</p>
                                    
                                 </>
@@ -146,8 +146,12 @@ import axiosInstance from "../axiosConfig";
                                 <>
                                 <div className="mb-2">
                                      <label htmlFor="fname" className="block text-sm font-medium mb-1">Owner First Name</label>
-                                    <input name="fname" className="p-2 border rounded w-full mb-2" value={form.fname} onChange={onChange} />
+                                     <input name="fname" className="p-2 border rounded w-full mb-2" value={form.fname} onChange={onChange} />
                                 </div>
+                                 <div className="mb-2">
+                                     <label htmlFor="lname" className="block text-sm font-medium mb-1">Owner Last Name</label>  
+                                     <input id="lname" name="lname" className="p-2 border rounded w-full" value={form.lname} onChange={onChange} />
+                               </div>
                                 <div>
                                     <label htmlFor="phone" className="block text-sm font-medium mb-1">Phone</label>
                                     <input name="phone" className="p-2 border rounded w-full" value={form.phone} onChange={onChange} />
