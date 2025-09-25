@@ -184,7 +184,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                             ) : (
                                 <>
                                 <div className="mb-2">
-                                    <label htmlFor="fname" className="block text-sm font-medium mb-1">Owner First Name</label>
+                                    <label htmlFor="fname" className="block text-sm font-medium mb-1">Owner's First Name</label>
                                     <input
                                         name="fname"
                                         className="p-2 border rounded w-full mb-2"
@@ -193,7 +193,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                     />
                                 </div>
                                 <div className="mb-2">
-                                    <label htmlFor="lname" className="block text-sm font-medium mb-1">Owner Last Name</label>  
+                                    <label htmlFor="lname" className="block text-sm font-medium mb-1">Owner's Last Name</label>  
                                     <input
                                         id="lname"
                                         name="lname"
@@ -265,7 +265,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                             <button
                                 type="button"
                                 onClick={() => setEditMode(false)}
-                                className="pill-button bg-gray-400 text-white px-4 py-2 rounded"
+                                className="pill-button bg-gray-400 text-white ml-2 px-4 py-2 rounded"
                             >
                                 Cancel
                             </button>
