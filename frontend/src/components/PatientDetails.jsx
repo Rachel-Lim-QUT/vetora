@@ -97,21 +97,26 @@ const PatientDetails = ({ patients, setPatients }) => {
                             ) : (
                                 <>
                                 <div className="mb-2">
-                                    <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+                                    <label htmlFor="name" className="required block text-sm font-medium mb-1">Name</label>
                                     <input
+                                        id="name"
                                         name="name"
+                                        type="text"
                                         className="p-2 border rounded w-full mb-2"
                                         value={form.name}
                                         onChange={onChange}
+                                        required
                                     />
                                 </div>
                                 <div className="mb-2">
-                                    <label htmlFor="gender" className="block text-sm font-medium mb-1">Gender</label>
+                                    <label htmlFor="gender" className="required block text-sm font-medium mb-1">Gender</label>
                                     <select
+                                        id="gender"
                                         name="gender"
                                         className="p-2 border rounded w-full mb-2"
                                         value={form.gender}
                                         onChange={onChange}
+                                        required
                                     >
                                         <option>Female</option>
                                         <option>Male</option>
@@ -120,7 +125,9 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <div>
                                     <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
                                     <input
+                                        id="breed"
                                         name="breed"
+                                        text="text"
                                         className="p-2 border rounded w-full"
                                         value={form.breed}
                                         onChange={onChange}
@@ -141,21 +148,26 @@ const PatientDetails = ({ patients, setPatients }) => {
                             ) : (
                                 <>
                                 <div className="mb-2">
-                                    <label htmlFor="age" className="block text-sm font-medium mb-1">Age</label>  
+                                    <label htmlFor="age" className="required block text-sm font-medium mb-1">Age</label>  
                                     <input
+                                        id="age"
                                         name="age"
+                                        type="text"
                                         className="p-2 border rounded w-full mb-2"
                                         value={form.age}
                                         onChange={onChange}
+                                        required
                                     />
                                 </div>
                                 <div className="mb-2">
-                                    <label htmlFor="species" className="block text-sm font-medium mb-1">Species</label>
+                                    <label htmlFor="species" className="required block text-sm font-medium mb-1">Species</label>
                                     <select
+                                        id="species"
                                         name="species"
                                         className="p-2 border rounded w-full mb-2"
                                         value={form.species}
                                         onChange={onChange}
+                                        required
                                     >
                                         <option>Cat</option>
                                         <option>Dog</option>
@@ -164,7 +176,9 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <div>
                                     <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
                                     <input
+                                        id="color"
                                         name="color"
+                                        type="text"
                                         className="p-2 border rounded w-full"
                                         value={form.color}
                                         onChange={onChange}
@@ -179,35 +193,57 @@ const PatientDetails = ({ patients, setPatients }) => {
                             {!editMode ? (
                                 <>
                                 <p><b>Owner</b>: {patients.fname} {patients.lname}</p>
-                                <p><b>Phone</b>: {patients.phone}</p> 
+                                <p><b>Phone</b>: {patients.phone}</p>
+                                <p><b>Email</b>: {patients.email}</p>
                                 </>
                             ) : (
                                 <>
                                 <div className="mb-2">
-                                    <label htmlFor="fname" className="block text-sm font-medium mb-1">Owner's First Name</label>
+                                    <label htmlFor="fname" className="required block text-sm font-medium mb-1">Owner's First Name</label>
                                     <input
+                                        id="fname"
                                         name="fname"
+                                        type="text"
                                         className="p-2 border rounded w-full mb-2"
                                         value={form.fname}
                                         onChange={onChange}
+                                        required
                                     />
                                 </div>
                                 <div className="mb-2">
-                                    <label htmlFor="lname" className="block text-sm font-medium mb-1">Owner's Last Name</label>  
+                                    <label htmlFor="lname" className="required block text-sm font-medium mb-1">Owner's Last Name</label>  
                                     <input
                                         id="lname"
                                         name="lname"
-                                        className="p-2 border rounded w-full"
+                                        type="text"
+                                        className="p-2 border rounded w-full mb-2"
                                         value={form.lname}
                                         onChange={onChange}
+                                        required
                                     />
                                 </div>
-                                <div>
-                                    <label htmlFor="phone" className="block text-sm font-medium mb-1">Phone</label>
+                                <div className="mb-2">
+                                    <label htmlFor="phone" className="required block text-sm font-medium mb-1">Phone</label>
                                     <input
+                                        id="phone"
                                         name="phone"
-                                        className="p-2 border rounded w-full"
+                                        type="tel"
+                                        maxLength={10}
+                                        pattern="[0-9]{10}"
+                                        className="p-2 border rounded w-full mb-2"
                                         value={form.phone}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label for="email" className="block text-sm font-medium mb-1">Email</label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        className="p-2 border rounded w-full mb-2"
+                                        value={form.email}
                                         onChange={onChange}
                                     />
                                 </div>
