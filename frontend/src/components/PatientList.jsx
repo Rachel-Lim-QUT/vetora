@@ -15,7 +15,7 @@ const PatientList = ({ patients, setPatients }) => {
                         <img
                             src={patient.photo}
                             alt="patient pfp"
-                            className="w-30 h-30 pr-4"
+                            className="w-32 h-32"
                         />
                     </div>
 
