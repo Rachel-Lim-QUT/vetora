@@ -2,26 +2,22 @@ const Appointment = require('../models/Appointment');
 
 // Create Appointment
 const createAppointment = async (req, res) => {
-    const { patient, status, date, time, type, duration } = req.body;
+    const { patient, type, date, completed } = req.body;
 
     try {
         const appointment = await Appointment.create({
             userID: req.user.id,
             patient,
-            status,
-            date,
-            time,
             type,
-            duration
+            date,
+            completed,
         });
 
         res.status(201).json({
             patient: appointment.patient,
-            status: appointment.status,
-            date: appointment.date,
-            time: appointment.time,
             type: appointment.type,
-            duration: appointment.duration,
+            date: appointment.date,
+            completed: appointment.completed,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
