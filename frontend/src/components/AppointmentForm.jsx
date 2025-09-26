@@ -51,6 +51,10 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
             alert('Success! Appointment saved.')
         } catch (error) {
             alert('Error: Unable to save appointment. Please try again.');
+        } finally {
+            // Refreshes the appointment list after creating or updating an appointment.
+            const response = await axiosInstance.get('/api/appointments', { headers: { Authorization: `Bearer ${user.token}` }, });
+            setAppointments(response.data);
         }
     };
 
