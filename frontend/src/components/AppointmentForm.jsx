@@ -48,6 +48,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 type: '',
                 date: '',
             });
+            alert('Success! Appointment saved.')
         } catch (error) {
             alert('Error: Unable to save appointment. Please try again.');
         }
