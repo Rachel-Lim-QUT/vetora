@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { createAppointment } from '../controllers/appointmentController';
-import { protect } from '../middleware/authMiddleware';
+const express = require('express');
+const { createAppointment } = require('../controllers/appointmentController');
+const { protect } = require('../middleware/authMiddleware');
 
-const router = Router();
+const router = express.Router();
 
 router.post('/', protect, createAppointment);
 
