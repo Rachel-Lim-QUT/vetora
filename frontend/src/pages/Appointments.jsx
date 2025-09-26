@@ -28,14 +28,21 @@ const Appointments = () => {
     return (
         <>
             <Navbar />
-            <AppointmentForm
-                patients={patients}
-                setPatients={setPatients}
-                appointments={appointments}
-                setAppointments={setAppointments}
-                editingAppointment={editingAppointment}
-                setEditingAppointment={setEditingAppointment}
-            />
+            <div className="flex gap-4">
+                <div className="flex-1 m-4">
+                    <AppointmentForm
+                        patients={patients}
+                        setPatients={setPatients}
+                        appointments={appointments}
+                        setAppointments={setAppointments}
+                        editingAppointment={editingAppointment}
+                        setEditingAppointment={setEditingAppointment}
+                    />
+                </div>
+                <div className="flex-1 m-4">
+                    {/* Insert AppointmentList component here. */}
+                </div>
+            </div>
         </>
     );
 };
