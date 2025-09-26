@@ -7,6 +7,7 @@ import axiosInstance from '../axiosConfig';
 
 const Appointments = () => {
     const { user } = useAuth();
+    const [patients, setPatients] = useState([]);
     const [appointments, setAppointments] = useState([]);
     const [editingAppointment, setEditingAppointment] = useState(null);
 
@@ -28,6 +29,8 @@ const Appointments = () => {
         <>
             <Navbar />
             <AppointmentForm
+                patients={patients}
+                setPatients={setPatients}
                 appointments={appointments}
                 setAppointments={setAppointments}
                 editingAppointment={editingAppointment}
