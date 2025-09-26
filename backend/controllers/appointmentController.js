@@ -24,4 +24,14 @@ const createAppointment = async (req, res) => {
     }
 };
 
-module.exports = { createAppointment };
+// Get Appointment
+const getAppointment = async (req, res) => {
+    try {
+        const appointments = await Appointment.findById(req.params.id);
+        res.json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+};
+
+module.exports = { createAppointment, getAppointment };
