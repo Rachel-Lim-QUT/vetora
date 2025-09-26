@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import AppointmentForm from "../components/AppointmentForm";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -7,6 +8,7 @@ import axiosInstance from '../axiosConfig';
 const Appointments = () => {
     const { user } = useAuth();
     const [appointments, setAppointments] = useState([]);
+    const [editingAppointment, setEditingAppointment] = useState(null);
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -25,6 +27,12 @@ const Appointments = () => {
     return (
         <>
             <Navbar />
+            <AppointmentForm
+                appointments={appointments}
+                setAppointments={setAppointments}
+                editingAppointment={editingAppointment}
+                setEditingAppointment={setEditingAppointment}
+            />
         </>
     );
 };
