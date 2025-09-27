@@ -59,7 +59,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
     };
 
     return (
-        <form onSubmit={handleSubmit} className="rounded-window bg-white mb-6 p-6 shadow-md">
+        <form onSubmit={handleSubmit} className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
             <h1 className="text-2xl font-bold mb-4">{editingAppointment ? 'Update Appointment' : 'Create New Appointment'}</h1>
 
             {/* Patient */}
