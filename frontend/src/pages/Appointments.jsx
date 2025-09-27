@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import AppointmentForm from "../components/AppointmentForm";
+import AppointmentList from "../components/AppointmentList";
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -28,8 +29,8 @@ const Appointments = () => {
     return (
         <>
             <Navbar />
-            <div className="flex gap-4">
-                <div className="flex-1 m-4">
+            <div className="flex">
+                <div className="flex-1 ml-4 mt-4 mr-2">
                     <AppointmentForm
                         patients={patients}
                         setPatients={setPatients}
@@ -39,8 +40,13 @@ const Appointments = () => {
                         setEditingAppointment={setEditingAppointment}
                     />
                 </div>
-                <div className="flex-1 m-4">
-                    {/* Insert AppointmentList component here. */}
+                <div className="flex-1 ml-2 mt-4 mr-4">
+                    <AppointmentList
+                        appointments={appointments}
+                        setAppointments={setAppointments}
+                        editingAppointment={editingAppointment}
+                        setEditingAppointment={setEditingAppointment}
+                    />
                 </div>
             </div>
         </>
