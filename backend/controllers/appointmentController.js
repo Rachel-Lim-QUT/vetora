@@ -27,7 +27,7 @@ const createAppointment = async (req, res) => {
 // Get Appointment
 const getAppointment = async (req, res) => {
     try {
-        const appointments = await Appointment.findById(req.params.id);
+        const appointments = await Appointment.find({ userID: req.user.id });
         res.json(appointments);
     } catch (error) {
         res.status(500).json({ message: error.message })
