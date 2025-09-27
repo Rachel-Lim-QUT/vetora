@@ -5,6 +5,6 @@ const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.post('/', protect, createAppointment);
-router.get('/:id', protect, getAppointment);
+router.get('/', protect, getAppointment);
 
 module.exports = router;
