@@ -26,7 +26,7 @@ const Login = () => {
         <div>
             <div className="dim-bg flex fixed inset-0 items-center justify-center">
                 <form onSubmit={handleSubmit} className="rounded-window p-10 w-[500px] shadow-md">
-                    <h1 className="text-2xl mb-4 text-center">Login to Vetora</h1>
+                    <h1 className="mb-4 text-2xl text-center">Login to Vetora</h1>
 
                     <label for="username">Username</label>
                     <input
@@ -53,14 +53,12 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="login-button mb-4 mt-4 p-2 w-full shadow"
+                        className="pill-button mb-4 mt-4 p-2 w-full shadow"
                     >
                         Login
                     </button>
 
-                    <p
-                        className="text-center"
-                    >
+                    <p className="text-center">
                         Don't have an account?
                         <Link to="/register" className="link"> Register</Link>
                     </p>
@@ -73,7 +71,7 @@ const Login = () => {
                 <Link
                     to="/"
                     type="submit"
-                    className="pill-button bg-gray-200 hover:bg-gray-300 text-gray-800 text-center px-6 py-2 shadow"
+                    className="pill-button text-center px-6 py-2 shadow"
                 >
                     Back
                 </Link>

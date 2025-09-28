@@ -18,14 +18,10 @@
     color: #334783;
 }
 
-.login-button {
+.pill-button {
     border-radius: 24px;
     background-color: #F3BFB9;
     color: #333333;
-}
-
-.pill-button {
-    border-radius: 24px;
 }
 
 .required:after {
@@ -41,4 +37,5 @@
 
 .rounded-input-field {
     border-radius: 6px;
+    color: #333333;
 }
