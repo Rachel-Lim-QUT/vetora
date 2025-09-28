@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
+
+
+
 const AppointmentForm = ({ appointments, setAppointments, editingAppointment, setEditingAppointment }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({
@@ -17,9 +20,11 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
             setFormData({
                 patient: editingAppointment.patient,
                 type: editingAppointment.type,
-                date: editingAppointment.date,
-            });
-        } else {
+                date: editingAppointment.date
+                 ? new Date(editingAppointment.date).toISOString().slice(0, 10)
+                 : '',
+               });
+             } else {
             setFormData({
                 patient: '',
                 type: '',
@@ -28,6 +33,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         }
     }, [editingAppointment]);
 
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -104,9 +110,25 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 required
             />
 
-            <button type="submit" className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full">
+            <button
+                type="submit"
+                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full"
+            >
                 {editingAppointment ? 'Update' : 'Create'}
             </button>
+
+                {editingAppointment && (
+            <button
+                type="button"
+                onClick={() => {
+                    setEditingAppointment(null);
+                    setFormData({ patient: '', type: '', date: '' });
+            }}
+                className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
+            >
+                    Cancel
+            </button>
+        )}
         </form>
     );
 };
