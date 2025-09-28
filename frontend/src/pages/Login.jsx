@@ -24,9 +24,9 @@ const Login = () => {
 
     return (
         <div>
-            <div className="max-w-md mx-auto mt-20">
-                <form onSubmit={handleSubmit} className="rounded-window bg-white p-6 shadow-md">
-                    <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
+            <div className="dim-bg flex fixed inset-0 items-center justify-center">
+                <form onSubmit={handleSubmit} className="rounded-window p-10 w-[500px] shadow-md">
+                    <h1 className="mb-4 text-2xl text-center">Login to Vetora</h1>
 
                     <label for="username">Username</label>
                     <input
@@ -35,7 +35,7 @@ const Login = () => {
                         type="text"
                         value={formData.username}
                         onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                        className="w-full mb-4 p-2 border rounded"
+                        className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
                         required
                     />
 
@@ -46,17 +46,20 @@ const Login = () => {
                         type="password"
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        className="w-full mb-4 p-2 border rounded"
+                        className="rounded-input-field mb-1 mt-1 p-2 w-full shadow"
                         required
                     />
+                    <button type="button" className="link">Forgot password?</button>
 
                     <button
                         type="submit"
-                        className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full"
+                        className="pill-button mb-4 mt-4 p-2 w-full shadow"
                     >
                         Login
                     </button>
-                    <p className="text-center">Don't have an account?
+
+                    <p className="text-center">
+                        Don't have an account?
                         <Link to="/register" className="link"> Register</Link>
                     </p>
                 </form>
@@ -68,17 +71,17 @@ const Login = () => {
                 <Link
                     to="/"
                     type="submit"
-                    className="pill-button bg-gray-200 hover:bg-gray-300 text-gray-800 text-center px-6 py-2"
+                    className="pill-button text-center px-6 py-2 shadow"
                 >
                     Back
                 </Link>
 
                 {/* back image */}
-                <img
+                {/* <img
                     src={backImage}
                     alt="Back"
                     className="back-image"
-                />
+                /> */}
             </div>
         </div>
     );
