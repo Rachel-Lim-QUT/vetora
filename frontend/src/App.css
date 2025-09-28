@@ -1,6 +1,6 @@
 .back-container {
     position: absolute;
-    bottom: 0;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -9,8 +9,19 @@
     width: 50%;
 }
 
+.dim-bg {
+    background-color: #999999;
+    color: #333333;
+}
+
 .link {
-    color: blue;
+    color: #334783;
+}
+
+.login-button {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
 }
 
 .pill-button {
@@ -24,4 +35,10 @@
 
 .rounded-window {
     border-radius: 24px;
+    background-color: #F6EBCA;
+    color: #333333;
+}
+
+.rounded-input-field {
+    border-radius: 6px;
 }
