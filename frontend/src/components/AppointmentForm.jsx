@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-
-
-
 const AppointmentForm = ({ appointments, setAppointments, editingAppointment, setEditingAppointment }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({
@@ -21,10 +18,10 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 patient: editingAppointment.patient,
                 type: editingAppointment.type,
                 date: editingAppointment.date
-                 ? new Date(editingAppointment.date).toISOString().slice(0, 10)
-                 : '',
-               });
-             } else {
+                    ? new Date(editingAppointment.date).toISOString().slice(0, 10)
+                    : '',
+            });
+        } else {
             setFormData({
                 patient: '',
                 type: '',
@@ -33,7 +30,6 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         }
     }, [editingAppointment]);
 
-   
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -117,18 +113,18 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 {editingAppointment ? 'Update' : 'Create'}
             </button>
 
-                {editingAppointment && (
-            <button
-                type="button"
-                onClick={() => {
-                    setEditingAppointment(null);
-                    setFormData({ patient: '', type: '', date: '' });
-            }}
-                className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
-            >
+            {editingAppointment && (
+                <button
+                    type="button"
+                    onClick={() => {
+                        setEditingAppointment(null);
+                        setFormData({ patient: '', type: '', date: '' });
+                    }}
+                    className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
+                >
                     Cancel
-            </button>
-        )}
+                </button>
+            )}
         </form>
     );
 };

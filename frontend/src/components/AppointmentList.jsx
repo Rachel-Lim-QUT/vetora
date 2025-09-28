@@ -11,9 +11,9 @@ const AppointmentList = ({ appointments, setEditingAppointment }) => {
                     <div className="mt-2">
                         <button
                             className="pill-button bg-yellow-500 hover:bg-yellow-600 text-white mr-2 px-4 py-2 shadow"
-                            onClick={() => setEditingAppointment(appointment)}  // 👈 اینجا باشه
+                            onClick={() => setEditingAppointment(appointment)} // 👈 اینجا باشه
                         >
-                                 Edit
+                            Edit
                         </button>
 
                         <button className="pill-button bg-red-500 hover:bg-red-600 text-white px-4 py-2 shadow">
