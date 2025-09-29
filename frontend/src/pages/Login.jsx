@@ -7,6 +7,7 @@ import '../App.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -49,18 +50,23 @@ const Login = () => {
                         className="rounded-input-field mb-1 mt-1 p-2 w-full shadow"
                         required
                     />
-                    <button type="button" className="link">Forgot password?</button>
+                    <button type="button"
+                        className="link hover:underline"
+                        onClick={() => setShowForgotPassword(true)}
+                    >
+                        Forgot password?
+                    </button>
 
                     <button
                         type="submit"
-                        className="pill-button mb-4 mt-4 p-2 w-full shadow"
+                        className="pill-button-l-pink hover:bg-rose-300"
                     >
                         Login
                     </button>
 
                     <p className="text-center">
-                        Don't have an account?
-                        <Link to="/register" className="link"> Register</Link>
+                        Don't have an account?{' '}
+                        <Link to="/register" className="link hover:underline">Register</Link>
                     </p>
                 </form>
             </div>
@@ -71,7 +77,7 @@ const Login = () => {
                 <Link
                     to="/"
                     type="submit"
-                    className="pill-button"
+                    className="pill-button-s-pink hover:bg-rose-300"
                 >
                     Back
                 </Link>
@@ -83,6 +89,30 @@ const Login = () => {
                     className="back-image"
                 />
             </div>
+
+            {/* show forgot password */}
+            {showForgotPassword && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+                    <div className="popup-box">
+                        <h1 className="pb-2">
+                            Contact admin
+                        </h1>
+
+                        <p className="pb-2">
+                            admin@vetora.com.au
+                        </p>
+
+                        <div className="flex justify-center gap-4">
+                            <button
+                                onClick={() => setShowForgotPassword(false)}
+                                className="pill-button-s-pink hover:bg-rose-300"
+                            >
+                                Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
