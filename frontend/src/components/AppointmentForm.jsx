@@ -108,7 +108,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
 
             <button
                 type="submit"
-                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full"
+                className={editingAppointment ? "pill-button-l-green" : "pill-button-l-pink"}
             >
                 {editingAppointment ? 'Update' : 'Create'}
             </button>

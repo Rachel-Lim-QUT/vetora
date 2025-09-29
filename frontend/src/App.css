@@ -73,6 +73,8 @@ p {
     font-family: "Nunito", sans-serif;
     font-size: 16px;
     font-weight: medium;
+    display: inline-flex;
+    justify-content: center;
 }
 
 .pill-button-m-pink {
@@ -111,6 +113,53 @@ p {
 .pill-button-m-pink:hover,
 .pill-button-l-pink:hover {
     background-color: #F99D9E;
+    transition: background-color 0.2s ease;
+}
+
+.pill-button-l-green {
+    border-radius: 24px;
+    background-color: #B8D394;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-s-green:hover,
+.pill-button-l-green:hover {
+    color: #F6EBCA;
+    background-color: #567F63;
+    transition: background-color 0.2s ease;
+}
+
+.pill-button-s-red {
+    border-radius: 24px;
+    background-color: #B13A3C;
+    color: #F6EBCA;
+    text-align: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 5rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.pill-button-s-red:hover,
+.pill-button-l-red:hover {
+    color: #F6EBCA;
+    background-color: #722324;
     transition: background-color 0.2s ease;
 }
 
