@@ -63,14 +63,17 @@ p {
 
 .pill-button-s-pink:hover {
     background-color: #F99D9E;
+    transition: background-color 0.2s ease;
 }
 
 .pill-button-m-pink:hover {
     background-color: #F99D9E;
+    transition: background-color 0.2s ease;
 }
 
 .pill-button-l-pink:hover {
     background-color: #F99D9E;
+    transition: background-color 0.2s ease;
 }
 
 /* text */
@@ -90,12 +93,20 @@ p {
 }
 
 .rounded-input-field {
+    border: 1px solid transparent;
     border-radius: 6px;
     color: #334783;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease;
 }
 
 .rounded-input-field:hover {
-    border: 1px solid #334783;
+    border-color: #334783;
+}
+
+.rounded-input-field:focus {
+    border: 2px solid #334783;
+    outline: none;
 }
 
 /* containers */

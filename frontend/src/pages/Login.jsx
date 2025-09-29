@@ -59,7 +59,7 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="pill-button-l-pink hover:bg-rose-300"
+                        className="pill-button-l-pink"
                     >
                         Login
                     </button>
@@ -77,7 +77,7 @@ const Login = () => {
                 <Link
                     to="/"
                     type="submit"
-                    className="pill-button-s-pink hover:bg-rose-300"
+                    className="pill-button-s-pink"
                 >
                     Back
                 </Link>
