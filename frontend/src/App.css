@@ -61,16 +61,8 @@ p {
     margin-bottom: 1rem;
 }
 
-.pill-button-s-pink:hover {
-    background-color: #F99D9E;
-    transition: background-color 0.2s ease;
-}
-
-.pill-button-m-pink:hover {
-    background-color: #F99D9E;
-    transition: background-color 0.2s ease;
-}
-
+.pill-button-s-pink:hover,
+.pill-button-m-pink:hover,
 .pill-button-l-pink:hover {
     background-color: #F99D9E;
     transition: background-color 0.2s ease;
@@ -79,6 +71,10 @@ p {
 /* text */
 .link {
     color: #334783;
+}
+
+.link:hover {
+    text-decoration: underline;
 }
 
 .required:after {
@@ -93,15 +89,18 @@ p {
 }
 
 .rounded-input-field {
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     border-radius: 6px;
-    color: #334783;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: border-color 0.2s ease;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+
 }
 
 .rounded-input-field:hover {
-    border-color: #334783;
+    border-color: #7181B1;
 }
 
 .rounded-input-field:focus {
@@ -132,6 +131,10 @@ p {
 }
 
 /* images */
+.logo {
+    width: 2.5rem;
+}
+
 .back-image {
-    width: 50%;
+    width: 4rem;
 }

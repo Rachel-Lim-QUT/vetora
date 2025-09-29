@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import backImage from '../images/temp-back.gif';
-import '../App.css';
+import logo from '../images/temp-logo.gif';
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
@@ -27,7 +27,13 @@ const Login = () => {
         <div>
             <div className="dim-bg flex fixed inset-0 items-center justify-center">
                 <form onSubmit={handleSubmit} className="rounded-window p-10 w-[500px] shadow-md">
-                    <h1 className="mb-4 text-2xl text-center">Login to Vetora</h1>
+                    {/* logo */}
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="logo mx-auto"
+                    />
+                    <h1 className="mb-4 text-2xl text-center">Login</h1>
 
                     <label for="username">Username</label>
                     <input
@@ -51,7 +57,7 @@ const Login = () => {
                         required
                     />
                     <button type="button"
-                        className="link hover:underline"
+                        className="link"
                         onClick={() => setShowForgotPassword(true)}
                     >
                         Forgot password?
@@ -66,7 +72,7 @@ const Login = () => {
 
                     <p className="text-center">
                         Don't have an account?{' '}
-                        <Link to="/register" className="link hover:underline">Register</Link>
+                        <Link to="/register" className="link">Register</Link>
                     </p>
                 </form>
             </div>
