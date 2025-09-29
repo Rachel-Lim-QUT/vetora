@@ -1,3 +1,8 @@
+/* heading: nunito */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+/* paragraph: cormorant */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 /* backgrounds */
 .yellow-bg {
     background-color: #F6EBCA;
@@ -13,12 +18,15 @@
 
 /* text */
 h1 {
+    font-family: "Nunito", sans-serif;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 30px;
 }
 
 p {
-    font-size: 16px;
+    font-family: "Cormorant", serif;
+    font-size: 20px;
+    font-weight: medium;
 }
 
 /* buttons */
