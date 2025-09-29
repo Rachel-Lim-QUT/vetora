@@ -4,7 +4,7 @@ import logo from '../images/temp-logo.gif';
 
 const Landing = () => {
     return (
-        <div className="yellow-bg flex flex-col items-center justify-center min-h-screen text-center">
+        <div className="yellow-bg flex flex-col items-center justify-center text-center">
 
             {/* clinic logo */}
             <img

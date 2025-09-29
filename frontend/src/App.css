@@ -4,16 +4,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 /* backgrounds */
+body {
+    background-color: #FFFBEE;
+}
+
 .yellow-bg {
     background-color: #F6EBCA;
+    min-height: 100vh;
 }
 
 .dim-bg {
     background-color: #696969;
-}
-
-.light-bg {
-    background-color: #FFFBEE;
 }
 
 /* text */
@@ -46,6 +47,12 @@ h1 {
 }
 
 p {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.para {
     font-family: "Cormorant", serif;
     font-size: 20px;
     font-weight: medium;
@@ -63,6 +70,9 @@ p {
     padding-bottom: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     width: 5rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
 }
 
 .pill-button-m-pink {
@@ -77,6 +87,9 @@ p {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     width: 12rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
 }
 
 .pill-button-l-pink {
@@ -89,6 +102,9 @@ p {
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
 }
 
 .pill-button-s-pink:hover,
