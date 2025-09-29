@@ -1,3 +1,4 @@
+/* backgrounds */
 .yellow-bg {
     background-color: #F6EBCA;
 }
@@ -10,6 +11,7 @@
     background-color: #FFFBEE;
 }
 
+/* text */
 h1 {
     font-weight: bold;
     font-size: 24px;
@@ -19,28 +21,7 @@ p {
     font-size: 16px;
 }
 
-.back-container {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.back-image {
-    width: 50%;
-}
-
-.link {
-    color: #334783;
-}
-
-/* SMALL pill-button: pill-button-s-pink hover:bg-rose-300 */
-/* LARGE pill-button: pill-button-l-pink hover:bg-rose-300 */
-
+/* buttons */
 .pill-button-s-pink {
     border-radius: 24px;
     background-color: #F3BFB9;
@@ -51,7 +32,21 @@ p {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width: 80px;
+    width: 5rem;
+}
+
+.pill-button-m-pink {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 12rem;
 }
 
 .pill-button-l-pink {
@@ -64,6 +59,23 @@ p {
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.pill-button-s-pink:hover {
+    background-color: #F99D9E;
+}
+
+.pill-button-m-pink:hover {
+    background-color: #F99D9E;
+}
+
+.pill-button-l-pink:hover {
+    background-color: #F99D9E;
+}
+
+/* text */
+.link {
+    color: #334783;
 }
 
 .required:after {
@@ -79,7 +91,23 @@ p {
 
 .rounded-input-field {
     border-radius: 6px;
-    color: #333333;
+    color: #334783;
+}
+
+.rounded-input-field:hover {
+    border: 1px solid #334783;
+}
+
+/* containers */
+.back-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .popup-box {
@@ -90,4 +118,9 @@ p {
     text-align: center;
     max-width: 320px;
     width: 90%;
+}
+
+/* images */
+.back-image {
+    width: 50%;
 }

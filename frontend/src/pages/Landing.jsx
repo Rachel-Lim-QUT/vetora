@@ -14,21 +14,21 @@ const Landing = () => {
             />
 
             {/* clinic name */}
-            <h1 className="text-2xl font-bold mb-8">
+            <h1 className="text-2xl font-bold mb-6">
                 Vetora
             </h1>
 
             {/* buttons */}
-            <div className="flex flex-col gap-4 w-40 mx-auto">
+            <div className="flex flex-col gap-4 items-center">
 
                 {/* login */}
-                <Link to="/Login" className="pill-button-s-pink hover:bg-rose-300"
+                <Link to="/Login" className="pill-button-m-pink"
                 >
                     Login
                 </Link>
 
                 {/* register */}
-                <Link to="/Register" className="pill-button-s-pink hover:bg-rose-300"
+                <Link to="/Register" className="pill-button-m-pink"
                 >
                     Register
                 </Link>
