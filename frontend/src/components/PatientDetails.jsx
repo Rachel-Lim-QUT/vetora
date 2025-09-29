@@ -90,49 +90,49 @@ const PatientDetails = ({ patients, setPatients }) => {
                         <div>
                             {!editMode ? (
                                 <>
-                                <p><b>Name</b>: {patients.name} {patients.lname}</p>
-                                <p><b>Gender</b>: {patients.gender}</p>
-                                <p><b>Breed</b>: {patients.breed}</p>
+                                    <p><b>Name</b>: {patients.name} {patients.lname}</p>
+                                    <p><b>Gender</b>: {patients.gender}</p>
+                                    <p><b>Breed</b>: {patients.breed}</p>
                                 </>
                             ) : (
                                 <>
-                                <div className="mb-2">
-                                    <label htmlFor="name" className="required block text-sm font-medium mb-1">Name</label>
-                                    <input
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.name}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="gender" className="required block text-sm font-medium mb-1">Gender</label>
-                                    <select
-                                        id="gender"
-                                        name="gender"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.gender}
-                                        onChange={onChange}
-                                        required
-                                    >
-                                        <option>Female</option>
-                                        <option>Male</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
-                                    <input
-                                        id="breed"
-                                        name="breed"
-                                        text="text"
-                                        className="p-2 border rounded w-full"
-                                        value={form.breed}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="name" className="required block text-sm font-medium mb-1">Name</label>
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.name}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="gender" className="required block text-sm font-medium mb-1">Gender</label>
+                                        <select
+                                            id="gender"
+                                            name="gender"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.gender}
+                                            onChange={onChange}
+                                            required
+                                        >
+                                            <option>Female</option>
+                                            <option>Male</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
+                                        <input
+                                            id="breed"
+                                            name="breed"
+                                            text="text"
+                                            className="p-2 border rounded w-full"
+                                            value={form.breed}
+                                            onChange={onChange}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
@@ -141,112 +141,112 @@ const PatientDetails = ({ patients, setPatients }) => {
                         <div>
                             {!editMode ? (
                                 <>
-                                <p><b>Age</b>: {patients.age}</p>
-                                <p><b>Species</b>: {patients.species}</p>
-                                <p><b>Color</b>: {patients.color}</p>
+                                    <p><b>Age</b>: {patients.age}</p>
+                                    <p><b>Species</b>: {patients.species}</p>
+                                    <p><b>Color</b>: {patients.color}</p>
                                 </>
                             ) : (
                                 <>
-                                <div className="mb-2">
-                                    <label htmlFor="age" className="required block text-sm font-medium mb-1">Age</label>  
-                                    <input
-                                        id="age"
-                                        name="age"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.age}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="species" className="required block text-sm font-medium mb-1">Species</label>
-                                    <select
-                                        id="species"
-                                        name="species"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.species}
-                                        onChange={onChange}
-                                        required
-                                    >
-                                        <option>Cat</option>
-                                        <option>Dog</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
-                                    <input
-                                        id="color"
-                                        name="color"
-                                        type="text"
-                                        className="p-2 border rounded w-full"
-                                        value={form.color}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="age" className="required block text-sm font-medium mb-1">Age</label>
+                                        <input
+                                            id="age"
+                                            name="age"
+                                            type="text"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.age}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="species" className="required block text-sm font-medium mb-1">Species</label>
+                                        <select
+                                            id="species"
+                                            name="species"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.species}
+                                            onChange={onChange}
+                                            required
+                                        >
+                                            <option>Cat</option>
+                                            <option>Dog</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
+                                        <input
+                                            id="color"
+                                            name="color"
+                                            type="text"
+                                            className="p-2 border rounded w-full"
+                                            value={form.color}
+                                            onChange={onChange}
+                                        />
+                                    </div>
                                 </>
-                            )} 
+                            )}
                         </div>
 
                         {/* column 3 */}
                         <div>
                             {!editMode ? (
                                 <>
-                                <p><b>Owner</b>: {patients.fname} {patients.lname}</p>
-                                <p><b>Phone</b>: {patients.phone}</p>
-                                <p><b>Email</b>: {patients.email}</p>
+                                    <p><b>Owner</b>: {patients.fname} {patients.lname}</p>
+                                    <p><b>Phone</b>: {patients.phone}</p>
+                                    <p><b>Email</b>: {patients.email}</p>
                                 </>
                             ) : (
                                 <>
-                                <div className="mb-2">
-                                    <label htmlFor="fname" className="required block text-sm font-medium mb-1">Owner's First Name</label>
-                                    <input
-                                        id="fname"
-                                        name="fname"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.fname}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="lname" className="required block text-sm font-medium mb-1">Owner's Last Name</label>  
-                                    <input
-                                        id="lname"
-                                        name="lname"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.lname}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="phone" className="required block text-sm font-medium mb-1">Phone</label>
-                                    <input
-                                        id="phone"
-                                        name="phone"
-                                        type="tel"
-                                        maxLength={10}
-                                        pattern="[0-9]{10}"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.phone}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label for="email" className="block text-sm font-medium mb-1">Email</label>
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.email}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="fname" className="required block text-sm font-medium mb-1">Owner's First Name</label>
+                                        <input
+                                            id="fname"
+                                            name="fname"
+                                            type="text"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.fname}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="lname" className="required block text-sm font-medium mb-1">Owner's Last Name</label>
+                                        <input
+                                            id="lname"
+                                            name="lname"
+                                            type="text"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.lname}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="phone" className="required block text-sm font-medium mb-1">Phone</label>
+                                        <input
+                                            id="phone"
+                                            name="phone"
+                                            type="tel"
+                                            maxLength={10}
+                                            pattern="[0-9]{10}"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.phone}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label for="email" className="block text-sm font-medium mb-1">Email</label>
+                                        <input
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            className="p-2 border rounded w-full mb-2"
+                                            value={form.email}
+                                            onChange={onChange}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
@@ -282,29 +282,29 @@ const PatientDetails = ({ patients, setPatients }) => {
                     <div className="mt-2 p-6">
                         {!editMode ? (
                             <>
-                            <button onClick={startEdit} className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button
-                                onClick={() => setShowConfirm(true)}
-                                className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
-                            >
-                                Delete
-                            </button>
+                                <button onClick={startEdit} className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">Edit</button>
+                                <button
+                                    onClick={() => setShowConfirm(true)}
+                                    className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
+                                >
+                                    Delete
+                                </button>
                             </>
                         ) : (
                             <>
-                            <button
-                                onClick={save}
-                                className="pill-button bg-blue-600 text-white px-4 py-2 rounded"
-                            >
-                                Save
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setEditMode(false)}
-                                className="pill-button bg-gray-400 text-white ml-2 px-4 py-2 rounded"
-                            >
-                                Cancel
-                            </button>
+                                <button
+                                    onClick={save}
+                                    className="pill-button bg-blue-600 text-white px-4 py-2 rounded"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setEditMode(false)}
+                                    className="pill-button bg-gray-400 text-white ml-2 px-4 py-2 rounded"
+                                >
+                                    Cancel
+                                </button>
                             </>
                         )}
                     </div>

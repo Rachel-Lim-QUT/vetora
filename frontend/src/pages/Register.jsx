@@ -173,12 +173,14 @@ const Register = () => {
                 </form>
             </div>
 
-            <div className="absolute bottom-6">
+            <div className="back-container">
+                {/* back button */}
                 <Link
                     to="/"
-                    className="inline-flex items-center justify-center rounded-full bg-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-400"
+                    type="submit"
+                    className="pill-button"
                 >
-                    Cancel
+                    Back
                 </Link>
 
                 {/* back image */}

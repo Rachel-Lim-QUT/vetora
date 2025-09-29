@@ -71,17 +71,17 @@ const Login = () => {
                 <Link
                     to="/"
                     type="submit"
-                    className="pill-button text-center px-6 py-2 shadow"
+                    className="pill-button"
                 >
                     Back
                 </Link>
 
                 {/* back image */}
-                {/* <img
+                <img
                     src={backImage}
                     alt="Back"
                     className="back-image"
-                /> */}
+                />
             </div>
         </div>
     );
