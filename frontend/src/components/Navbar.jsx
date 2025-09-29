@@ -14,7 +14,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <nav className="navbar">
             {/* left */}
             <div className="flex items-center">
                 <Link to="/homepage">
@@ -23,16 +23,22 @@ const Navbar = () => {
                         alt="logo"
                         className="h-8 w-8 mr-2" />
                 </Link>
-                <Link to="/homepage" className="text-2xl font-bold">
-                    Vetora
+                <Link to="/homepage">
+                    <h1 className="h1-nav">Vetora</h1>
                 </Link>
             </div>
 
             {/* center */}
             <div className="flex items-center">
-                <Link to="/appointments" className="mr-8">Appointments</Link>
-                <Link to="/patients" className="mr-8">Patients</Link>
-                <Link to="">Owners</Link>
+                <Link to="/appointments" className="mr-8">
+                    <h2 className="h2-nav">Appointments</h2>
+                </Link>
+                <Link to="/patients" className="mr-8">
+                    <h2 className="h2-nav">Patients</h2>
+                </Link>
+                <Link to="">
+                    <h2 className="h2-nav">Owners</h2>
+                </Link>
             </div>
 
             {/* right */}

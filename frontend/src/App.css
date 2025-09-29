@@ -23,6 +23,28 @@ h1 {
     font-size: 30px;
 }
 
+.h1-nav {
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: white;
+}
+
+.h2-nav {
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.h1-nav:hover {
+    color: #F6EBCA;
+}
+
+.h2-nav:hover {
+    color: #F6EBCA;
+}
+
 p {
     font-family: "Cormorant", serif;
     font-size: 20px;
@@ -85,6 +107,10 @@ p {
     text-decoration: underline;
 }
 
+.nav {
+    color: #334783;
+}
+
 .required:after {
     content: "*";
     color: red;
@@ -136,6 +162,14 @@ p {
     text-align: center;
     max-width: 320px;
     width: 90%;
+}
+
+.navbar {
+    background-color: #334783;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* images */
