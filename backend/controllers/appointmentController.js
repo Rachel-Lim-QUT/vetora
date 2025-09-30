@@ -1,19 +1,20 @@
-const Appointment = require('../models/Appointment');
+const AppointmentRepository = require('../repositories/AppointmentRepository');
 
 // Create Appointment
 const createAppointment = async (req, res) => {
-    const { patient, type, date, completed } = req.body;
+    const { patient: patientId, type, date, completed } = req.body;
 
     try {
-        const appointment = await Appointment.create({
+        const appointment = await AppointmentRepository.createAppointment({
             userID: req.user.id,
-            patient,
+            patient: patientId,
             type,
             date,
             completed,
         });
 
         res.status(201).json({
+            _id: appointment._id,
             patient: appointment.patient,
             type: appointment.type,
             date: appointment.date,
@@ -27,7 +28,7 @@ const createAppointment = async (req, res) => {
 // Get Appointment
 const getAppointment = async (req, res) => {
     try {
-        const appointments = await Appointment.find({ userID: req.user.id });
+        const appointments = await AppointmentRepository.getAppointments(req.user.id);
         res.json(appointments);
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -38,24 +39,15 @@ const getAppointment = async (req, res) => {
 const updateAppointment = async (req, res) => {
     try {
         const { id } = req.params;
+        const userId = req.user.id;
         const allowed = ['patient', 'type', 'date', 'completed'];
         const updates = {};
         for (const k of allowed) if (k in req.body) updates[k] = req.body[k];
 
         // Ghazal's note: Just owner can edit
-        const updated = await Appointment.findOneAndUpdate(
-            { _id: id, userID: req.user.id }, updates, { new: true, runValidators: true }
-        );
+        const updatedAppointment = await AppointmentRepository.updateAppointment(id, userId, updates);
+        res.status(200).json(updatedAppointment);
 
-        if (!updated) return res.status(404).json({ message: 'Appointment not found or not permitted' });
-
-        res.json({
-            _id: updated._id,
-            patient: updated.patient,
-            type: updated.type,
-            date: updated.date,
-            completed: updated.completed,
-        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -64,13 +56,15 @@ const updateAppointment = async (req, res) => {
 // Delete appointment
 const deleteAppointment = async (req, res) => {
     try {
-        const appointment = await Appointment.findById(req.params.id);
-        if (!appointment) return res.status(404).json({ message: 'Error 404: Appointment not found.' });
-        await appointment.remove();
-        res.json({ message: 'Appointment deleted.' });
+        const { id } = req.params;
+        const userId = req.user.id;
+
+        const result = await AppointmentRepository.deleteAppointment(id, userId);
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-};
+}
 
 module.exports = { createAppointment, getAppointment, updateAppointment, deleteAppointment };
