@@ -260,7 +260,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 id="history"
                                 name="history"
                                 type="text"
-                                className="rounded-input-field h-80"
+                                className="rounded-input-field-disable h-80"
                                 value={patients.history}
                                 disabled
                             />
@@ -302,7 +302,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <button
                                     type="button"
                                     onClick={() => setEditMode(false)}
-                                    className="pill-button-s-pink"
+                                    className="pill-button-s-grey"
                                 >
                                     Cancel
                                 </button>

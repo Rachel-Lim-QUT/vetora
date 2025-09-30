@@ -10,5 +10,3 @@ router.put('/:id', protect, updatePatient);
 router.delete('/:id', protect, deletePatient);
 
 module.exports = router;
-
-// jennifer notes: added another route for getallpatient
