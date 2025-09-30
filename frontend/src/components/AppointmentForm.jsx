@@ -91,7 +91,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 name="patient"
                 value={formData.patient}
                 onChange={(e) => setFormData({ ...formData, patient: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
+                className="rounded-input-field mb-4"
                 required
                 disabled={editingAppointment}
             >
@@ -111,7 +111,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 type="text"
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
+                className="rounded-input-field mb-4"
                 required
             >
                 <option value="" disabled selected>-- Select an appointment type --</option>
@@ -129,13 +129,13 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
+                className="rounded-input-field mb-4"
                 required
             />
 
             <button
                 type="submit"
-                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full"
+                className={editingAppointment ? "pill-button-l-green" : "pill-button-l-pink"}
             >
                 {editingAppointment ? 'Update' : 'Create'}
             </button>
@@ -147,7 +147,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                         setEditingAppointment(null);
                         setFormData({ patient: '', type: '', date: '' });
                     }}
-                    className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
+                    className="pill-button-l-pink"
                 >
                     Cancel
                 </button>

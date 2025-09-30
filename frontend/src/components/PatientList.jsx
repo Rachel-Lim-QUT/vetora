@@ -5,7 +5,7 @@ const PatientList = ({ patients }) => {
     return (
         <div>
             {patients.map((patient) => (
-                <div key={patient._id} className="flex items-start bg-gray-100 mb-4 p-4 rounded shadow">
+                <div key={patient._id} className="flex items-center rounded-window mb-4 p-4">
 
                     {/* left side (pfp) */}
                     <div className="mr-4">
@@ -25,7 +25,7 @@ const PatientList = ({ patients }) => {
                         <div className="mt-2">
                             <Link
                                 to={`/patientprofile/${patient._id}`}
-                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded"
+                                className="pill-button-s-pink"
                             >
                                 View
                             </Link>

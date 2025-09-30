@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import backImage from '../images/temp-back.gif';
+import logo from '../images/temp-logo.gif';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -54,7 +55,13 @@ const Register = () => {
     return (
         <div className="dim-bg fixed inset-0 flex items-center justify-center">
             <div className="rounded-window p-10 w-[600px] shadow-md">
-                <h1 className="mb-8 text-2xl text-center">Register</h1>
+                {/* logo */}
+                <img
+                    src={logo}
+                    alt="Logo"
+                    className="logo mx-auto"
+                />
+                <h1 className="mb-4 text-2xl text-center">Register</h1>
 
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -66,7 +73,7 @@ const Register = () => {
                                 type="text"
                                 value={formData.fname}
                                 onChange={handleChange}
-                                className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
+                                className="rounded-input-field mb-4"
                                 required
                             />
                         </div>
@@ -78,7 +85,7 @@ const Register = () => {
                                 type="text"
                                 value={formData.lname}
                                 onChange={handleChange}
-                                className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
+                                className="rounded-input-field mb-4"
                                 required
                             />
                         </div>
@@ -104,7 +111,7 @@ const Register = () => {
                                 name="role"
                                 value={formData.role}
                                 onChange={handleChange}
-                                className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
+                                className="rounded-input-field mb-4"
                                 required
                             >
                                 <option value="" disabled selected>Select a Role</option>
@@ -124,7 +131,7 @@ const Register = () => {
                             type="text"
                             value={formData.username}
                             onChange={handleChange}
-                            className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
+                            className="rounded-input-field mb-4"
                             required
                         />
                     </div>
@@ -138,7 +145,7 @@ const Register = () => {
                                 type="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
+                                className="rounded-input-field"
                                 required
                                 autoComplete="new-password"
                             />
@@ -151,7 +158,7 @@ const Register = () => {
                                 type="password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
+                                className="rounded-input-field"
                                 required
                                 autoComplete="new-password"
                             />
@@ -161,24 +168,26 @@ const Register = () => {
                     <button
                         type="submit"
                         disabled={submitting}
-                        className="pill-button mb-4 p-2 w-full shadow"
+                        className="pill-button-l-pink"
                     >
                         {submitting ? 'Registering…' : 'Register'}
                     </button>
 
                     <p className="text-center">
-                        Already have an account?
-                        <Link to="/login" className="link"> Login</Link>
+                        Already have an account?{' '}
+                        <Link to="/login" className="link">Login</Link>
                     </p>
                 </form>
             </div>
 
-            <div className="absolute bottom-6">
+            <div className="back-container">
+                {/* back button */}
                 <Link
                     to="/"
-                    className="inline-flex items-center justify-center rounded-full bg-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-400"
+                    type="submit"
+                    className="pill-button-s-pink"
                 >
-                    Cancel
+                    Back
                 </Link>
 
                 {/* back image */}
