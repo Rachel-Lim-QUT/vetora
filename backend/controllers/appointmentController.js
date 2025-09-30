@@ -1,4 +1,5 @@
 const AppointmentRepository = require('../repositories/AppointmentRepository');
+const Logger = require('../services/logger');
 
 // Create Appointment
 const createAppointment = async (req, res) => {
@@ -13,6 +14,8 @@ const createAppointment = async (req, res) => {
             completed,
         });
 
+        Logger.log(`Appointment created: id ${appointment._id} for patient ${appointment.patient} by user ${req.user.id}`);
+
         res.status(201).json({
             _id: appointment._id,
             patient: appointment.patient,
@@ -21,6 +24,7 @@ const createAppointment = async (req, res) => {
             completed: appointment.completed,
         });
     } catch (error) {
+        Logger.error(`Error creating appointment: ${error.message}`);
         res.status(500).json({ message: error.message });
     }
 };
@@ -29,8 +33,12 @@ const createAppointment = async (req, res) => {
 const getAppointment = async (req, res) => {
     try {
         const appointments = await AppointmentRepository.getAppointments(req.user.id);
+
+        Logger.log(`Fetched ${appointments.length} appointments for user ${req.user.id}`);
+
         res.json(appointments);
     } catch (error) {
+        Logger.error(`Error fetching appointments: ${error.message}`);
         res.status(500).json({ message: error.message })
     }
 };
@@ -46,9 +54,13 @@ const updateAppointment = async (req, res) => {
 
         // Ghazal's note: Just owner can edit
         const updatedAppointment = await AppointmentRepository.updateAppointment(id, userId, updates);
+
+        Logger.log(`Appointment updated: id ${id} by user ${userId}`);
+
         res.status(200).json(updatedAppointment);
 
     } catch (error) {
+        Logger.error(`Error updating appointment ${req.params.id}: ${error.message}`);
         res.status(500).json({ message: error.message });
     }
 };
@@ -61,8 +73,11 @@ const deleteAppointment = async (req, res) => {
 
         const result = await AppointmentRepository.deleteAppointment(id, userId);
 
+        Logger.log(`Appointment deleted: id ${id} by user ${userId}`);
+
         res.status(200).json(result);
     } catch (error) {
+        Logger.error(`Error deleting appointment ${req.params.id}: ${error.message}`);
         res.status(500).json({ message: error.message });
     }
 }
