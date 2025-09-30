@@ -302,7 +302,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 <button
                                     type="button"
                                     onClick={() => setEditMode(false)}
-                                    className="pill-button-s-pink"
+                                    className="pill-button-s-grey"
                                 >
                                     Cancel
                                 </button>
