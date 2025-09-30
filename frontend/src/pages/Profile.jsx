@@ -17,6 +17,7 @@ const Profile = () => {
   });
   const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,10 +63,6 @@ const Profile = () => {
       setLoading(false);
     }
   };
-
-  const handleChangePassword = async () => {
-    alert('Contact Admin\nadmin@vetora.com.au')
-  }
 
   const handleDelete = async () => {
     setLoading(true);
@@ -124,27 +121,33 @@ const Profile = () => {
             </div>
           </div>
 
-          <label htmlFor="clinic">Clinic</label>
-          <input
-            id="clinic"
-            name="clinic"
-            type="text"
-            placeholder="Clinic"
-            value={formData.clinic}
-            className="rounded-input-field mb-4"
-            disabled
-          />
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label htmlFor="clinic">Clinic</label>
+              <input
+                id="clinic"
+                name="clinic"
+                type="text"
+                placeholder="Clinic"
+                value={formData.clinic}
+                className="rounded-input-field-locked mb-4"
+                disabled
+              />
+            </div>
 
-          <label htmlFor="role">Role</label>
-          <input
-            id="role"
-            name="role"
-            type="text"
-            placeholder="Role"
-            value={formData.role}
-            className="rounded-input-field mb-4"
-            disabled
-          />
+            <div className="flex-1">
+              <label htmlFor="role">Role</label>
+              <input
+                id="role"
+                name="role"
+                type="text"
+                placeholder="Role"
+                value={formData.role}
+                className="rounded-input-field-locked mb-4"
+                disabled
+              />
+            </div>
+          </div>
 
           <label htmlFor="username">Username</label>
           <input
@@ -167,8 +170,8 @@ const Profile = () => {
 
           <button
             type="button"
-            onClick={handleChangePassword}
-            className="pill-button-l-pink"
+            onClick={() => setShowChangePassword(true)}
+            className="pill-button-l-pink-profile mb-4"
           >
             Change Password
           </button>
@@ -176,40 +179,66 @@ const Profile = () => {
           <button
             type="button"
             onClick={() => setShowConfirm(true)}
-            className="pill-button-l-red"
+            className="pill-button-l-red-profile mb-4"
           >
             Delete Account
           </button>
-        </form>
+        </form >
 
-      </div>
+      </div >
+
       {/* show confirm */}
-      {showConfirm && (
+      {
+        showConfirm && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+            <div className="popup-box">
+              <p className="mb-4 font-medium text-lg">
+                Are you sure you want to delete your account?
+              </p>
+
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={handleDelete}
+                  className="pill-button-s-red"
+                >
+                  Yes
+                </button>
+
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="pill-button-s-pink"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {/* show change password */}
+      {showChangePassword && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
           <div className="popup-box">
-            <p className="mb-4 font-medium text-lg">
-              Are you sure you want to delete your account?
+            <h1 className="pb-2">
+              Contact admin
+            </h1>
+
+            <p className="pb-2">
+              admin@vetora.com.au
             </p>
 
             <div className="flex justify-center gap-4">
               <button
-                onClick={handleDelete}
-                className="pill-button-s-red"
+                onClick={() => setShowChangePassword(false)}
+                className="pill-button-s-pink hover:bg-rose-300"
               >
-                Yes
-              </button>
-
-              <button
-                onClick={() => setShowConfirm(false)}
-                className="pill-button-s-pink"
-              >
-                No
+                Ok
               </button>
             </div>
           </div>
         </div>
-      )
-      }
+      )}
     </>
   );
 };

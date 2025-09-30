@@ -22,7 +22,6 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 date: dateObject.toISOString().slice(0, 10),
                 time: dateObject.toTimeString().slice(0, 5),
             });
-
         } else {
             setFormData({
                 patient: '',
@@ -50,10 +49,13 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
 
+                const updatedAppointment = response.data;
+                const updatedId = updatedAppointment._id.toString();
+
                 // update appointment
                 setAppointments((prev) =>
                     prev.map((appointment) =>
-                        appointment._id.toString() === response.data._id.toString() ? response.data : appointment
+                        appointment._id.toString() === updatedId ? updatedAppointment : appointment
                     )
                 );
             } else {

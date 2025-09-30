@@ -109,9 +109,23 @@ p {
     font-weight: medium;
 }
 
+.pill-button-l-pink-profile {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
 .pill-button-s-pink:hover,
 .pill-button-m-pink:hover,
-.pill-button-l-pink:hover {
+.pill-button-l-pink:hover,
+.pill-button-l-pink-profile:hover {
     background-color: #F99D9E;
     transition: background-color 0.2s ease;
 }
@@ -189,8 +203,22 @@ p {
     font-weight: medium;
 }
 
+.pill-button-l-red-profile {
+    border-radius: 24px;
+    background-color: #B13A3C;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
 .pill-button-s-red:hover,
-.pill-button-l-red:hover {
+.pill-button-l-red:hover,
+.pill-button-l-red-profile:hover {
     color: #F6EBCA;
     background-color: #722324;
     transition: background-color 0.2s ease;
@@ -212,6 +240,16 @@ p {
 .required:after {
     content: "*";
     color: red;
+}
+
+.rounded-input-field-locked {
+    border: 2px solid transparent;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
 }
 
 .rounded-input-field {
