@@ -27,21 +27,11 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
 
     return (
         <div>
-            {appointments.map(appointment => (
+            {appointments.map((appointment) => (
                 <div key={appointment._id} className="rounded-window bg-gray-100 mb-4 p-6 shadow-md">
                     <p><b>Patient</b>: {appointment.patient}</p>
                     <p><b>Type</b>: {appointment.type}</p>
-                    <p><b>Date & Time</b>:{" "}
-                        {new Date(appointment.date).toLocaleString("en-AU", {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                        })}
-                    </p>
+                    <p><b>Date</b>: {appointment.date}</p>
 
                     <div className="mt-2">
                         <button
@@ -60,36 +50,34 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                     </div>
 
                     {/* show confirm */}
-                    {
-                        showConfirm && (
-                            <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-                                <div className="popup-box">
-                                    <p className="mb-4 font-medium text-lg">
-                                        Are you sure you want to cancel the appointment??
-                                    </p>
+                    {showConfirm && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+                            <div className="popup-box">
+                                <p className="mb-4 font-medium text-lg">
+                                    Are you sure you want to cancel the appointment??
+                                </p>
 
-                                    <div className="flex justify-center gap-4">
-                                        <button
-                                            onClick={() => handleDelete(appointment._id)}
-                                            className="pill-button-s-red"
-                                        >
-                                            Yes
-                                        </button>
+                                <div className="flex justify-center gap-4">
+                                    <button
+                                        onClick={() => handleDelete(appointment._id)}
+                                        className="pill-button-s-red"
+                                    >
+                                        Yes
+                                    </button>
 
-                                        <button
-                                            onClick={() => setShowConfirm(false)}
-                                            className="pill-button-s-pink"
-                                        >
-                                            No
-                                        </button>
-                                    </div>
+                                    <button
+                                        onClick={() => setShowConfirm(false)}
+                                        className="pill-button-s-pink"
+                                    >
+                                        No
+                                    </button>
                                 </div>
                             </div>
-                        )
-                    }
-                </div >
+                        </div>
+                    )}
+                </div>
             ))}
-        </div >
+        </div>
     );
 };
 

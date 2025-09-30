@@ -10,24 +10,22 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         patient: '',
         type: '',
         date: '',
-        time: '',
     });
 
     useEffect(() => {
         if (editingAppointment) {
-            const dateObject = new Date(editingAppointment.date);
             setFormData({
                 patient: editingAppointment.patient,
                 type: editingAppointment.type,
-                date: dateObject.toISOString().slice(0, 10),
-                time: dateObject.toTimeString().slice(0, 5),
+                date: editingAppointment.date
+                    ? new Date(editingAppointment.date).toISOString().slice(0, 10)
+                    : '',
             });
         } else {
             setFormData({
                 patient: '',
                 type: '',
                 date: '',
-                time: '',
             });
         }
     }, [editingAppointment]);
@@ -35,47 +33,30 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // combine date and time
-            const combinedDateTime = new Date(`${formData.date}T${formData.time}`);
-
-            const payload = {
-                patient: formData.patient,
-                type: formData.type,
-                date: combinedDateTime.toISOString(),
-            };
-
             if (editingAppointment) {
-                const response = await axiosInstance.put(`/api/appointments/${editingAppointment._id}`, payload, {
+                const response = await axiosInstance.put(`/api/appointments/${editingAppointment._id}`, formData, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
-
-                const updatedAppointment = response.data;
-                const updatedId = updatedAppointment._id.toString();
-
-                // update appointment
-                setAppointments((prev) =>
-                    prev.map((appointment) =>
-                        appointment._id.toString() === updatedId ? updatedAppointment : appointment
-                    )
-                );
+                setAppointments(appointments.map((appointment) => (appointment._id === response.data._id ? response.data : appointment)));
             } else {
-                const response = await axiosInstance.post('/api/appointments', payload, {
+                const response = await axiosInstance.post('/api/appointments', formData, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
-                setAppointments((prev) => [...prev, response.data]);
+                setAppointments([...appointments, response.data]);
             }
-
-            // reset form
             setEditingAppointment(null);
             setFormData({
                 patient: '',
                 type: '',
                 date: '',
-                time: '',
             });
             alert('Success! Appointment saved.')
         } catch (error) {
             alert('Error: Unable to save appointment. Please try again.');
+        } finally {
+            // Refreshes the appointment list after creating or updating an appointment.
+            const response = await axiosInstance.get('/api/appointments', { headers: { Authorization: `Bearer ${user.token}` }, });
+            setAppointments(response.data);
         }
     };
 
@@ -106,40 +87,24 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 className="rounded-input-field mb-4"
                 required
             >
-                <option value="" disabled selected>Select an appointment type</option>
+                <option value="" disabled selected>-- Select an appointment type --</option>
                 <option value="Health Check">Health Check</option>
                 <option value="Microchipping">Microchipping</option>
                 <option value="Surgery">Surgery</option>
                 <option value="Vaccinations">Vaccinations</option>
             </select>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
-                <div>
-                    <label htmlFor="date" className="required">Date</label>
-                    <input
-                        id="date"
-                        name="date"
-                        type="date"
-                        value={formData.date}
-                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="rounded-input-field"
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="time" className="required">Time</label>
-                    <input
-                        id="time"
-                        name="time"
-                        type="time"
-                        value={formData.time}
-                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                        className="rounded-input-field"
-                        required
-                    />
-                </div>
-            </div>
+            {/* Date */}
+            <label for="date" className="required">Date</label>
+            <input
+                id="date"
+                name="date"
+                type="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                className="rounded-input-field mb-4"
+                required
+            />
 
             <button
                 type="submit"
@@ -148,21 +113,19 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 {editingAppointment ? 'Update' : 'Create'}
             </button>
 
-            {
-                editingAppointment && (
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setEditingAppointment(null);
-                            setFormData({ patient: '', type: '', date: '', time: '' });
-                        }}
-                        className="pill-button-l-pink"
-                    >
-                        Cancel
-                    </button>
-                )
-            }
-        </form >
+            {editingAppointment && (
+                <button
+                    type="button"
+                    onClick={() => {
+                        setEditingAppointment(null);
+                        setFormData({ patient: '', type: '', date: '' });
+                    }}
+                    className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
+                >
+                    Cancel
+                </button>
+            )}
+        </form>
     );
 };
 
