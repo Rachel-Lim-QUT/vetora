@@ -52,23 +52,23 @@ const loginUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-      const user = await User.findById(req.user.id);
-      if (!user) {
-        return res.status(404).json({ message: 'Error 404: User not found.' });
-      }
-  
-      res.status(200).json({
-        fname: user.fname,
-        lname: user.lname,
-        clinic: user.clinic,
-        role: user.role,
-        username: user.username,
-        password: user.password,
-      });
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'Error 404: User not found.' });
+        }
+
+        res.status(200).json({
+            fname: user.fname,
+            lname: user.lname,
+            clinic: user.clinic,
+            role: user.role,
+            username: user.username,
+            password: user.password,
+        });
     } catch (error) {
-      res.status(500).json({ message: 'Error 500: Server error.', error: error.message });
+        res.status(500).json({ message: 'Error 500: Server error.', error: error.message });
     }
-  };
+};
 
 const updateUser = async (req, res) => {
     const { fname, lname, clinic, role, username, password } = req.body;
@@ -84,14 +84,14 @@ const updateUser = async (req, res) => {
         user.password = password || user.password;
 
         const updatedUser = await user.save();
-        res.json({ 
-          id: updatedUser.id,
-          fname: updatedUser.fname,
-          lname: updatedUser.lname,
-          clinic: updatedUser.clinic,
-          role: updatedUser.role,
-          username: updatedUser.username,
-       });
+        res.json({
+            id: updatedUser.id,
+            fname: updatedUser.fname,
+            lname: updatedUser.lname,
+            clinic: updatedUser.clinic,
+            role: updatedUser.role,
+            username: updatedUser.username,
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
