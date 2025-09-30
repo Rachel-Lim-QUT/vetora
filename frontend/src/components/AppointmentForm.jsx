@@ -6,11 +6,31 @@ import axiosInstance from "../axiosConfig";
 
 const AppointmentForm = ({ appointments, setAppointments, editingAppointment, setEditingAppointment }) => {
     const { user } = useAuth();
+    const [patients, setPatients] = useState([]);
     const [formData, setFormData] = useState({
         patient: '',
         type: '',
         date: '',
     });
+
+    // fetch patients
+    useEffect(() => {
+        const fetchPatients = async () => {
+            try {
+                const response = await axiosInstance.get('/api/patients', {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setPatients(response.data);
+            } catch (error) {
+                console.error('Error fetching patients:', error);
+                alert('Error fetching patient list.');
+            }
+        };
+
+        if (user) {
+            fetchPatients();
+        }
+    }, [user]);
 
     useEffect(() => {
         if (editingAppointment) {
@@ -64,17 +84,24 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         <form onSubmit={handleSubmit} className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
             <h1 className="text-2xl font-bold mb-4">{editingAppointment ? 'Update Appointment' : 'Create New Appointment'}</h1>
 
-            {/* Patient */}
-            <label for="patient" className="required">Patient</label>
-            <input
+            {/* patient */}
+            <label htmlFor="patient" className="required">Patient</label>
+            <select
                 id="patient"
                 name="patient"
-                type="text"
                 value={formData.patient}
                 onChange={(e) => setFormData({ ...formData, patient: e.target.value })}
                 className="mb-4 p-2 w-full border rounded"
                 required
-            />
+                disabled={editingAppointment}
+            >
+                <option value="" disabled>Select a patient</option>
+                {patients.map((patient) => (
+                    <option key={patient._id} value={patient._id}>
+                        {patient.name} ({patient.species})
+                    </option>
+                ))}
+            </select>
 
             {/* Appointment Type */}
             <label for="type" className="required">Appointment Type</label>
