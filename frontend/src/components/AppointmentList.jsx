@@ -101,7 +101,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                     {/* show complete */}
                     {showCompleteConfirm === appointment._id && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-                            <div className="bg-white p-6 rounded shadow text-center max-w-sm mx-4">
+                            <div className="popup-box">
                                 <p className="mb-4 font-medium text-lg">
                                     Are you sure you want to mark this appointment as complete?
                                 </p>
@@ -111,13 +111,13 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                                             handleComplete(appointment._id);
                                             setShowCompleteConfirm(null);
                                         }}
-                                        className="px-4 py-2 bg-green-600 text-white rounded-full"
+                                        className="pill-button-s-green"
                                     >
                                         Yes
                                     </button>
                                     <button
                                         onClick={() => setShowCompleteConfirm(null)}
-                                        className="px-4 py-2 bg-gray-300 rounded-full"
+                                        className="pill-button-s-grey"
                                     >
                                         No
                                     </button>
