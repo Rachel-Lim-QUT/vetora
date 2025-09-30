@@ -102,7 +102,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="name"
                                             name="name"
                                             type="text"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.name}
                                             onChange={onChange}
                                             required
@@ -113,7 +113,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                         <select
                                             id="gender"
                                             name="gender"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.gender}
                                             onChange={onChange}
                                             required
@@ -128,7 +128,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="breed"
                                             name="breed"
                                             text="text"
-                                            className="p-2 border rounded w-full"
+                                            className="rounded-input-field"
                                             value={form.breed}
                                             onChange={onChange}
                                         />
@@ -153,7 +153,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="age"
                                             name="age"
                                             type="text"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.age}
                                             onChange={onChange}
                                             required
@@ -164,7 +164,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                         <select
                                             id="species"
                                             name="species"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.species}
                                             onChange={onChange}
                                             required
@@ -179,7 +179,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="color"
                                             name="color"
                                             type="text"
-                                            className="p-2 border rounded w-full"
+                                            className="rounded-input-field"
                                             value={form.color}
                                             onChange={onChange}
                                         />
@@ -204,7 +204,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="fname"
                                             name="fname"
                                             type="text"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.fname}
                                             onChange={onChange}
                                             required
@@ -216,7 +216,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="lname"
                                             name="lname"
                                             type="text"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.lname}
                                             onChange={onChange}
                                             required
@@ -230,7 +230,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             type="tel"
                                             maxLength={10}
                                             pattern="[0-9]{10}"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.phone}
                                             onChange={onChange}
                                             required
@@ -242,7 +242,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                             id="email"
                                             name="email"
                                             type="email"
-                                            className="p-2 border rounded w-full mb-2"
+                                            className="rounded-input-field mb-2"
                                             value={form.email}
                                             onChange={onChange}
                                         />
@@ -260,8 +260,9 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 id="history"
                                 name="history"
                                 type="text"
-                                className="h-80 w-full border rounded"
+                                className="rounded-input-field h-80"
                                 value={patients.history}
+                                disabled
                             />
                         </div>
                     ) : (
@@ -271,7 +272,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 id="history"
                                 name="history"
                                 type="text"
-                                className="h-80 w-full border rounded"
+                                className="rounded-input-field h-80"
                                 value={form.history}
                                 onChange={onChange}
                             />
