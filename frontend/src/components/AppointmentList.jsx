@@ -35,7 +35,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
 
                     <div className="mt-2">
                         <button
-                            className="pill-button bg-yellow-500 hover:bg-yellow-600 text-white mr-2 px-4 py-2 shadow"
+                            className="pill-button-s-pink mr-4"
                             onClick={() => setEditingAppointment(appointment)} // 👈 اینجا باشه
                         >
                             Edit
@@ -44,7 +44,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                         <button
                             type="button"
                             onClick={() => setShowConfirm(true)}
-                            className="pill-button bg-red-500 hover:bg-red-600 text-white px-4 py-2 shadow">
+                            className="pill-button-s-red">
                             Cancel
                         </button>
                     </div>
@@ -52,7 +52,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                     {/* show confirm */}
                     {showConfirm && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-                            <div className="bg-white p-6 rounded shadow text-center max-w-sm mx-4">
+                            <div className="popup-box">
                                 <p className="mb-4 font-medium text-lg">
                                     Are you sure you want to cancel the appointment??
                                 </p>
@@ -60,14 +60,14 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                                 <div className="flex justify-center gap-4">
                                     <button
                                         onClick={() => handleDelete(appointment._id)}
-                                        className="px-4 py-2 bg-red-600 text-white rounded-full"
+                                        className="pill-button-s-red"
                                     >
                                         Yes
                                     </button>
 
                                     <button
                                         onClick={() => setShowConfirm(false)}
-                                        className="px-4 py-2 bg-gray-300 rounded-full"
+                                        className="pill-button-s-pink"
                                     >
                                         No
                                     </button>

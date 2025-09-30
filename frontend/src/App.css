@@ -1,27 +1,240 @@
-.back-container {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+/* heading: nunito */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+/* paragraph: cormorant */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* backgrounds */
+body {
+    background-color: #FFFBEE;
 }
 
-.back-image {
-    width: 50%;
+.yellow-bg {
+    background-color: #F6EBCA;
+    min-height: 100vh;
 }
 
 .dim-bg {
-    background-color: #999999;
-    color: #333333;
+    background-color: #696969;
 }
 
+/* text */
+h1 {
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.h1-nav {
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: white;
+}
+
+.h2-nav {
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.h1-nav:hover {
+    color: #F6EBCA;
+}
+
+.h2-nav:hover {
+    color: #F6EBCA;
+}
+
+p {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.para {
+    font-family: "Cormorant", serif;
+    font-size: 20px;
+    font-weight: medium;
+}
+
+/* buttons */
+.pill-button-s-pink {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
+    text-align: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 5rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.pill-button-m-pink {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 12rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-l-pink {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-l-pink-profile {
+    border-radius: 24px;
+    background-color: #F3BFB9;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-s-pink:hover,
+.pill-button-m-pink:hover,
+.pill-button-l-pink:hover,
+.pill-button-l-pink-profile:hover {
+    background-color: #F99D9E;
+    transition: background-color 0.2s ease;
+}
+
+.pill-button-s-green {
+    border-radius: 24px;
+    background-color: #B8D394;
+    color: #333333;
+    text-align: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 5rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.pill-button-l-green {
+    border-radius: 24px;
+    background-color: #B8D394;
+    color: #333333;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-s-green:hover,
+.pill-button-l-green:hover {
+    color: #F6EBCA;
+    background-color: #567F63;
+    transition: background-color 0.2s ease;
+}
+
+.pill-button-s-red {
+    border-radius: 24px;
+    background-color: #B13A3C;
+    color: #F6EBCA;
+    text-align: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 5rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.pill-button-l-red {
+    border-radius: 24px;
+    background-color: #B13A3C;
+    color: #F6EBCA;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-l-red-profile {
+    border-radius: 24px;
+    background-color: #B13A3C;
+    color: #F6EBCA;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+}
+
+.pill-button-s-red:hover,
+.pill-button-l-red:hover,
+.pill-button-l-red-profile:hover {
+    color: #F6EBCA;
+    background-color: #722324;
+    transition: background-color 0.2s ease;
+}
+
+/* text */
 .link {
     color: #334783;
 }
 
-.pill-button {
-    border-radius: 24px;
-    background-color: #F3BFB9;
-    color: #333333;
+.link:hover {
+    text-decoration: underline;
+}
+
+.nav {
+    color: #334783;
 }
 
 .required:after {
@@ -29,13 +242,78 @@
     color: red;
 }
 
+.rounded-input-field-locked {
+    border: 2px solid transparent;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.rounded-input-field {
+    border: 2px solid transparent;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease;
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+
+}
+
+.rounded-input-field:hover {
+    border-color: #7181B1;
+}
+
+.rounded-input-field:focus {
+    border: 2px solid #334783;
+    outline: none;
+}
+
+/* containers */
+.back-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.popup-box {
+    background-color: #F6EBCA;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 320px;
+    width: 90%;
+}
+
+.navbar {
+    background-color: #334783;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .rounded-window {
     border-radius: 24px;
     background-color: #F6EBCA;
     color: #333333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.rounded-input-field {
-    border-radius: 6px;
-    color: #333333;
+/* images */
+.logo {
+    width: 2.5rem;
+}
+
+.back-image {
+    width: 4rem;
 }
