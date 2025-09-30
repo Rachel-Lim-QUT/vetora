@@ -120,7 +120,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                         setEditingAppointment(null);
                         setFormData({ patient: '', type: '', date: '' });
                     }}
-                    className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
+                    className="pill-button-l-pink"
                 >
                     Cancel
                 </button>
