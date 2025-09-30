@@ -96,43 +96,43 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 </>
                             ) : (
                                 <>
-                                <div className="mb-2">
-                                    <label htmlFor="name" className="required block text-sm font-medium mb-1">Name</label>
-                                    <input
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.name}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="gender" className="required block text-sm font-medium mb-1">Gender</label>
-                                    <select
-                                        id="gender"
-                                        name="gender"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.gender}
-                                        onChange={onChange}
-                                        required
-                                    >
-                                        <option>Female</option>
-                                        <option>Male</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
-                                    <input
-                                        id="breed"
-                                        name="breed"
-                                        text="text"
-                                        className="p-2 border rounded w-full"
-                                        value={form.breed}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="name" className="required block text-sm font-medium mb-1">Name</label>
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            className="rounded-input-field mb-2"
+                                            value={form.name}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="gender" className="required block text-sm font-medium mb-1">Gender</label>
+                                        <select
+                                            id="gender"
+                                            name="gender"
+                                            className="rounded-input-field mb-2"
+                                            value={form.gender}
+                                            onChange={onChange}
+                                            required
+                                        >
+                                            <option>Female</option>
+                                            <option>Male</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="breed" className="block text-sm font-medium mb-1">Breed</label>
+                                        <input
+                                            id="breed"
+                                            name="breed"
+                                            text="text"
+                                            className="rounded-input-field"
+                                            value={form.breed}
+                                            onChange={onChange}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
@@ -147,43 +147,43 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 </>
                             ) : (
                                 <>
-                                <div className="mb-2">
-                                    <label htmlFor="age" className="required block text-sm font-medium mb-1">Age</label>  
-                                    <input
-                                        id="age"
-                                        name="age"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.age}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="species" className="required block text-sm font-medium mb-1">Species</label>
-                                    <select
-                                        id="species"
-                                        name="species"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.species}
-                                        onChange={onChange}
-                                        required
-                                    >
-                                        <option>Cat</option>
-                                        <option>Dog</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
-                                    <input
-                                        id="color"
-                                        name="color"
-                                        type="text"
-                                        className="p-2 border rounded w-full"
-                                        value={form.color}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="age" className="required block text-sm font-medium mb-1">Age</label>
+                                        <input
+                                            id="age"
+                                            name="age"
+                                            type="text"
+                                            className="rounded-input-field mb-2"
+                                            value={form.age}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="species" className="required block text-sm font-medium mb-1">Species</label>
+                                        <select
+                                            id="species"
+                                            name="species"
+                                            className="rounded-input-field mb-2"
+                                            value={form.species}
+                                            onChange={onChange}
+                                            required
+                                        >
+                                            <option>Cat</option>
+                                            <option>Dog</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="color" className="block text-sm font-medium mb-1">Color</label>
+                                        <input
+                                            id="color"
+                                            name="color"
+                                            type="text"
+                                            className="rounded-input-field"
+                                            value={form.color}
+                                            onChange={onChange}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
@@ -198,55 +198,55 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 </>
                             ) : (
                                 <>
-                                <div className="mb-2">
-                                    <label htmlFor="fname" className="required block text-sm font-medium mb-1">Owner's First Name</label>
-                                    <input
-                                        id="fname"
-                                        name="fname"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.fname}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="lname" className="required block text-sm font-medium mb-1">Owner's Last Name</label>  
-                                    <input
-                                        id="lname"
-                                        name="lname"
-                                        type="text"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.lname}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label htmlFor="phone" className="required block text-sm font-medium mb-1">Phone</label>
-                                    <input
-                                        id="phone"
-                                        name="phone"
-                                        type="tel"
-                                        maxLength={10}
-                                        pattern="[0-9]{10}"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.phone}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-2">
-                                    <label for="email" className="block text-sm font-medium mb-1">Email</label>
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        className="p-2 border rounded w-full mb-2"
-                                        value={form.email}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="fname" className="required block text-sm font-medium mb-1">Owner's First Name</label>
+                                        <input
+                                            id="fname"
+                                            name="fname"
+                                            type="text"
+                                            className="rounded-input-field mb-2"
+                                            value={form.fname}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="lname" className="required block text-sm font-medium mb-1">Owner's Last Name</label>
+                                        <input
+                                            id="lname"
+                                            name="lname"
+                                            type="text"
+                                            className="rounded-input-field mb-2"
+                                            value={form.lname}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label htmlFor="phone" className="required block text-sm font-medium mb-1">Phone</label>
+                                        <input
+                                            id="phone"
+                                            name="phone"
+                                            type="tel"
+                                            maxLength={10}
+                                            pattern="[0-9]{10}"
+                                            className="rounded-input-field mb-2"
+                                            value={form.phone}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label for="email" className="block text-sm font-medium mb-1">Email</label>
+                                        <input
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            className="rounded-input-field mb-2"
+                                            value={form.email}
+                                            onChange={onChange}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>
@@ -260,7 +260,7 @@ const PatientDetails = ({ patients, setPatients }) => {
                                 id="history"
                                 name="history"
                                 type="text"
-                                className="rounded-input-field h-80"
+                                className="rounded-input-field-disable h-80"
                                 value={patients.history}
                                 disabled
                             />
@@ -283,29 +283,29 @@ const PatientDetails = ({ patients, setPatients }) => {
                     <div className="p-6">
                         {!editMode ? (
                             <>
-                            <button onClick={startEdit} className="pill-button bg-yellow-500 text-white px-4 py-2 rounded">Edit</button>
-                            <button
-                                onClick={() => setShowConfirm(true)}
-                                className="pill-button bg-red-500 text-white ml-2 px-4 py-2 rounded"
-                            >
-                                Delete
-                            </button>
+                                <button onClick={startEdit} className="pill-button-s-pink mr-4">Edit</button>
+                                <button
+                                    onClick={() => setShowConfirm(true)}
+                                    className="pill-button-s-red"
+                                >
+                                    Delete
+                                </button>
                             </>
                         ) : (
                             <>
-                            <button
-                                onClick={save}
-                                className="pill-button bg-blue-600 text-white px-4 py-2 rounded"
-                            >
-                                Save
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setEditMode(false)}
-                                className="pill-button bg-gray-400 text-white ml-2 px-4 py-2 rounded"
-                            >
-                                Cancel
-                            </button>
+                                <button
+                                    onClick={save}
+                                    className="pill-button-s-green mr-4"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setEditMode(false)}
+                                    className="pill-button-s-pink"
+                                >
+                                    Cancel
+                                </button>
                             </>
                         )}
                     </div>

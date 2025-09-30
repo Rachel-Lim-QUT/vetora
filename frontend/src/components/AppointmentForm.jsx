@@ -11,6 +11,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         patient: '',
         type: '',
         date: '',
+        time: '',
     });
 
     // fetch patients
@@ -34,18 +35,20 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
 
     useEffect(() => {
         if (editingAppointment) {
+            const appointmentDate = new Date(editingAppointment.date);
             setFormData({
                 patient: editingAppointment.patient,
                 type: editingAppointment.type,
-                date: editingAppointment.date
-                    ? new Date(editingAppointment.date).toISOString().slice(0, 10)
-                    : '',
+                date: appointmentDate.toISOString().slice(0, 10),
+                time: appointmentDate.toTimeString().slice(0, 5),
             });
+
         } else {
             setFormData({
                 patient: '',
                 type: '',
                 date: '',
+                time: '',
             });
         }
     }, [editingAppointment]);
@@ -53,13 +56,22 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // combine date and time
+            const combinedDateTime = new Date(`${formData.date}T${formData.time}`);
+
+            const payload = {
+                patient: formData.patient,
+                type: formData.type,
+                date: combinedDateTime.toISOString(),
+            };
+
             if (editingAppointment) {
-                const response = await axiosInstance.put(`/api/appointments/${editingAppointment._id}`, formData, {
+                const response = await axiosInstance.put(`/api/appointments/${editingAppointment._id}`, payload, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
                 setAppointments(appointments.map((appointment) => (appointment._id === response.data._id ? response.data : appointment)));
             } else {
-                const response = await axiosInstance.post('/api/appointments', formData, {
+                const response = await axiosInstance.post('/api/appointments', payload, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
                 setAppointments([...appointments, response.data]);
@@ -69,6 +81,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 patient: '',
                 type: '',
                 date: '',
+                time: '',
             });
             alert('Success! Appointment saved.')
         } catch (error) {
@@ -121,8 +134,8 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 <option value="Vaccinations">Vaccinations</option>
             </select>
 
-            {/* Date */}
-            <label for="date" className="required">Date</label>
+            {/* Date and time*/}
+            {/* <label for="date" className="required">Date</label>
             <input
                 id="date"
                 name="date"
@@ -131,7 +144,34 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                 className="rounded-input-field mb-4"
                 required
-            />
+            /> */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+                <div>
+                    <label htmlFor="date" className="required">Date</label>
+                    <input
+                        id="date"
+                        name="date"
+                        type="date"
+                        value={formData.date}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        className="rounded-input-field"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="time" className="required">Time</label>
+                    <input
+                        id="time"
+                        name="time"
+                        type="time"
+                        value={formData.time}
+                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                        className="rounded-input-field"
+                        required
+                    />
+                </div>
+            </div>
 
             <button
                 type="submit"
@@ -147,7 +187,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                         setEditingAppointment(null);
                         setFormData({ patient: '', type: '', date: '' });
                     }}
-                    className="pill-button-l-pink"
+                    className="pill-button-l-grey"
                 >
                     Cancel
                 </button>

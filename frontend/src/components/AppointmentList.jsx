@@ -53,10 +53,20 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                 <div key={appointment._id} className="rounded-window bg-gray-100 mb-4 p-6 shadow-md">
                     <p><b>Patient</b>: {appointment.patient?.name} {appointment.patient?.lname}</p>
                     <p><b>Type</b>: {appointment.type}</p>
-                    <p><b>Date</b>: {appointment.date}</p>
+                    <p><b>Date & Time</b>:{" "}
+                        {new Date(appointment.date).toLocaleString("en-AU", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                        })}
+                    </p>
 
-                    <div className="flex justify-between items-center gap-4 mt-2">
-                        <div className="flex-1">
+                    <div className="flex justify-between items-center mt-2">
+                        <div className="flex-2">
                             <button
                                 className="pill-button-s-pink mr-4"
                                 onClick={() => setEditingAppointment(appointment)} // 👈 اینجا باشه
@@ -65,23 +75,23 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                             </button>
                             <Link
                                 to={`/patientprofile/${appointment.patient._id}`}
-                                className="pill-button bg-yellow-500 text-white px-4 py-2 rounded"
+                                className="pill-button-s-pink"
                             >
                                 View
                             </Link>
                         </div>
 
-                        <div className="mt-2">
+                        <div className="flex-2">
                             <button
                                 type="button"
                                 onClick={() => setShowConfirm(true)}
-                                className="pill-button-s-red">
+                                className="pill-button-s-red mr-4">
                                 Cancel
                             </button>
                             <button
                                 onClick={() => setShowCompleteConfirm(appointment._id)}
                                 disabled={appointment.completed}
-                                className={`px-4 py-2 shadow rounded ${appointment.completed ? 'bg-gray-500 text-white cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'}`}
+                                className={`${appointment.completed ? 'pill-button-m-grey cursor-not-allowed' : 'pill-button-m-green'}`}
                             >
                                 {appointment.completed ? 'Completed' : 'Complete'}
                             </button>
