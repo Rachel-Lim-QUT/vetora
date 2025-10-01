@@ -8,7 +8,7 @@ const ownerSchema = new mongoose.Schema({
     email: { type: String, required: false },
 
     // linking patient and owner
-    // patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }],
+    patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }],
 });
 
 module.exports = mongoose.model('Owner', ownerSchema);

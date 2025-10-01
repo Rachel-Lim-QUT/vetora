@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import axiosInstance from "../axiosConfig";
 
-const OwnerForm = ({ owners, setOwners, patients = [], setPatients }) => {
+const OwnerForm = ({ owners, setOwners }) => {
     const { user } = useAuth();
     const [selectedPatient, setSelectedPatient] = useState("");
 
@@ -16,15 +16,17 @@ const OwnerForm = ({ owners, setOwners, patients = [], setPatients }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const { data: newOwner } = await axiosInstance.post(
+                "/api/owners",
+                formData,
+                { headers: { Authorization: `Bearer ${user.token}` } }
+            );
 
-            const response = await axiosInstance.post("/api/owners", formData, {
-                headers: { Authorization: `Bearer ${user.token}` },
-            });
+            setOwners(prev => [...prev, newOwner]);
 
-            setOwners([...owners, response.data]);
             setFormData({ fname: "", lname: "", phone: "", email: "" });
-
             setSelectedPatient("");
+
             alert("Owner created successfully!");
         } catch (err) {
             console.error(err);
@@ -35,6 +37,13 @@ const OwnerForm = ({ owners, setOwners, patients = [], setPatients }) => {
     return (
         <form onSubmit={handleSubmit} className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
             <h1 className="font-bold text-2xl mb-4">Create New Owner</h1>
+
+            {/* making sure user is logged in */}
+            {!user?.token && (
+                <p className="text-red-600 mb-4">
+                    you are not logged in
+                </p>
+            )}
 
             <div className="flex gap-4">
                 <div className="flex-1">
@@ -70,7 +79,7 @@ const OwnerForm = ({ owners, setOwners, patients = [], setPatients }) => {
                         maxLength={10}
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="rounded-input-field mb-4"
+                        className="rounded-input-field"
                     />
                 </div>
                 <div className="flex-1">
@@ -80,32 +89,27 @@ const OwnerForm = ({ owners, setOwners, patients = [], setPatients }) => {
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="rounded-input-field mb-4"
+                        className="rounded-input-field"
                     />
                 </div>
             </div>
 
             <div className="mb-4">
-                <label for="petSelect">Select Pet</label>
+                <label for="petSelect"
+                // className="required"
+                >Select Pet</label>
                 <select
                     id="petSelect"
                     value={selectedPatient}
                     onChange={(e) => setSelectedPatient(e.target.value)}
-                    className="rounded-input-field mb-4"
+                    className="rounded-input-field"
+                    disabled
                 >
                     <option value="">Select a pet</option>
-                    {/* {patients?.map((patient) => (
-                        <option key={patient._id} value={patient._id}>
-                            {patient.name} ({patient.species})
-                        </option>
-                    ))} */}
                 </select>
             </div>
 
-            <button
-                type="submit"
-                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full rounded"
-            >
+            <button type="submit" className="pill-button-l-pink">
                 Create
             </button>
         </form>

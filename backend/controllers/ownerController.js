@@ -3,10 +3,10 @@ const Logger = require('../services/logger');
 
 // create owner
 const createOwner = async (req, res) => {
-    const { fname, lname, phone, email } = req.body;
+    const { fname, lname, phone, email, patients } = req.body;
 
     try {
-        const ownerData = { fname, lname, phone, email };
+        const ownerData = { fname, lname, phone, email, patients };
         const owner = await OwnerRepository.createOwner(ownerData);
 
         Logger.log(`Owner created: id ${owner._id} by user ${req.user.id}`);
@@ -22,7 +22,6 @@ const createOwner = async (req, res) => {
 const getOwner = async (req, res) => {
     try {
         const owner = await OwnerRepository.getOwner(req.params.id);
-
         if (!owner) return res.status(404).json({ message: 'Owner not found' });
 
         Logger.log(`Fetched owner id ${req.params.id}`);
@@ -51,16 +50,14 @@ const getAllOwners = async (req, res) => {
 // update owner
 const updateOwner = async (req, res) => {
     try {
-        const allowed = ['fname', 'lname', 'phone', 'email'];
+        const allowed = ['fname', 'lname', 'phone', 'email', 'patients'];
         const updates = {};
         allowed.forEach(k => { if (k in req.body) updates[k] = req.body[k]; });
 
-        const ownerId = req.params.id;
-        const updated = await OwnerRepository.updateOwner(ownerId, updates);
-
+        const updated = await OwnerRepository.updateOwner(req.params.id, updates);
         if (!updated) return res.status(404).json({ message: 'Owner not found' });
 
-        Logger.log(`Owner updated: id ${ownerId} by user ${req.user.id}`);
+        Logger.log(`Owner updated: id ${req.params.id} by user ${req.user.id}`);
 
         res.json(updated);
     } catch (error) {
@@ -72,10 +69,9 @@ const updateOwner = async (req, res) => {
 // Delete owner
 const deleteOwner = async (req, res) => {
     try {
-        const ownerId = req.params.id;
-        const result = await OwnerRepository.deleteOwner(ownerId);
+        const result = await OwnerRepository.deleteOwner(req.params.id);
 
-        Logger.log(`Owner deleted: id ${ownerId} by user ${req.user.id}`);
+        Logger.log(`Owner deleted: id ${req.params.id} by user ${req.user.id}`);
 
         res.json(result);
     } catch (error) {

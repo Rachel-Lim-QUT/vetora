@@ -8,10 +8,6 @@ class OwnerRepository {
             const owner = await Owner.create(ownerData);
             return owner;
         } catch (error) {
-            if (error.code === 11000) {
-                const field = Object.keys(error.keyValue)[0];
-                throw new Error(`${field} already exists`);
-            }
             throw new Error(`Failed to create owner: ${error.message}`);
         }
     }
@@ -19,7 +15,7 @@ class OwnerRepository {
     // get owner by id
     async getOwner(id) {
         try {
-            const owner = await Owner.findById(id);
+            const owner = await Owner.findById(id).populate('patients');
             if (!owner) throw new Error('Owner not found');
             return owner;
         } catch (error) {
@@ -30,7 +26,7 @@ class OwnerRepository {
     // get all owners
     async getAllOwners() {
         try {
-            const owners = await Owner.find();
+            const owners = await Owner.find().populate('patients');
             return owners;
         } catch (error) {
             throw new Error(`Failed to get all owners: ${error.message}`);
@@ -44,7 +40,8 @@ class OwnerRepository {
                 id,
                 { $set: updates },
                 { new: true, runValidators: true }
-            );
+            ).populate('patients');
+
             if (!updatedOwner) throw new Error('Owner not found');
             return updatedOwner;
         } catch (error) {

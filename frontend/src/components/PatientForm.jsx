@@ -68,6 +68,13 @@ const PatientForm = ({ patients, setPatients }) => {
         <form onSubmit={handleSubmit} className="rounded-window mb-6 p-6">
             <h1 className="font-bold text-2xl mb-4">Create New Patient</h1>
 
+            {/* making sure user is logged in */}
+            {!user?.token && (
+                <p className="text-red-600 mb-4">
+                    you are not logged in
+                </p>
+            )}
+
             <label for="photo">Select an icon:</label>
             <ul className="flex gap-4 my-4">
                 {pfps.map(pfp => (

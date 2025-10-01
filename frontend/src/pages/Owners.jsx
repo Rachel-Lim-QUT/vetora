@@ -10,19 +10,19 @@ const Owners = () => {
     const { user } = useAuth();
     const [owners, setOwners] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchOwners = async () => {
-    //         try {
-    //             const response = await axiosInstance.get('/api/owners/', {
-    //                 headers: { Authorization: `Bearer ${user.token}` },
-    //             });
-    //             setOwners(response.data);
-    //         } catch (error) {
-    //             alert('Error: Failed to fetch owner.')
-    //         }
-    //     };
-    //     if (user) fetchOwners();
-    // }, [user]);
+    useEffect(() => {
+        const fetchOwners = async () => {
+            try {
+                const response = await axiosInstance.get('/api/owners/', {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setOwners(response.data);
+            } catch (error) {
+                alert('Failed to fetch profile. Please try again.');
+            }
+        };
+        if (user) fetchOwners();
+    }, [user]);
 
     return (
         <>
@@ -31,7 +31,7 @@ const Owners = () => {
                 <div className="col-span-2">
                     <OwnerForm
                         owners={owners}
-                    // setOwners={setOwners}
+                        setOwners={setOwners}
                     />
                 </div>
                 <div className="col-span-3">

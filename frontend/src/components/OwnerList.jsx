@@ -14,7 +14,7 @@ const OwnerList = ({ owners }) => {
 
                         <div className="mt-2">
                             <Link
-                                // to={`/ownerprofile/${owner._id}`}
+                                to={`/ownerprofile/${owner._id}`}
                                 className="pill-button-s-pink"
                             >
                                 View

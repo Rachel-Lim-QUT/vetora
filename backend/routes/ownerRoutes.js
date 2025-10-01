@@ -1,5 +1,5 @@
 const express = require('express');
-const { createOwner, getOwner, getAllOwners, addPatientToOwner, removePatientFromOwner, updateOwner, deleteOwner } = require('../controllers/ownerController');
+const { createOwner, getOwner, getAllOwners, updateOwner, deleteOwner } = require('../controllers/ownerController');
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
