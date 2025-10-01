@@ -1,41 +1,14 @@
 const Appointment = require('../models/Appointment');
 const { decorate, catchAsync } = require('../utils/decorators');
 const { withLogging, requireRoles, withRateLimit, withAudit } = require('../utils/decoratorPresets');
-const { runTransition } = require('../appointment/appointmentStateService');
+const { transitionAppointment } = require('../appointment/appointmentStateService');
+const { allowedTransitions } = require('../appointment/stateMachine');
 
 // JENS DESIGN PATTERN IMPORTS
 const AppointmentRepository = require('../repositories/AppointmentRepository');
 const Logger = require('../services/logger');
 const appointmentEmitter = require('../services/appointmentEvents');
 
-/**
- * Create Appointment (Core)
- * ----------------------------------------------------------------------------
- * Business-only logic for creating an appointment.
- * Assumes `req.user` is already populated by the `protect` middleware.
- *
- * INPUT (req.body):
- *  - patient   {String}  : required
- *  - type      {String}  : required (e.g., "Checkup", "Vaccination", ...)
- *  - date      {String}  : required ISO datetime (will be cast to Date by Mongoose)
- *  - completed {Boolean} : optional (defaults to false if not provided)
- *
- * FLOW:
- *  1) Quick validation → if any of (patient, type, date) missing → 400 Bad Request.
- *  2) Create document with ownership binding: userID = req.user.id.
- *  3) Return minimal safe response payload (no internal fields) with 201 Created.
- *
- * OUTPUT (201):
- *  {
- *    _id, patient, type, date, completed
- *  }
- *
- * NOTES:
- *  - No try/catch here by design. Errors bubble up and are handled by
- *    the decorator `catchAsync` + global error handler.
- *  - Additional cross-field validation (e.g., future date) can be added
- *    either here or via a validation decorator/schema.
- */
 
 const createAppointmentCore = async (req, res) => {
     const { patient, type, date, completed } = req.body;
@@ -55,7 +28,9 @@ const createAppointmentCore = async (req, res) => {
         patient: appointment.patient,
         type: appointment.type,
         date: appointment.date,
+        status: appointment.status,
         completed: appointment.completed,
+        allowedTransitions: allowedTransitions(appointment.status),
     });
 
     Logger.error(`Error fetching appointments: ${error.message}`); // JENS DESIGN PATTERN - TRY TO KEEP THIS - IF YOU HAVE CATCH ERROR PLEASE PUT THIS WITH THAT (BEFORE)----------------
@@ -80,16 +55,37 @@ const createAppointment = decorate(
 // Get Appointment
 const getAppointment = async (req, res) => {
     try {
-        const appointments = await AppointmentRepository.getAppointments(req.user.id);
+const appointments = await AppointmentRepository.getAppointments(req.user.id);
 
         Logger.log(`Fetched ${appointments.length} appointments for user ${req.user.id}`); // JENS DESIGN PATTERN --------------------------------------
 
-        res.json(appointments);
+        return res.json(
+        appointments.map(a => ({
+        _id: a._id,
+        patient: a.patient,
+        type: a.type,
+        date: a.date,
+        status: a.status || (a.completed ? 'COMPLETED' : 'REQUESTED'),
+        completed: a.completed,
+      }))
+    );
     } catch (error) {
         Logger.error(`Error fetching appointments: ${error.message}`); // JENS DESIGN PATTERN --------------------------------------
         res.status(500).json({ message: error.message })
     }
 };
+
+  const getAppointmentById = async (req, res) => {
+  const a = await Appointment.findOne({ _id: req.params.id, userID: req.user.id })
+                             .populate('patient','name lname');
+  if (!a) return res.status(404).json({ message: 'Not found' });
+  res.json({
+    _id: a._id, patient: a.patient, type: a.type, date: a.date,
+    status: a.status, completed: a.completed,
+    allowedTransitions: allowedTransitions(a.status),
+  });
+};
+
 
 // Update Appointment
 // This update endpoint keeps your CREATE decorators intact.
@@ -100,40 +96,23 @@ const updateAppointment = async (req, res) => {
     try {
         const { id } = req.params;
 
-        // 1) If a lifecycle action is requested, run it via FSM and return.
-        const action = req.body?.action; // 'confirm' | 'start' | 'complete' | 'cancel'
-        if (action) {
-            const updated = await runTransition({
+        // If a lifecycle action is requested, run it via FSM and return.
+    const action = req.body?.action; // 'confirm' | 'start' | 'complete' | 'cancel'
+    if (action) {
+    const result = await transitionAppointment({
                 id,
                 action,
                 user: req.user,
                 reason: req.body?.reason,
-                eventBus: req.app.get?.('eventBus')
+                eventBus: req.app?.locals?.eventBus
             });
-            return res.json(updated);
-            // try {
-            //     const { id } = req.params;
-            //     const userId = req.user.id;
-            //     const allowed = ['patient', 'type', 'date', 'completed'];
-            //     const updates = {};
-            //     for (const k of allowed) if (k in req.body) updates[k] = req.body[k];
-
-            //     // Ghazal's note: Just owner can edit
-            //     const updatedAppointment = await AppointmentRepository.updateAppointment(id, userId, updates);
-
-            //     Logger.log(`Appointment updated: id ${id} by user ${userId}`); // JENS DESIGN PATTERN - TRY TO INCLUDE THIS SOMEWHERE IN YOUR CODE ------------------------------
-
-            //     res.status(200).json(updatedAppointment);
-
-            // } catch (error) {
-            //     Logger.error(`Error updating appointment ${req.params.id}: ${error.message}`); // JENS DESIGN PATTERN - TRY TO INCLUDE THIS SOMEWHERE IN YOUR CODE ----------------
-            //     res.status(500).json({ message: error.message });
+            return res.json({ _id: id, ...result });
         }
 
-        // 2) Normal field updates (no lifecycle change).
-        const allowed = ['patient', 'type', 'date'];
-        const updates = {};
-        for (const k of allowed) if (k in req.body) updates[k] = req.body[k];
+        //  Normal field updates (no lifecycle change).
+    const allowed = ['patient', 'type', 'date'];
+    const updates = {};
+    for (const k of allowed) if (k in req.body) updates[k] = req.body[k];
 
         // Block direct status/completed edits (must use `action` above)
         if ('status' in req.body || 'completed' in req.body) {
@@ -164,9 +143,6 @@ const updateAppointment = async (req, res) => {
         return res.status(400).json({ message: error.message });
     }
 };
-
-
-module.exports = { createAppointment, getAppointment, updateAppointment };
 
 // Delete appointment
 const deleteAppointment = async (req, res) => {
@@ -212,4 +188,4 @@ const completeAppointment = async (req, res) => {
     }
 };
 
-module.exports = { createAppointment, getAppointment, updateAppointment, deleteAppointment, completeAppointment };
+module.exports = { createAppointment, getAppointment, getAppointmentById, updateAppointment, deleteAppointment, completeAppointment, Transition };
