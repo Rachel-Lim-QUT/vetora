@@ -1,4 +1,5 @@
-const Patient = require('../models/Patient');
+const PatientRepository = require('../repositories/PatientRepository');
+const Logger = require('../services/logger');
 
 // Create Patient
 const createPatient = async (req, res) => {
@@ -18,7 +19,7 @@ const createPatient = async (req, res) => {
     } = req.body;
 
     try {
-        const patient = await Patient.create({
+        const patientData = ({
             userID: req.user.id,
             photo,
             name,
@@ -33,6 +34,10 @@ const createPatient = async (req, res) => {
             phone,
             email
         });
+
+        const patient = await PatientRepository.createPatient(patientData);
+
+        Logger.log(`Patient created: id ${patient._id} by user ${req.user.id}`);
 
         res.status(201).json({
             photo: patient.photo,
@@ -49,6 +54,7 @@ const createPatient = async (req, res) => {
             email: patient.email,
         });
     } catch (error) {
+        Logger.error(`Error creating patient: ${error.message}`);
         res.status(500).json({ message: error.message });
     }
 };
@@ -56,26 +62,33 @@ const createPatient = async (req, res) => {
 // Get Patient
 const getPatient = async (req, res) => {
     try {
-        const patients = await Patient.findById(req.params.id); // changed req.user.id to whats showing
+        const patients = await PatientRepository.getPatient(req.params.id);
+
+        Logger.log(`Fetched patient id ${req.params.id}`);
+
         res.json(patients);
     } catch (error) {
+        Logger.error(`Error fetching patient ${req.params.id}: ${error.message}`);
         res.status(500).json({ message: error.message })
     }
 };
 
-// get all patient (notes from jen, delete this later but added this and updated the get patient above)
+// get all patient
 const getAllPatient = async (req, res) => {
     try {
-        const patients = await Patient.find();
+        const patients = await PatientRepository.getAllPatients();
+
+        Logger.log(`Fetched all patients, total: ${patients.length}`);
+
         res.json(patients);
     } catch (error) {
+        Logger.error(`Error fetching all patients: ${error.message}`);
         res.status(500).json({ message: error.message })
     }
 };
 
 // Update Patient
 const updatePatient = async (req, res) => {
-    const { fname, lname, dob, gender, phone, email } = req.body;
     try {
         const allowed = [
             'photo',
@@ -94,19 +107,20 @@ const updatePatient = async (req, res) => {
         const updates = {};
         allowed.forEach(k => { if (k in req.body) updates[k] = req.body[k]; });
 
-        const query = req.user?.id
-        ? { _id: req.params.id, userID: req.user.id }
-        : { _id: req.params.id };
-
-        const updated = await Patient.findOneAndUpdate(
-        query,
-        { $set: updates },
-        { new: true, runValidators: true } // Show updated version
+        const patientId = req.params.id;
+        const updated = await PatientRepository.updatePatient(
+            patientId,
+            updates,
+            req.user?.id
         );
 
         if (!updated) return res.status(404).json({ message: 'Patient not found' });
+
+        Logger.log(`Patient updated: id ${patientId} by user ${req.user.id}`);
+
         res.json(updated); // for front
     } catch (error) {
+        Logger.error(`Error updating patient ${req.params.id}: ${error.message}`);
         res.status(500).json({ message: error.message });
     }
 };
@@ -114,11 +128,14 @@ const updatePatient = async (req, res) => {
 // Delete Patient
 const deletePatient = async (req, res) => {
     try {
-        const patient = await Patient.findById(req.params.id);
-        if (!patient) return res.status(404).json({ message: 'Error 404: Patient not found. ' });
-        await patient.remove();
-        res.json({ message: 'Patient deleted.' });
+        const patientId = req.params.id;
+        const result = await PatientRepository.deletePatient(patientId);
+
+        Logger.log(`Patient deleted: id ${patientId} by user ${req.user.id}`);
+
+        res.json(result);
     } catch (error) {
+        Logger.error(`Error deleting patient ${req.params.id}: ${error.message}`);
         res.status(500).json({ message: error.message });
     }
 };

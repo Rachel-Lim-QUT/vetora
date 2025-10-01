@@ -3,10 +3,11 @@ import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 import backImage from '../images/temp-back.gif';
-import '../App.css';
+import logo from '../images/temp-logo.gif';
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -24,9 +25,15 @@ const Login = () => {
 
     return (
         <div>
-            <div className="max-w-md mx-auto mt-20">
-                <form onSubmit={handleSubmit} className="rounded-window bg-white p-6 shadow-md">
-                    <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
+            <div className="dim-bg flex fixed inset-0 items-center justify-center">
+                <form onSubmit={handleSubmit} className="rounded-window p-10 w-[500px] shadow-md">
+                    {/* logo */}
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="logo mx-auto"
+                    />
+                    <h1 className="mb-4 text-2xl text-center">Login</h1>
 
                     <label for="username">Username</label>
                     <input
@@ -35,7 +42,7 @@ const Login = () => {
                         type="text"
                         value={formData.username}
                         onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                        className="w-full mb-4 p-2 border rounded"
+                        className="rounded-input-field mb-4 mt-1 p-2 w-full shadow"
                         required
                     />
 
@@ -46,18 +53,26 @@ const Login = () => {
                         type="password"
                         value={formData.password}
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        className="w-full mb-4 p-2 border rounded"
+                        className="rounded-input-field mb-1 mt-1 p-2 w-full shadow"
                         required
                     />
+                    <button type="button"
+                        className="link"
+                        onClick={() => setShowForgotPassword(true)}
+                    >
+                        Forgot password?
+                    </button>
 
                     <button
                         type="submit"
-                        className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full"
+                        className="pill-button-l-pink"
                     >
                         Login
                     </button>
-                    <p className="text-center">Don't have an account?
-                        <Link to="/register" className="link"> Register</Link>
+
+                    <p className="text-center">
+                        Don't have an account?{' '}
+                        <Link to="/register" className="link">Register</Link>
                     </p>
                 </form>
             </div>
@@ -68,7 +83,7 @@ const Login = () => {
                 <Link
                     to="/"
                     type="submit"
-                    className="pill-button bg-gray-200 hover:bg-gray-300 text-gray-800 text-center px-6 py-2"
+                    className="pill-button-s-pink"
                 >
                     Back
                 </Link>
@@ -80,6 +95,30 @@ const Login = () => {
                     className="back-image"
                 />
             </div>
+
+            {/* show forgot password */}
+            {showForgotPassword && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+                    <div className="popup-box">
+                        <h1 className="pb-2">
+                            Contact admin
+                        </h1>
+
+                        <p className="pb-2">
+                            admin@vetora.com.au
+                        </p>
+
+                        <div className="flex justify-center gap-4">
+                            <button
+                                onClick={() => setShowForgotPassword(false)}
+                                className="pill-button-s-pink hover:bg-rose-300"
+                            >
+                                Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

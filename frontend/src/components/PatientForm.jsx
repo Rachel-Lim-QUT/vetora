@@ -41,7 +41,7 @@ const PatientForm = ({ patients, setPatients }) => {
         try {
             const response = await axiosInstance.post('/api/patients', formData, { headers: { Authorization: `Bearer ${user.token}` }, });
             setPatients([...patients, response.data]);
-            setFormData({ 
+            setFormData({
                 photo: '',
                 name: '',
                 age: '',
@@ -65,7 +65,7 @@ const PatientForm = ({ patients, setPatients }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white mb-6 p-6 rounded shadow-md">
+        <form onSubmit={handleSubmit} className="rounded-window mb-6 p-6">
             <h1 className="font-bold text-2xl mb-4">Create New Patient</h1>
 
             <label for="photo">Select an icon:</label>
@@ -96,7 +96,7 @@ const PatientForm = ({ patients, setPatients }) => {
                         type="text"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
+                        className="rounded-input-field mb-4"
                         required
                     />
                 </div>
@@ -108,7 +108,7 @@ const PatientForm = ({ patients, setPatients }) => {
                         type="text"
                         value={formData.age}
                         onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
+                        className="rounded-input-field mb-4"
                         required
                     />
                 </div>
@@ -122,10 +122,10 @@ const PatientForm = ({ patients, setPatients }) => {
                         name="gender"
                         value={formData.gender}
                         onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
+                        className="rounded-input-field mb-4"
                         required
                     >
-                        <option value="" disabled selected>-- Select a gender --</option>
+                        <option value="" disabled selected>Select a gender</option>
                         <option value="Female">Female</option>
                         <option value="Male">Male</option>
                     </select>
@@ -137,10 +137,10 @@ const PatientForm = ({ patients, setPatients }) => {
                         name="species"
                         value={formData.species}
                         onChange={(e) => setFormData({ ...formData, species: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
+                        className="rounded-input-field mb-4"
                         required
                     >
-                        <option value="" disabled selected>-- Select a species --</option>
+                        <option value="" disabled selected>Select a species</option>
                         <option value="Cat">Cat</option>
                         <option value="Dog">Dog</option>
                     </select>
@@ -156,7 +156,7 @@ const PatientForm = ({ patients, setPatients }) => {
                         type="text"
                         value={formData.breed}
                         onChange={(e) => setFormData({ ...formData, breed: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
+                        className="rounded-input-field mb-4"
                     />
                 </div>
                 <div className="flex-1">
@@ -167,7 +167,7 @@ const PatientForm = ({ patients, setPatients }) => {
                         type="text"
                         value={formData.color}
                         onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                        className="mb-4 p-2 w-full border rounded"
+                        className="rounded-input-field mb-4"
                     />
                 </div>
             </div>
@@ -186,7 +186,7 @@ const PatientForm = ({ patients, setPatients }) => {
                             type="text"
                             value={formData.fname}
                             onChange={(e) => setFormData({ ...formData, fname: e.target.value })}
-                            className="mb-4 p-2 w-full border rounded"
+                            className="rounded-input-field mb-4"
                             required
                         />
                     </div>
@@ -198,7 +198,7 @@ const PatientForm = ({ patients, setPatients }) => {
                             type="text"
                             value={formData.lname}
                             onChange={(e) => setFormData({ ...formData, lname: e.target.value })}
-                            className="mb-4 p-2 w-full border rounded"
+                            className="rounded-input-field mb-4"
                             required
                         />
                     </div>
@@ -216,7 +216,7 @@ const PatientForm = ({ patients, setPatients }) => {
                             pattern="[0-9]{10}"
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            className="mb-4 p-2 w-full border rounded"
+                            className="rounded-input-field mb-4"
                             required
                         />
                     </div>
@@ -228,7 +228,7 @@ const PatientForm = ({ patients, setPatients }) => {
                             type="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="mb-4 p-2 w-full border rounded"
+                            className="rounded-input-field mb-4"
                         />
                     </div>
                 </div>
@@ -236,7 +236,7 @@ const PatientForm = ({ patients, setPatients }) => {
 
             <button
                 type="submit"
-                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full rounded"
+                className="pill-button-l-pink"
             >
                 Create
             </button>

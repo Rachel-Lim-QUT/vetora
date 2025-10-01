@@ -15,6 +15,8 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/patients', require('./routes/patientRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
+require('./services/appointmentObserver');
+
 if (require.main === module) {
     connectDB();
     const PORT = process.env.PORT || 5001;

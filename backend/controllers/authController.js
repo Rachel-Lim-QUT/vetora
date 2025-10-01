@@ -1,3 +1,4 @@
+const { UserFactory } = require('../factories/UserFactory');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -7,24 +8,35 @@ const generateToken = (id) => {
 };
 
 const registerUser = async (req, res) => {
-    const { fname, lname, clinic, role, username, password } = req.body;
+    const { username, password, fname, lname, clinic, role } = req.body;
     try {
         const userExists = await User.findOne({ username });
-        if (userExists) return res.status(409).json({ message: 'Error 409: User already exists.' });
+        if (userExists) return res.status(400).json({ message: 'Error 400: User already exists.' });
 
-        const user = await User.create({ fname, lname, clinic, role, username, password });
+        // Rachel's note: Using the Factory design pattern to create different types of User objects based on a given role.
+        const userInstance = UserFactory.createUser(username, password, fname, lname, clinic, role);
+
+        const user = new User({
+            username: userInstance.username,
+            password: userInstance.password,
+            fname: userInstance.fname,
+            lname: userInstance.lname,
+            clinic: userInstance.clinic,
+            role: userInstance.role,
+        });
+        await user.save();
+
         return res.status(201).json({
             id: user.id,
+            username: user.username,
             fname: user.fname,
             lname: user.lname,
             clinic: user.clinic,
             role: user.role,
-            username: user.username,
             token: generateToken(user.id)
         });
     } catch (error) {
-        console.error('REGISTER error:', error.message);
-        return res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -35,11 +47,11 @@ const loginUser = async (req, res) => {
         if (user && (await bcrypt.compare(password, user.password))) {
             res.json({
                 id: user.id,
+                username: user.username,
                 fname: user.fname,
                 lname: user.lname,
                 clinic: user.clinic,
                 role: user.role,
-                username: user.username,
                 token: generateToken(user.id)
             });
         } else {
@@ -66,32 +78,32 @@ const getUser = async (req, res) => {
         password: user.password,
       });
     } catch (error) {
-      res.status(500).json({ message: 'Error 500: Server error.', error: error.message });
+        res.status(500).json({ message: 'Error 500: Server error.', error: error.message });
     }
-  };
+};
 
 const updateUser = async (req, res) => {
-    const { fname, lname, clinic, role, username, password } = req.body;
+    const { username, password, fname, lname, clinic, role } = req.body;
     try {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: 'Error 404: User not found.' });
 
+        user.username = username || user.username;
+        user.password = password || user.password;
         user.fname = fname || user.fname;
         user.lname = lname || user.lname;
         user.clinic = clinic || user.clinic;
         user.role = role || user.role;
-        user.username = username || user.username;
-        user.password = password || user.password;
 
         const updatedUser = await user.save();
-        res.json({ 
-          id: updatedUser.id,
-          fname: updatedUser.fname,
-          lname: updatedUser.lname,
-          clinic: updatedUser.clinic,
-          role: updatedUser.role,
-          username: updatedUser.username,
-       });
+        res.json({
+            id: updatedUser.id,
+            fname: updatedUser.fname,
+            lname: updatedUser.lname,
+            clinic: updatedUser.clinic,
+            role: updatedUser.role,
+            username: updatedUser.username,
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

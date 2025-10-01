@@ -4,7 +4,7 @@ import logo from '../images/temp-logo.gif';
 
 const Landing = () => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center">
+        <div className="yellow-bg flex flex-col items-center justify-center text-center">
 
             {/* clinic logo */}
             <img
@@ -14,31 +14,21 @@ const Landing = () => {
             />
 
             {/* clinic name */}
-            <h1 className="text-2xl font-bold mb-8">
+            <h1 className="text-2xl font-bold mb-6">
                 Vetora
             </h1>
 
             {/* buttons */}
-            <div className="flex flex-col gap-4 w-40 mx-auto">
+            <div className="flex flex-col gap-4 items-center">
 
                 {/* login */}
-                <Link to="/Login" className="px-6 py-2
-                    rounded-full
-                    bg-gray-200
-                    text-gray-800
-                    text-center
-                    hover:bg-gray-300"
+                <Link to="/Login" className="pill-button-m-pink"
                 >
                     Login
                 </Link>
 
                 {/* register */}
-                <Link to="/Register" className="px-6 py-2
-                    rounded-full
-                    bg-gray-200
-                    text-gray-800
-                    text-center
-                    hover:bg-gray-300"
+                <Link to="/Register" className="pill-button-m-pink"
                 >
                     Register
                 </Link>

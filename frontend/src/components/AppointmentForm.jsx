@@ -6,26 +6,49 @@ import axiosInstance from "../axiosConfig";
 
 const AppointmentForm = ({ appointments, setAppointments, editingAppointment, setEditingAppointment }) => {
     const { user } = useAuth();
+    const [patients, setPatients] = useState([]);
     const [formData, setFormData] = useState({
         patient: '',
         type: '',
         date: '',
+        time: '',
     });
+
+    // fetch patients
+    useEffect(() => {
+        const fetchPatients = async () => {
+            try {
+                const response = await axiosInstance.get('/api/patients', {
+                    headers: { Authorization: `Bearer ${user.token}` },
+                });
+                setPatients(response.data);
+            } catch (error) {
+                console.error('Error fetching patients:', error);
+                alert('Error fetching patient list.');
+            }
+        };
+
+        if (user) {
+            fetchPatients();
+        }
+    }, [user]);
 
     useEffect(() => {
         if (editingAppointment) {
+            const appointmentDate = new Date(editingAppointment.date);
             setFormData({
                 patient: editingAppointment.patient,
                 type: editingAppointment.type,
-                date: editingAppointment.date
-                    ? new Date(editingAppointment.date).toISOString().slice(0, 10)
-                    : '',
+                date: appointmentDate.toISOString().slice(0, 10),
+                time: appointmentDate.toTimeString().slice(0, 5),
             });
+
         } else {
             setFormData({
                 patient: '',
                 type: '',
                 date: '',
+                time: '',
             });
         }
     }, [editingAppointment]);
@@ -33,13 +56,22 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // combine date and time
+            const combinedDateTime = new Date(`${formData.date}T${formData.time}`);
+
+            const payload = {
+                patient: formData.patient,
+                type: formData.type,
+                date: combinedDateTime.toISOString(),
+            };
+
             if (editingAppointment) {
-                const response = await axiosInstance.put(`/api/appointments/${editingAppointment._id}`, formData, {
+                const response = await axiosInstance.put(`/api/appointments/${editingAppointment._id}`, payload, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
                 setAppointments(appointments.map((appointment) => (appointment._id === response.data._id ? response.data : appointment)));
             } else {
-                const response = await axiosInstance.post('/api/appointments', formData, {
+                const response = await axiosInstance.post('/api/appointments', payload, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
                 setAppointments([...appointments, response.data]);
@@ -49,6 +81,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 patient: '',
                 type: '',
                 date: '',
+                time: '',
             });
             alert('Success! Appointment saved.')
         } catch (error) {
@@ -64,17 +97,24 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         <form onSubmit={handleSubmit} className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
             <h1 className="text-2xl font-bold mb-4">{editingAppointment ? 'Update Appointment' : 'Create New Appointment'}</h1>
 
-            {/* Patient */}
-            <label for="patient" className="required">Patient</label>
-            <input
+            {/* patient */}
+            <label htmlFor="patient" className="required">Patient</label>
+            <select
                 id="patient"
                 name="patient"
-                type="text"
                 value={formData.patient}
                 onChange={(e) => setFormData({ ...formData, patient: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
+                className="rounded-input-field mb-4"
                 required
-            />
+                disabled={editingAppointment}
+            >
+                <option value="" disabled>Select a patient</option>
+                {patients.map((patient) => (
+                    <option key={patient._id} value={patient._id}>
+                        {patient.name} ({patient.species})
+                    </option>
+                ))}
+            </select>
 
             {/* Appointment Type */}
             <label for="type" className="required">Appointment Type</label>
@@ -84,7 +124,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 type="text"
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
+                className="rounded-input-field mb-4"
                 required
             >
                 <option value="" disabled selected>-- Select an appointment type --</option>
@@ -94,21 +134,38 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                 <option value="Vaccinations">Vaccinations</option>
             </select>
 
-            {/* Date */}
-            <label for="date" className="required">Date</label>
-            <input
-                id="date"
-                name="date"
-                type="date"
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="mb-4 p-2 w-full border rounded"
-                required
-            />
+            {/* Date and time*/}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+                <div>
+                    <label htmlFor="date" className="required">Date</label>
+                    <input
+                        id="date"
+                        name="date"
+                        type="date"
+                        value={formData.date}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        className="rounded-input-field"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="time" className="required">Time</label>
+                    <input
+                        id="time"
+                        name="time"
+                        type="time"
+                        value={formData.time}
+                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                        className="rounded-input-field"
+                        required
+                    />
+                </div>
+            </div>
 
             <button
                 type="submit"
-                className="pill-button bg-blue-600 hover:bg-blue-700 text-white p-2 w-full"
+                className={editingAppointment ? "pill-button-l-green" : "pill-button-l-pink"}
             >
                 {editingAppointment ? 'Update' : 'Create'}
             </button>
@@ -118,9 +175,9 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                     type="button"
                     onClick={() => {
                         setEditingAppointment(null);
-                        setFormData({ patient: '', type: '', date: '' });
+                        setFormData({ patient: '', type: '', date: '', time: '' });
                     }}
-                    className="pill-button bg-gray-500 hover:bg-gray-600 text-white p-2 w-full mt-2"
+                    className="pill-button-l-grey"
                 >
                     Cancel
                 </button>
