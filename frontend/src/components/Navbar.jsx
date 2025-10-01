@@ -36,7 +36,7 @@ const Navbar = () => {
                 <Link to="/patients" className="mr-8">
                     <h2 className="h2-nav">Patients</h2>
                 </Link>
-                <Link to="">
+                <Link to="/owners">
                     <h2 className="h2-nav">Owners</h2>
                 </Link>
             </div>
