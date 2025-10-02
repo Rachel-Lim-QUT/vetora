@@ -12,10 +12,10 @@ const OwnerDetails = ({ owners, setOwners }) => {
     const navigate = useNavigate();
 
     const [formData, setForm] = useState({
-        fname: owners.fname || "",
-        lname: owners.lname || "",
-        phone: owners.phone || "",
-        email: owners.email || ""
+        fname: "",
+        lname: "",
+        phone: "",
+        email: "",
     });
 
     const startEdit = () => {
@@ -55,66 +55,137 @@ const OwnerDetails = ({ owners, setOwners }) => {
 
     return (
         <div className="grid grid-cols-5 gap-6 p-6">
+
             {/* left side */}
             <div className="col-span-2">
+                {/* <div>
+                    <Link
+                        to={`/owners`}
+                        className="pill-button-s-pink mb-2"
+                    >
+                        Back
+                    </Link>
+                </div> */}
                 <div className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
                     <h1 className="font-bold text-2xl mb-4">
                         {editMode ? "Edit Owner" : "Owner Details"}
                     </h1>
 
                     <div className="flex gap-4">
-                        <div className="flex-1">
-                            <label for="fname">First Name</label>
-                            <input
-                                id="fname"
-                                name="fname"
-                                type="text"
-                                value={formData.fname}
-                                onChange={onChange}
-                                className={`rounded-input-field-disable mb-4 ${!editMode ? "rounded-input-field-disabled" : "rounded-input-field"}`}
-                                disabled={!editMode}
-                            />
-                        </div>
-                        <div className="flex-1">
-                            <label for="lname">Last Name</label>
-                            <input
-                                id="lname"
-                                name="lname"
-                                type="text"
-                                value={formData.lname}
-                                onChange={onChange}
-                                className={`rounded-input-field-disable mb-4 ${!editMode ? "rounded-input-field-disabled" : "rounded-input-field"}`}
-                                disabled={!editMode}
-                            />
-                        </div>
+                        {!editMode ? (
+                            <>
+                                <div className="flex-1">
+                                    <label for="fname">First Name</label>
+                                    <input
+                                        id="fname"
+                                        name="fname"
+                                        type="text"
+                                        value={owners.fname}
+                                        onChange={onChange}
+                                        className="rounded-input-field-disable mb-4"
+                                        disabled
+                                    />
+                                </div>
+
+                                <div className="flex-1">
+                                    <label for="lname">Last Name</label>
+                                    <input
+                                        id="lname"
+                                        name="lname"
+                                        type="text"
+                                        value={owners.lname}
+                                        onChange={onChange}
+                                        className="rounded-input-field-disable mb-4"
+                                        disabled
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="flex-1">
+                                    <label for="fname">First Name</label>
+                                    <input
+                                        id="fname"
+                                        name="fname"
+                                        type="text"
+                                        value={formData.fname}
+                                        onChange={onChange}
+                                        className="rounded-input-field"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label for="lname">Last Name</label>
+                                    <input
+                                        id="lname"
+                                        name="lname"
+                                        type="text"
+                                        value={owners.lname}
+                                        onChange={onChange}
+                                        className="rounded-input-field mb-4"
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <div className="flex gap-4 mb-4">
-                        <div className="flex-1">
-                            <label for="phone">Phone Number</label>
-                            <input
-                                id="phone"
-                                name="phone"
-                                type="tel"
-                                maxLength={10}
-                                value={formData.phone}
-                                onChange={onChange}
-                                className={`rounded-input-field-disable ${!editMode ? "rounded-input-field-disabled" : "rounded-input-field"}`}
-                                disabled={!editMode}
-                            />
-                        </div>
-                        <div className="flex-1">
-                            <label for="email">Email Address</label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={onChange}
-                                className={`rounded-input-field-disable ${!editMode ? "rounded-input-field-disabled" : "rounded-input-field"}`}
-                                disabled={!editMode}
-                            />
-                        </div>
+                        {!editMode ? (
+                            <>
+                                <div className="flex-1">
+                                    <label for="phone">Phone Number</label>
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        maxLength={10}
+                                        value={owners.phone}
+                                        onChange={onChange}
+                                        className="rounded-input-field-disable mb-4"
+                                        disable
+                                    />
+                                </div>
+
+                                <div className="flex-1">
+                                    <label for="email">Email Address</label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={owners.email}
+                                        onChange={onChange}
+                                        className="rounded-input-field mb-4"
+                                        disabled
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="flex-1">
+                                    <label for="phone">Phone Number</label>
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        maxLength={10}
+                                        value={owners.phone}
+                                        onChange={onChange}
+                                        className="rounded-input-field"
+                                    />
+                                </div>
+
+                                <div className="flex-1">
+                                    <label for="email">Email Address</label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={owners.email}
+                                        onChange={onChange}
+                                        className="rounded-input-field"
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <div className="mb-4 flex items-end gap-2">

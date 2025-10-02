@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import logo from '../images/temp-logo.gif';
+import logo from '../images/logo.png';
 
 const Landing = () => {
     return (

@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-import amore from '../images/amore.gif';
-import coolcat from '../images/coolcat.png';
-import chatting from '../images/chatting.gif';
+import catIcon from '../images/cat-icon.png';
+import dogIcon from '../images/dog-icon.png';
+import snakeIcon from '../images/snake-icon.png';
 
 const PatientForm = ({ patients, setPatients }) => {
     const { user } = useAuth();
@@ -26,9 +26,9 @@ const PatientForm = ({ patients, setPatients }) => {
     });
 
     const pfps = [
-        { name: 'amore', src: amore },
-        { name: 'coolcat', src: coolcat },
-        { name: 'chatting', src: chatting }
+        { name: 'cat', src: catIcon },
+        { name: 'dog', src: dogIcon },
+        { name: 'snake', src: snakeIcon }
     ]
 
     const selectIcon = (src) => {

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-import logo from '../images/temp-logo.gif';
+import logo from '../images/logo.png';
 import profile from '../images/profile-icon.png';
 
 const Navbar = () => {

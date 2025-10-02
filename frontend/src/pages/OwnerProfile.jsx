@@ -9,7 +9,7 @@ import OwnerDetails from "../components/OwnerDetails";
 const OwnerProfile = () => {
     const { id } = useParams();
     const { user } = useAuth();
-    const [owners, setOwners] = useState(null);
+    const [owners, setOwners] = useState([]);
 
     useEffect(() => {
         const fetchOwner = async () => {
