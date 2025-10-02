@@ -55,7 +55,7 @@ const createPatient = async (req, res) => {
         });
     } catch (error) {
         Logger.error(`Error creating patient: ${error.message}`);
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: '500: Internal Server Error' });
     }
 };
 
@@ -69,7 +69,7 @@ const getPatient = async (req, res) => {
         res.json(patients);
     } catch (error) {
         Logger.error(`Error fetching patient ${req.params.id}: ${error.message}`);
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: '500: Internal Server Error' })
     }
 };
 
@@ -83,7 +83,7 @@ const getAllPatient = async (req, res) => {
         res.json(patients);
     } catch (error) {
         Logger.error(`Error fetching all patients: ${error.message}`);
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: '500: Internal Server Error' })
     }
 };
 
@@ -114,14 +114,14 @@ const updatePatient = async (req, res) => {
             req.user?.id
         );
 
-        if (!updated) return res.status(404).json({ message: 'Patient not found' });
+        if (!updated) return res.status(404).json({ message: '404: Patient Not Found' });
 
         Logger.log(`Patient updated: id ${patientId} by user ${req.user.id}`);
 
         res.json(updated); // for front
     } catch (error) {
         Logger.error(`Error updating patient ${req.params.id}: ${error.message}`);
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: '500: Internal Server Error' });
     }
 };
 
@@ -136,7 +136,7 @@ const deletePatient = async (req, res) => {
         res.json(result);
     } catch (error) {
         Logger.error(`Error deleting patient ${req.params.id}: ${error.message}`);
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: '500: Internal Server Error' });
     }
 };
 
