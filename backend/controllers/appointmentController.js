@@ -18,11 +18,11 @@ const createAppointmentCore = async (req, res) => {
     const appointment = await Appointment.create({
         userID: req.user.id,
         patient, type, date,
-        status: 'REQUESTED',
+        status: 'Requested',
         completed: Boolean(completed),
     });
 
-    Logger.log(`Fetched ${appointments.length} appointments for user ${req.user.id}`); // JENS DESIGN PATTERN
+    Logger.log(`Appointment created for user ${req.user.id}`); // JENS DESIGN PATTERN
 
     return res.status(201).json({
         _id: appointment._id,
@@ -33,9 +33,6 @@ const createAppointmentCore = async (req, res) => {
         completed: appointment.completed,
         allowedTransitions: allowedTransitions(appointment.status),
     });
-
-    Logger.error(`Error fetching appointments: ${error.message}`); // JENS DESIGN PATTERN - TRY TO KEEP THIS - IF YOU HAVE CATCH ERROR PLEASE PUT THIS WITH THAT (BEFORE)----------------
-    // SEE JENS EXAMPLE OF WHERE THIS LOGGER GETS PLACED BELOW IN THE GET APPOINTMENT, SEE IF YOU CAN PUT THIS SOMEWHERE IN YOUR DESIGN PATTERN ---------------------------------------
 };
 
 // Create Appointment
@@ -66,7 +63,7 @@ const appointments = await AppointmentRepository.getAppointments(req.user.id);
         patient: a.patient,
         type: a.type,
         date: a.date,
-        status: a.status || (a.completed ? 'COMPLETED' : 'REQUESTED'),
+        status: a.status || (a.completed ? 'Completed' : 'Requested'),
         completed: a.completed,
       }))
     );
@@ -187,7 +184,7 @@ const completeAppointment = async (req, res) => {
 // Generic transition handler
 const transition = async (req, res) => {
   const { id } = req.params;
-  const action = String(req.body?.action || '').toUpperCase(); // 'confirm' → 'CONFIRM'
+  const action = String(req.body?.action || '').toLowerCase(); 
   if (!action) return res.status(400).json({ message: 'action is required' });
 
   const result = await transitionAppointment({

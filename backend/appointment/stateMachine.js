@@ -1,27 +1,27 @@
-// State enum
+// State enum 
 const STATES = {
-  REQUESTED: "REQUESTED",
-  CONFIRMED: "CONFIRMED",
-  IN_PROGRESS: "IN_PROGRESS",
-  COMPLETED: "COMPLETED",
-  CANCELLED: "CANCELLED",
+  Requested: "Requested",
+  Confirmed: "Confirmed",
+  InProgress: "InProgress",
+  Completed: "Completed",
+  Cancelled: "Cancelled",
 };
 
-// Action enum
+// Action enum 
 const ACTIONS = {
-  CONFIRM: "CONFIRM",
-  START: "START",
-  COMPLETE: "COMPLETE",
-  CANCEL: "CANCEL",
+  CONFIRM: "confirm",
+  START: "start",
+  COMPLETE: "complete",
+  CANCEL: "cancel",
 };
 
 // Transition graph
 const MACHINE = {
-  [STATES.REQUESTED]:  { [ACTIONS.CONFIRM]: STATES.CONFIRMED,  [ACTIONS.CANCEL]: STATES.CANCELLED },
-  [STATES.CONFIRMED]:  { [ACTIONS.START]:   STATES.IN_PROGRESS, [ACTIONS.CANCEL]: STATES.CANCELLED },
-  [STATES.IN_PROGRESS]:{ [ACTIONS.COMPLETE]:STATES.COMPLETED,   [ACTIONS.CANCEL]: STATES.CANCELLED },
-  [STATES.COMPLETED]:  {},
-  [STATES.CANCELLED]:  {},
+  [STATES.Requested]:  { [ACTIONS.CONFIRM]: STATES.Confirmed,  [ACTIONS.CANCEL]: STATES.Cancelled },
+  [STATES.Confirmed]:  { [ACTIONS.START]:   STATES.InProgress, [ACTIONS.CANCEL]: STATES.Cancelled },
+  [STATES.InProgress]: { [ACTIONS.COMPLETE]:STATES.Completed,  [ACTIONS.CANCEL]: STATES.Cancelled },
+  [STATES.Completed]:  {},
+  [STATES.Cancelled]:  {},
 };
 
 // Helpers
@@ -30,7 +30,7 @@ function allowedTransitions(state) {
 }
 
 function nextState(current, action) {
-  const cur = MACHINE[current] ? current : STATES.REQUESTED;
+  const cur = MACHINE[current] ? current : STATES.Requested;
   const next = MACHINE[cur]?.[action];
   if (!next) {
     const e = new Error(`Invalid transition: ${cur} -> (${action})`);
@@ -42,7 +42,7 @@ function nextState(current, action) {
 
 // Main
 async function runTransition(appointment, action) {
-  const cur = appointment.status || STATES.REQUESTED;
+  const cur = appointment.status || STATES.Requested;
   const nxt = nextState(cur, action);
   appointment.status = nxt;
   return { status: nxt, allowedTransitions: allowedTransitions(nxt) };
