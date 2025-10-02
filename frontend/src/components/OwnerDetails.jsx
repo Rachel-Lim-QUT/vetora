@@ -58,14 +58,6 @@ const OwnerDetails = ({ owners, setOwners }) => {
 
             {/* left side */}
             <div className="col-span-2">
-                {/* <div>
-                    <Link
-                        to={`/owners`}
-                        className="pill-button-s-pink mb-2"
-                    >
-                        Back
-                    </Link>
-                </div> */}
                 <div className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
                     <h1 className="font-bold text-2xl mb-4">
                         {editMode ? "Edit Owner" : "Owner Details"}
