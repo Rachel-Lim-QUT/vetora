@@ -74,7 +74,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                                 Edit
                             </button>
                             <Link
-                                to={`/patientprofile/${appointment.patient._id}`}
+                                to={`/patientprofile/${appointment.patient?._id}`}
                                 className="pill-button-s-pink"
                             >
                                 View
