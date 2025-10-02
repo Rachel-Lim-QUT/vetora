@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -132,7 +131,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         maxLength={10}
                                         value={owners.phone}
                                         onChange={onChange}
-                                        className="rounded-input-field-disable mb-4"
+                                        className="rounded-input-field-disable"
                                         disable
                                     />
                                 </div>
@@ -145,7 +144,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         type="email"
                                         value={owners.email}
                                         onChange={onChange}
-                                        className="rounded-input-field mb-4"
+                                        className="rounded-input-field-disable"
                                         disabled
                                     />
                                 </div>
