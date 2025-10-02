@@ -75,24 +75,26 @@ const PatientForm = ({ patients, setPatients }) => {
                 </p>
             )}
 
-            <label for="photo">Select an icon:</label>
-            <ul className="flex gap-4 my-4">
-                {pfps.map(pfp => (
-                    <li key={pfp.name}>
-                        <button
-                            type="button"
-                            onClick={() => selectIcon(pfp.src)}
-                            className="focus:outline-none"
-                        >
-                            <img
-                                src={pfp.src}
-                                alt={pfp.name}
-                                className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
-                            />
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            <div className="flex items-center">
+                <label for="photo">Select an icon:</label>
+                <ul className="flex gap-4 ml-2">
+                    {pfps.map(pfp => (
+                        <li key={pfp.name}>
+                            <button
+                                type="button"
+                                onClick={() => selectIcon(pfp.src)}
+                                className="focus:outline-none"
+                            >
+                                <img
+                                    src={pfp.src}
+                                    alt={pfp.name}
+                                    className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
+                                />
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             <div className="flex gap-4">
                 <div className="flex-1">
@@ -150,6 +152,7 @@ const PatientForm = ({ patients, setPatients }) => {
                         <option value="" disabled selected>Select a species</option>
                         <option value="Cat">Cat</option>
                         <option value="Dog">Dog</option>
+                        <option value="Dog">Snake</option>
                     </select>
                 </div>
             </div>
