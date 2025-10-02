@@ -10,6 +10,7 @@ const { expect } = chai;
 
 const Patient = require('../models/Patient');
 const { createPatient, getPatient, updatePatient, deletePatient } = require('../controllers/patientController');
+const PatientRepository = require('../repositories/PatientRepository');
 
 chai.use(chaiHttp);
 let server;
@@ -19,6 +20,7 @@ let port;
 describe('createPatient Function Test', () => {
 
     it('should create a new patient successfully', async () => {
+
         // Mock Request Data
         const req = {
             user: { id: new mongoose.Types.ObjectId() },
@@ -76,6 +78,7 @@ describe('createPatient Function Test', () => {
     });
 
     it('should return 500 if an error occurs', async () => {
+
         // Stub Patient.create to throw an error
         const createStub = sinon.stub(Patient, 'create').throws(new Error('500: Internal Server Error'));
 
@@ -117,59 +120,60 @@ describe('createPatient Function Test', () => {
 });
 
 // getPatient
-describe('GetTask Function Test', () => {
+describe('getPatient Function Test', () => {
 
-    it('should return tasks for the given user', async () => {
-        // Mock user ID
-        const userId = new mongoose.Types.ObjectId();
+    it('should return patients for the given user', async () => {
 
-        // Mock task data
-        const tasks = [
-            { _id: new mongoose.Types.ObjectId(), title: "Task 1", userId },
-            { _id: new mongoose.Types.ObjectId(), title: "Task 2", userId }
+        // Mock User ID
+        const userID = new mongoose.Types.ObjectId();
+
+        // Mock Patient Data
+        const patients = [
+            { _id: new mongoose.Types.ObjectId(), userID, photo: '', name: 'Baby', age: '1 Month', gender: 'Female', species: 'Cat', breed: 'Domestic Short Hair', color: 'Calico', history: '' },
+            { _id: new mongoose.Types.ObjectId(), userID, photo: '', name: 'Tibby', age: '5 Years', gender: 'Male', species: 'Dog', breed: 'Shih Tzu', color: 'Cream', history: '' }
         ];
 
-        // Stub Task.find to return mock tasks
-        const findStub = sinon.stub(Task, 'find').resolves(tasks);
+        // Stub Patient.find to return mock patients.
+        const findStub = sinon.stub(PatientRepository, 'getPatient').resolves(patients);
 
-        // Mock request & response
-        const req = { user: { id: userId } };
+        // Mock Request & Response
+        const req = { params: { id: userID } };
         const res = {
             json: sinon.spy(),
             status: sinon.stub().returnsThis()
         };
 
-        // Call function
-        await getTasks(req, res);
+        // Call getPatient function
+        await getPatient(req, res);
 
         // Assertions
-        expect(findStub.calledOnceWith({ userId })).to.be.true;
-        expect(res.json.calledWith(tasks)).to.be.true;
-        expect(res.status.called).to.be.false; // No error status should be set
+        expect(findStub.calledOnceWith(req.params.id)).to.be.true;
+        expect(res.json.calledWith(patients)).to.be.true;
+        expect(res.status.called).to.be.false; // No error status should be set.
 
-        // Restore stubbed methods
+        // Restore Stubbed methods
         findStub.restore();
     });
 
-    it('should return 500 on error', async () => {
-        // Stub Task.find to throw an error
-        const findStub = sinon.stub(Task, 'find').throws(new Error('DB Error'));
+    it('should return 500 if an error occurs', async () => {
+        // Stub Patient.find to throw an error
+        const findStub = sinon.stub(PatientRepository, 'getPatient').throws(new Error('500: Internal Server Error'));
 
-        // Mock request & response
-        const req = { user: { id: new mongoose.Types.ObjectId() } };
+        // Mock Request & Response
+        const req = { params: { id: new mongoose.Types.ObjectId() } };
         const res = {
             json: sinon.spy(),
             status: sinon.stub().returnsThis()
         };
 
-        // Call function
-        await getTasks(req, res);
+        // Call getPatient function
+        await getPatient(req, res);
 
         // Assertions
         expect(res.status.calledWith(500)).to.be.true;
-        expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
+        expect(res.json.calledWithMatch({ message: '500: Internal Server Error' })).to.be.true;
 
-        // Restore stubbed methods
+        // Restore Stubbed Methods
         findStub.restore();
     });
 });
