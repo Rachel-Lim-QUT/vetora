@@ -7,7 +7,7 @@ const { allowedTransitions } = require('../appointment/stateMachine');
 // JENS DESIGN PATTERN IMPORTS
 const AppointmentRepository = require('../repositories/AppointmentRepository');
 const Logger = require('../services/logger');
-const appointmentEmitter = require('../services/appointmentEvents');
+const appointmentEmitter = require('../services/appointmentEvents');  // Gh DesignPattern eventBus
 
 
 const createAppointmentCore = async (req, res) => {
@@ -18,6 +18,7 @@ const createAppointmentCore = async (req, res) => {
     const appointment = await Appointment.create({
         userID: req.user.id,
         patient, type, date,
+        status: 'REQUESTED',
         completed: Boolean(completed),
     });
 
@@ -87,11 +88,7 @@ const appointments = await AppointmentRepository.getAppointments(req.user.id);
 };
 
 
-// Update Appointment
-// This update endpoint keeps your CREATE decorators intact.
-// - If body contains `action` (confirm/start/complete/cancel) → use FSM (State Pattern).
-// - Otherwise, allow normal field edits (patient/type/date).
-// - Direct status/completed edits are blocked to avoid bypassing FSM.
+
 const updateAppointment = async (req, res) => {
     try {
         const { id } = req.params;
@@ -187,5 +184,21 @@ const completeAppointment = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+// Generic transition handler
+const transition = async (req, res) => {
+  const { id } = req.params;
+  const action = String(req.body?.action || '').toUpperCase(); // 'confirm' → 'CONFIRM'
+  if (!action) return res.status(400).json({ message: 'action is required' });
 
-module.exports = { createAppointment, getAppointment, getAppointmentById, updateAppointment, deleteAppointment, completeAppointment, Transition };
+  const result = await transitionAppointment({
+    id,
+    action,                 // like CONFIRM/START/COMPLETE/CANCEL
+    user: req.user,
+    reason: req.body?.reason,
+    eventBus: req.app?.locals?.eventBus, 
+  });
+
+  return res.json({ _id: id, ...result });
+};
+
+module.exports = { createAppointment, getAppointment, getAppointmentById, updateAppointment, deleteAppointment, completeAppointment, transition };

@@ -22,8 +22,8 @@ async function transitionAppointment({ id, action, user, reason, eventBus }) {
 
     // core FSM call
     const result = await runTransition(appt, normalized); // { status, allowedTransitions }
-
-    // optional audit/event
+    await appt.save({ session });
+    
     if (eventBus) {
       await eventBus.publish('appointment.stateChanged', {
         id: appt._id.toString(),

@@ -15,35 +15,37 @@ const ACTIONS = {
   CANCEL: "CANCEL",
 };
 
-// Transition graph (sourceState -> action -> nextState)
+// Transition graph
 const MACHINE = {
   [STATES.REQUESTED]:  { [ACTIONS.CONFIRM]: STATES.CONFIRMED,  [ACTIONS.CANCEL]: STATES.CANCELLED },
   [STATES.CONFIRMED]:  { [ACTIONS.START]:   STATES.IN_PROGRESS, [ACTIONS.CANCEL]: STATES.CANCELLED },
   [STATES.IN_PROGRESS]:{ [ACTIONS.COMPLETE]:STATES.COMPLETED,   [ACTIONS.CANCEL]: STATES.CANCELLED },
-  [STATES.COMPLETED]:  {}, // terminal
-  [STATES.CANCELLED]:  {}, // terminal
+  [STATES.COMPLETED]:  {},
+  [STATES.CANCELLED]:  {},
 };
 
 // Helpers
 function allowedTransitions(state) {
-  // returns list of allowed action strings from current state
   return Object.keys(MACHINE[state] || {});
 }
 
 function nextState(current, action) {
-  // returns the next state or throws on invalid transition
-  const next = MACHINE[current]?.[action];
-  if (!next) throw new Error(`Invalid transition: ${current} -> (${action})`);
+  const cur = MACHINE[current] ? current : STATES.REQUESTED;
+  const next = MACHINE[cur]?.[action];
+  if (!next) {
+    const e = new Error(`Invalid transition: ${cur} -> (${action})`);
+    e.statusCode = 400;
+    throw e;
+  }
   return next;
 }
 
-// Main function used by service layer
+// Main
 async function runTransition(appointment, action) {
-  // appointment is a mongoose doc; we update its "status"
-  const next = nextState(appointment.status, action);
-  appointment.status = next;
-  if (onEnter[next]) await onEnter[next](appointment);
-  return { status: next, allowedTransitions: allowedTransitions(next) };
+  const cur = appointment.status || STATES.REQUESTED;
+  const nxt = nextState(cur, action);
+  appointment.status = nxt;
+  return { status: nxt, allowedTransitions: allowedTransitions(nxt) };
 }
 
 module.exports = { STATES, ACTIONS, allowedTransitions, nextState, runTransition };

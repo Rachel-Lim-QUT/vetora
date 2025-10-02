@@ -64,7 +64,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                             hour12: true,
                         })}
                     </p>
-
+                    <p><b>Status</b>: {appointment.status || (appointment.completed ? 'COMPLETED' : 'REQUESTED')}</p>
                     <div className="flex justify-between items-center mt-2">
                         <div className="flex-2">
                             <button

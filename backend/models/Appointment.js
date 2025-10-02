@@ -5,17 +5,12 @@ const appointmentSchema = new mongoose.Schema({
   type: { type: String, required: true },
   date: { type: Date, required: true },
   completed: { type: Boolean, default: false },
+  status: { type: String, default: 'REQUESTED' },
 
   // patient link
   patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true },
 
-  // Appointment lifecycle (FSM):
-  // Requested → Confirmed → InProgress → (Completed | Cancelled)
-  // Single source of truth = status  (legacy `completed` auto-syncs)
-  // Allowed transitions: 
-  //   Requested → Confirmed | Cancelled
-  //   Confirmed → InProgress | Cancelled
-  //   InProgress → Completed | Cancelled
+  
   status: {
     type: String,
     enum: ['Requested', 'Confirmed', 'InProgress', 'Completed', 'Cancelled'],
