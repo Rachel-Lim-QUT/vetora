@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
-import backImage from '../images/temp-back.gif';
-import logo from '../images/temp-logo.gif';
+import backIcon from '../images/back-icon.gif';
+import logo from '../images/logo.png';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -192,9 +192,9 @@ const Register = () => {
 
                 {/* back image */}
                 <img
-                    src={backImage}
+                    src={backIcon}
                     alt="Back"
-                    className="back-image"
+                    className="back-icon"
                 />
             </div>
         </div>

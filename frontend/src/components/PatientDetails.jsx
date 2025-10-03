@@ -330,7 +330,7 @@ const PatientDetails = ({ patients, setPatients }) => {
 
                             <button
                                 onClick={() => setShowConfirm(false)}
-                                className="pill-button-s-pink"
+                                className="pill-button-s-grey"
                             >
                                 No
                             </button>

@@ -97,6 +97,13 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         <form onSubmit={handleSubmit} className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
             <h1 className="text-2xl font-bold mb-4">{editingAppointment ? 'Update Appointment' : 'Create New Appointment'}</h1>
 
+            {/* making sure user is logged in */}
+            {!user?.token && (
+                <p className="text-red-600 mb-4">
+                    you are not logged in
+                </p>
+            )}
+
             {/* patient */}
             <label htmlFor="patient" className="required">Patient</label>
             <select

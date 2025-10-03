@@ -120,7 +120,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                                 Edit
                             </button>
                             <Link
-                                to={`/patientprofile/${appointment.patient._id}`}
+                                to={`/patientprofile/${appointment.patient?._id}`}
                                 className="pill-button-s-pink"
                             >
                                 View
@@ -139,7 +139,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                                 disabled={appointment.completed}
                                 className={`${appointment.completed ? 'pill-button-m-grey cursor-not-allowed' : 'pill-button-m-green'}`}
                             >
-                                {appointment.completed ? 'Completed' : 'Complete'}
+                                {appointment.completed ? 'Invoiced' : 'Complete'}
                             </button>
                         </div>
                     </div>
@@ -149,7 +149,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
                             <div className="popup-box">
                                 <p className="mb-4 font-medium text-lg">
-                                    Are you sure you want to mark this appointment as complete?
+                                    Are you sure you want to complete and send the invoice?
                                 </p>
                                 <div className="flex justify-center gap-4">
                                     <button
@@ -190,7 +190,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
 
                                     <button
                                         onClick={() => setShowConfirm(false)}
-                                        className="pill-button-s-pink"
+                                        className="pill-button-s-grey"
                                     >
                                         No
                                     </button>

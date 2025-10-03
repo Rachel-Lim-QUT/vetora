@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from "../axiosConfig";
 
-import amore from '../images/amore.gif';
-import coolcat from '../images/coolcat.png';
-import chatting from '../images/chatting.gif';
+import catIcon from '../images/cat-icon.png';
+import dogIcon from '../images/dog-icon.png';
+import snakeIcon from '../images/snake-icon.png';
 
 const PatientForm = ({ patients, setPatients }) => {
     const { user } = useAuth();
@@ -26,9 +26,9 @@ const PatientForm = ({ patients, setPatients }) => {
     });
 
     const pfps = [
-        { name: 'amore', src: amore },
-        { name: 'coolcat', src: coolcat },
-        { name: 'chatting', src: chatting }
+        { name: 'cat', src: catIcon },
+        { name: 'dog', src: dogIcon },
+        { name: 'snake', src: snakeIcon }
     ]
 
     const selectIcon = (src) => {
@@ -68,24 +68,33 @@ const PatientForm = ({ patients, setPatients }) => {
         <form onSubmit={handleSubmit} className="rounded-window mb-6 p-6">
             <h1 className="font-bold text-2xl mb-4">Create New Patient</h1>
 
-            <label for="photo">Select an icon:</label>
-            <ul className="flex gap-4 my-4">
-                {pfps.map(pfp => (
-                    <li key={pfp.name}>
-                        <button
-                            type="button"
-                            onClick={() => selectIcon(pfp.src)}
-                            className="focus:outline-none"
-                        >
-                            <img
-                                src={pfp.src}
-                                alt={pfp.name}
-                                className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
-                            />
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            {/* making sure user is logged in */}
+            {!user?.token && (
+                <p className="text-red-600 mb-4">
+                    you are not logged in
+                </p>
+            )}
+
+            <div className="flex items-center">
+                <label for="photo">Select an icon:</label>
+                <ul className="flex gap-4 ml-2">
+                    {pfps.map(pfp => (
+                        <li key={pfp.name}>
+                            <button
+                                type="button"
+                                onClick={() => selectIcon(pfp.src)}
+                                className="focus:outline-none"
+                            >
+                                <img
+                                    src={pfp.src}
+                                    alt={pfp.name}
+                                    className={`w-10 h-10 rounded-full cursor-pointer transition ${formData.photo === pfp.src ? "ring-4" : ""}`}
+                                />
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             <div className="flex gap-4">
                 <div className="flex-1">
@@ -143,6 +152,7 @@ const PatientForm = ({ patients, setPatients }) => {
                         <option value="" disabled selected>Select a species</option>
                         <option value="Cat">Cat</option>
                         <option value="Dog">Dog</option>
+                        <option value="Dog">Snake</option>
                     </select>
                 </div>
             </div>
