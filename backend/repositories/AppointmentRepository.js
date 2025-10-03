@@ -1,14 +1,17 @@
+const BaseRepository = require('./BaseRepository');
 const Appointment = require('../models/Appointment');
 
-class AppointmentRepository {
+class AppointmentRepository extends BaseRepository {
+    constructor() {
+        super(Appointment);
+    }
 
     // create
     async createAppointment(appointmentData) {
         try {
-            const appointment = await Appointment.create(appointmentData);
+            const appointment = await this.create(appointmentData);
 
-            const createdAppointment = await appointment.populate('patient')
-            return createdAppointment;
+            return await appointment.populate('patient');
         } catch (error) {
             throw new Error(`Failed to create appointment: ${error.message}`);
         }
@@ -17,8 +20,7 @@ class AppointmentRepository {
     // get
     async getAppointments(userId) {
         try {
-            const appointments = await Appointment.find({ userID: userId }).populate('patient');
-            return appointments;
+            return await this.model.find({ userID: userId }).populate('patient');
         } catch (error) {
             throw new Error(`Failed to get appointments: ${error.message}`);
         }
@@ -27,7 +29,7 @@ class AppointmentRepository {
     // update
     async updateAppointment(appointmentId, userId, updates) {
         try {
-            const updatedAppointment = await Appointment.findOneAndUpdate(
+            const updatedAppointment = await this.model.findOneAndUpdate(
                 { _id: appointmentId, userID: userId },
                 { $set: updates },
                 { new: true, runValidators: true }
@@ -46,9 +48,9 @@ class AppointmentRepository {
     //delete
     async deleteAppointment(appointmentId, userId) {
         try {
-            const deletedAppointment = await Appointment.findOneAndDelete(
-                { _id: appointmentId, userID: userId }
-            );
+            const deletedAppointment = await this.model.findOneAndDelete({
+                _id: appointmentId, userID: userId
+            });
 
             if (!deletedAppointment) {
                 throw new Error('Appointment not found or not permitted');

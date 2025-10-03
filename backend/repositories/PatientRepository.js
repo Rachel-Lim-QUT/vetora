@@ -1,12 +1,15 @@
+const BaseRepository = require('./BaseRepository');
 const Patient = require('../models/Patient');
 
-class PatientRepository {
+class PatientRepository extends BaseRepository {
+  constructor() {
+    super(Patient);
+  }
 
   // create a new patient
   async createPatient(patientData) {
     try {
-      const patient = await Patient.create(patientData);
-      return patient
+      return await this.create(patientData);
     } catch (error) {
       throw new Error(`Failed to create patient: ${error.message}`);
     }
@@ -15,7 +18,7 @@ class PatientRepository {
   // get patient
   async getPatient(id) {
     try {
-      const patient = await Patient.findById(id);
+      const patient = await this.getById(id);
       if (!patient) throw new Error('Patient not found');
       return patient;
     } catch (error) {
@@ -26,8 +29,7 @@ class PatientRepository {
   // get all patients
   async getAllPatients() {
     try {
-      const patients = await Patient.find();
-      return patients;
+      return await this.getAll();
     } catch (error) {
       throw new Error(`Failed to get all patients: ${error.message}`);
     }
@@ -36,8 +38,7 @@ class PatientRepository {
   // get all patients by id
   async getPatientsByUserId(userId) {
     try {
-      const patients = await Patient.find({ userID: userId }).select('_id name');
-      return patients;
+      return await this.model.find({ userID: userId }).select('_id name');
     } catch (error) {
       throw new Error(`Failed to get patients: ${error.message}`);
     }
@@ -47,11 +48,7 @@ class PatientRepository {
   async updatePatient(id, updates, userId = null) {
     try {
       const query = userId ? { _id: id, userID: userId } : { _id: id };
-      const updatedPatient = await Patient.findOneAndUpdate(
-        query,
-        { $set: updates },
-        { new: true, runValidators: true }
-      );
+      const updatedPatient = await this.update(id, updates, query);
       if (!updatedPatient) throw new Error('Patient not found');
       return updatedPatient;
     } catch (error) {
@@ -62,7 +59,7 @@ class PatientRepository {
   // delete 
   async deletePatient(id) {
     try {
-      const deletedPatient = await Patient.findByIdAndDelete(id)
+      const deletedPatient = await this.delete(id);
       if (!deletedPatient) throw new Error('Patient not found');
       return { message: 'Patient deleted' };
     } catch (error) {

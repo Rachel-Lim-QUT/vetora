@@ -110,7 +110,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         id="lname"
                                         name="lname"
                                         type="text"
-                                        value={owners.lname}
+                                        value={formData.lname}
                                         onChange={onChange}
                                         className="rounded-input-field mb-4"
                                     />
@@ -158,7 +158,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         name="phone"
                                         type="tel"
                                         maxLength={10}
-                                        value={owners.phone}
+                                        value={formData.phone}
                                         onChange={onChange}
                                         className="rounded-input-field"
                                     />
@@ -170,7 +170,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         id="email"
                                         name="email"
                                         type="email"
-                                        value={owners.email}
+                                        value={formData.email}
                                         onChange={onChange}
                                         className="rounded-input-field"
                                     />
