@@ -1,12 +1,15 @@
+const BaseRepository = require('../classes/repositoryClass');
 const Owner = require('../models/Owner');
 
-class OwnerRepository {
+class OwnerRepository extends BaseRepository {
+    constructor() {
+        super(Owner);
+    }
 
     // create a new owner
     async createOwner(ownerData) {
         try {
-            const owner = await Owner.create(ownerData);
-            return owner;
+            return await this.create(ownerData);
         } catch (error) {
             throw new Error(`Failed to create owner: ${error.message}`);
         }
@@ -15,7 +18,7 @@ class OwnerRepository {
     // get owner by id
     async getOwner(id) {
         try {
-            const owner = await Owner.findById(id).populate('patients');
+            const owner = await this.model.findById(id).populate('patients');
             if (!owner) throw new Error('Owner not found');
             return owner;
         } catch (error) {
@@ -26,8 +29,7 @@ class OwnerRepository {
     // get all owners
     async getAllOwners() {
         try {
-            const owners = await Owner.find().populate('patients');
-            return owners;
+            return await this.model.find().populate('patients');
         } catch (error) {
             throw new Error(`Failed to get all owners: ${error.message}`);
         }
@@ -36,7 +38,7 @@ class OwnerRepository {
     // update owner
     async updateOwner(id, updates) {
         try {
-            const updatedOwner = await Owner.findByIdAndUpdate(
+            const updatedOwner = await this.model.findByIdAndUpdate(
                 id,
                 { $set: updates },
                 { new: true, runValidators: true }
@@ -52,7 +54,7 @@ class OwnerRepository {
     // delete owner
     async deleteOwner(id) {
         try {
-            const deletedOwner = await Owner.findByIdAndDelete(id);
+            const deletedOwner = await this.delete(id);
             if (!deletedOwner) throw new Error('Owner not found');
             return { message: 'Owner deleted' };
         } catch (error) {

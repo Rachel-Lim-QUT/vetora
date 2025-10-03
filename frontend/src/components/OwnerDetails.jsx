@@ -52,11 +52,25 @@ const OwnerDetails = ({ owners, setOwners }) => {
         }
     };
 
+    const handleBack = () => {
+        window.history.back();
+    };
+
     return (
         <div className="grid grid-cols-5 gap-6 p-6">
 
             {/* left side */}
             <div className="col-span-2">
+
+                {/* back button */}
+                <div className="flex justify-start items-start mb-4">
+                    <button
+                        onClick={handleBack}
+                        className="pill-button-s-pink">
+                        Back
+                    </button>
+                </div>
+
                 <div className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
                     <h1 className="font-bold text-2xl mb-4">
                         {editMode ? "Edit Owner" : "Owner Details"}
@@ -110,7 +124,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         id="lname"
                                         name="lname"
                                         type="text"
-                                        value={owners.lname}
+                                        value={formData.lname}
                                         onChange={onChange}
                                         className="rounded-input-field mb-4"
                                     />
@@ -158,7 +172,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         name="phone"
                                         type="tel"
                                         maxLength={10}
-                                        value={owners.phone}
+                                        value={formData.phone}
                                         onChange={onChange}
                                         className="rounded-input-field"
                                     />
@@ -170,7 +184,7 @@ const OwnerDetails = ({ owners, setOwners }) => {
                                         id="email"
                                         name="email"
                                         type="email"
-                                        value={owners.email}
+                                        value={formData.email}
                                         onChange={onChange}
                                         className="rounded-input-field"
                                     />
