@@ -63,6 +63,7 @@ const createPatient = async (req, res) => {
 const getPatient = async (req, res) => {
     try {
         const patients = await PatientRepository.getPatient(req.params.id);
+        if (!patients) return res.status(404).json({ message: '404: Patient Not Found' });
 
         Logger.log(`Patient ID ${req.params.id} retrieved`);
 
