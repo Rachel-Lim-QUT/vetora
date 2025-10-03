@@ -14,7 +14,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                 headers: { Authorization: `Bearer ${user.token}` },
             });
 
-            alert('Success! Appoointment deleted.');
+            alert('Success! Appointment deleted.');
 
             // update appointment list
             setAppointments(appointments.filter((a) => a._id !== appointmentID));
@@ -26,6 +26,19 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
         }
     };
 
+    const handleTransition = async (appointmentID, action) => {
+        try {
+            const { data } = await axiosInstance.post(
+                `/api/appointments/${appointmentID}/transition`,
+                { action }, // 'confirm' | 'start' | 'complete' | 'cancel'
+                { headers: { Authorization: `Bearer ${user.token}` } }
+            );
+            setAppointments(prev => prev.map(a => (a._id === appointmentID ? { ...a, status: data.status } : a)));
+        } catch (error) {
+            alert(error?.response?.data?.message || 'Failed to change status');
+        }
+    };
+
     const handleComplete = async (appointmentID) => {
         try {
             await axiosInstance.patch(`/api/appointments/${appointmentID}/complete`,
@@ -33,7 +46,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                 { headers: { Authorization: `Bearer ${user.token}` } }
             );
 
-            alert('Appointment completed');
+            alert('Appointment completed.');
 
             // update appointment in the list
             setAppointments(
@@ -50,7 +63,39 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
     return (
         <div>
             {appointments.map((appointment) => (
-                <div key={appointment._id} className="rounded-window bg-gray-100 mb-4 p-6 shadow-md">
+
+                <div key={appointment._id} className="relative rounded-window bg-gray-100 mb-4 p-6 shadow-md">
+
+                    <div className="absolute top-2 right-2 space-x-2">
+                        {appointment.status === 'Requested' && (
+                            <button
+                                onClick={() => handleTransition(appointment._id, 'confirm')}
+                                className="text-xs px-2 py-1 rounded-full bg-blue-600 text-white/90 hover:opacity-90"
+                                title="Confirm"
+                            >
+                                Confirm
+                            </button>
+                        )}
+                        {appointment.status === 'Confirmed' && (
+                            <button
+                                onClick={() => handleTransition(appointment._id, 'start')}
+                                className="text-xs px-2 py-1 rounded-full bg-indigo-600 text-white/90 hover:opacity-90"
+                                title="Start"
+                            >
+                                Start
+                            </button>
+                        )}
+                        {appointment.status === 'InProgress' && (
+                            <button
+                                onClick={() => handleTransition(appointment._id, 'complete')}
+                                className="text-xs px-2 py-1 rounded-full bg-green-600 text-white/90 hover:opacity-90"
+                                title="Complete"
+                            >
+                                Done
+                            </button>
+                        )}
+                    </div>
+
                     <p><b>Patient</b>: {appointment.patient?.name} {appointment.patient?.lname}</p>
                     <p><b>Type</b>: {appointment.type}</p>
                     <p><b>Date & Time</b>:{" "}
@@ -64,12 +109,13 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                             hour12: true,
                         })}
                     </p>
+                    <p><b>Status</b>: {appointment.status}</p>
 
                     <div className="flex justify-between items-center mt-2">
                         <div className="flex-2">
                             <button
                                 className="pill-button-s-pink mr-4"
-                                onClick={() => setEditingAppointment(appointment)} // 👈 اینجا باشه
+                                onClick={() => setEditingAppointment(appointment)}
                             >
                                 Edit
                             </button>
@@ -131,7 +177,7 @@ const AppointmentList = ({ appointments, setEditingAppointment, setAppointments 
                         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
                             <div className="popup-box">
                                 <p className="mb-4 font-medium text-lg">
-                                    Are you sure you want to cancel the appointment??
+                                    Are you sure you want to cancel the appointment?
                                 </p>
 
                                 <div className="flex justify-center gap-4">
