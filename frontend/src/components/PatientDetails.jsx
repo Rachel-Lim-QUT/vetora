@@ -67,17 +67,32 @@ const PatientDetails = ({ patients, setPatients }) => {
         }
     };
 
+    const handleBack = () => {
+        window.history.back();
+    };
+
     return (
         <div className="grid grid-cols-5 gap-6 p-6">
 
             {/* left side (pfp) */}
-            <div className="col-span-2 flex flex-col items-center">
-                <img
-                    src={patients.photo}
-                    alt="patient pfp"
-                    className="w-96 h-96 mb-6"
-                />
-                <h1 className="">{patients.name}</h1>
+            <div className="col-span-2">
+                
+                {/* back button */}
+                <div className="flex justify-start items-start">
+                    <button
+                        onClick={handleBack}
+                        className="pill-button-s-pink">
+                        Back
+                    </button>
+                </div>
+                <div className="flex flex-col items-center">
+                    <img
+                        src={patients.photo}
+                        alt="patient pfp"
+                        className="w-96 h-96 mb-6"
+                    />
+                    <h1 className="">{patients.name}</h1>
+                </div>
             </div>
 
             {/* right side (patient details) */}

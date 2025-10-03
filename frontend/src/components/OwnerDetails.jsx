@@ -52,11 +52,25 @@ const OwnerDetails = ({ owners, setOwners }) => {
         }
     };
 
+    const handleBack = () => {
+        window.history.back();
+    };
+
     return (
         <div className="grid grid-cols-5 gap-6 p-6">
 
             {/* left side */}
             <div className="col-span-2">
+
+                {/* back button */}
+                <div className="flex justify-start items-start mb-4">
+                    <button
+                        onClick={handleBack}
+                        className="pill-button-s-pink">
+                        Back
+                    </button>
+                </div>
+
                 <div className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
                     <h1 className="font-bold text-2xl mb-4">
                         {editMode ? "Edit Owner" : "Owner Details"}
