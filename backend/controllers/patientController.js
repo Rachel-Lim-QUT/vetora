@@ -132,6 +132,7 @@ const deletePatient = async (req, res) => {
         const result = await PatientRepository.deletePatient(patientId);
 
         Logger.log(`Patient ID ${patientId} deleted by User ID ${req.user.id}`);
+        res.json({ message: 'Patient deleted' })
 
         res.json(result);
     } catch (error) {
