@@ -97,6 +97,13 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
         <form onSubmit={handleSubmit} className="rounded-window bg-gray-100 mb-6 p-6 shadow-md">
             <h1 className="text-2xl font-bold mb-4">{editingAppointment ? 'Update Appointment' : 'Create New Appointment'}</h1>
 
+            {/* making sure user is logged in */}
+            {!user?.token && (
+                <p className="text-red-600 mb-4">
+                    you are not logged in
+                </p>
+            )}
+
             {/* patient */}
             <label htmlFor="patient" className="required">Patient</label>
             <select
@@ -135,16 +142,6 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
             </select>
 
             {/* Date and time*/}
-            {/* <label for="date" className="required">Date</label>
-            <input
-                id="date"
-                name="date"
-                type="date"
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="rounded-input-field mb-4"
-                required
-            /> */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
                 <div>
                     <label htmlFor="date" className="required">Date</label>
@@ -185,7 +182,7 @@ const AppointmentForm = ({ appointments, setAppointments, editingAppointment, se
                     type="button"
                     onClick={() => {
                         setEditingAppointment(null);
-                        setFormData({ patient: '', type: '', date: '' });
+                        setFormData({ patient: '', type: '', date: '', time: '' });
                     }}
                     className="pill-button-l-grey"
                 >
