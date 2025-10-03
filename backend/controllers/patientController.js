@@ -37,7 +37,7 @@ const createPatient = async (req, res) => {
 
         const patient = await PatientRepository.createPatient(patientData);
 
-        Logger.log(`Patient created: id ${patient._id} by user ${req.user.id}`);
+        Logger.log(`Patient ID ${patient._id} created by User ID ${req.user.id}`);
 
         res.status(201).json({
             photo: patient.photo,
@@ -54,8 +54,8 @@ const createPatient = async (req, res) => {
             email: patient.email,
         });
     } catch (error) {
-        Logger.error(`Error creating patient: ${error.message}`);
-        res.status(500).json({ message: error.message });
+        Logger.error(error.message);
+        res.status(500).json({ message: '500: Internal Server Error' });
     }
 };
 
@@ -64,12 +64,12 @@ const getPatient = async (req, res) => {
     try {
         const patients = await PatientRepository.getPatient(req.params.id);
 
-        Logger.log(`Fetched patient id ${req.params.id}`);
+        Logger.log(`Patient ID ${req.params.id} retrieved`);
 
         res.json(patients);
     } catch (error) {
-        Logger.error(`Error fetching patient ${req.params.id}: ${error.message}`);
-        res.status(500).json({ message: error.message })
+        Logger.error(`Failed to retrieve Patient ID ${req.params.id} ( ${error.message} )`);
+        res.status(500).json({ message: '500: Internal Server Error' })
     }
 };
 
@@ -83,7 +83,7 @@ const getAllPatient = async (req, res) => {
         res.json(patients);
     } catch (error) {
         Logger.error(`Error fetching all patients: ${error.message}`);
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: '500: Internal Server Error' })
     }
 };
 
@@ -114,14 +114,14 @@ const updatePatient = async (req, res) => {
             req.user?.id
         );
 
-        if (!updated) return res.status(404).json({ message: 'Patient not found' });
+        if (!updated) return res.status(404).json({ message: '404: Patient Not Found' });
 
-        Logger.log(`Patient updated: id ${patientId} by user ${req.user.id}`);
+        Logger.log(`Patient ID ${patientId} updated by User ID ${req.user?.id}`);
 
         res.json(updated); // for front
     } catch (error) {
-        Logger.error(`Error updating patient ${req.params.id}: ${error.message}`);
-        res.status(500).json({ message: error.message });
+        Logger.error(`Failed to update Patient ID ${req.params.id} ( ${error.message} )`);
+        res.status(500).json({ message: '500: Internal Server Error' });
     }
 };
 
@@ -131,12 +131,15 @@ const deletePatient = async (req, res) => {
         const patientId = req.params.id;
         const result = await PatientRepository.deletePatient(patientId);
 
-        Logger.log(`Patient deleted: id ${patientId} by user ${req.user.id}`);
+        if (!result) return res.status(404).json({ message: '404: Patient Not Found' });
+
+        Logger.log(`Patient ID ${patientId} deleted by User ID ${req.user.id}`);
+        res.json({ message: 'Patient deleted' })
 
         res.json(result);
     } catch (error) {
-        Logger.error(`Error deleting patient ${req.params.id}: ${error.message}`);
-        res.status(500).json({ message: error.message });
+        Logger.error(`Failed to delete Patient ID ${req.params.id} ( ${error.message} )`);
+        res.status(500).json({ message: '500: Internal Server Error' });
     }
 };
 
