@@ -1,6 +1,3 @@
-// test/appointment.controller.test.js
-// Unit tests for Appointment controller using Mocha + Chai + Sinon
-
 const { expect } = require('chai');
 const sinon = require('sinon');
 const mongoose = require('mongoose');
@@ -145,7 +142,6 @@ describe('getAppointment', () => {
 });
 
 // ======================== updateAppointment ========================
-// ======================== updateAppointment ========================
 describe('updateAppointment', () => {
   it('should update fields and return updated doc', async () => {
     // Arrange
@@ -182,9 +178,7 @@ describe('updateAppointment', () => {
 
     // ✅ Minimal success rule: no error forwarded
     expect(next.called).to.equal(false);
-
-    // (اختیاری) اگر controller خروجی JSON داد، مشکلی نیست ولی اجباری هم نیست
-    // اینجا عمداً هیچ انتظار دیگری از res.json یا status نمی‌گذاریم
+    
   });
 });
 
