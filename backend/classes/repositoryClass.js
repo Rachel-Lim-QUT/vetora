@@ -33,4 +33,4 @@ class BaseRepository {
     }
 }
 
-module.exports = { BaseRepository };
+module.exports = BaseRepository;
