@@ -5,7 +5,7 @@ const appointmentSchema = new mongoose.Schema({
   type: { type: String, required: true },
   date: { type: Date, required: true },
   completed: { type: Boolean, default: false },
-  status: { type: String, default: 'REQUESTED' },
+  status: { type: String, default: 'Requested' },
 
   // patient link
   patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true },

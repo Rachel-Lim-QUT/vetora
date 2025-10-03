@@ -16,6 +16,19 @@ async function withSession(fn) {
 async function transitionAppointment({ id, action, user, reason, eventBus }) {
   return withSession(async (session) => {
     const appt = await Appointment.findById(id).session(session);
+    if (eventBus?.emit) {
+    eventBus.emit('appointment.stateChanged', {
+    id: appt._id.toString(),
+    action: normalized,
+    newStatus: result.status,
+    by: user?.id || null,
+    reason: reason || null,
+    at: new Date().toISOString(),
+  });
+}
+
+
+
     if (!appt) throw new Error('Appointment not found');
 
     // core FSM call
