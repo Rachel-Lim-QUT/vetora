@@ -131,6 +131,8 @@ const deletePatient = async (req, res) => {
         const patientId = req.params.id;
         const result = await PatientRepository.deletePatient(patientId);
 
+        if (!result) return res.status(404).json({ message: '404: Patient Not Found' });
+
         Logger.log(`Patient ID ${patientId} deleted by User ID ${req.user.id}`);
         res.json({ message: 'Patient deleted' })
 
