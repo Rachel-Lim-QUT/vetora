@@ -52,7 +52,7 @@ describe('createPatient Function Test', () => {
             json: sinon.spy()
         };
 
-        // Call createPatient Function
+        // Call createPatient function.
         await createPatient(req, res);
 
         // Assertions
@@ -73,7 +73,7 @@ describe('createPatient Function Test', () => {
             email: req.body.email
         })).to.be.true;
 
-        // Restore Stubbed Methods
+        // Restore stubbed methods.
         createStub.restore();
     });
 
@@ -107,14 +107,14 @@ describe('createPatient Function Test', () => {
             json: sinon.spy()
         };
 
-        // Call createPatient Function
+        // Call createPatient function.
         await createPatient(req, res);
 
         // Assertions
         expect(res.status.calledWith(500)).to.be.true;
         expect(res.json.calledWithMatch({ message: '500: Internal Server Error' })).to.be.true;
 
-        // Restore Stubbed Methods
+        // Restore stubbed methods.
         createStub.restore();
     });
 });
@@ -174,7 +174,7 @@ describe('getPatient Function Test', () => {
             status: sinon.stub().returnsThis()
         };
 
-        // Call getPatient function
+        // Call getPatient function.
         await getPatient(req, res);
 
         // Assertions
@@ -182,7 +182,7 @@ describe('getPatient Function Test', () => {
         expect(res.json.calledWith(patients)).to.be.true;
         expect(res.status.called).to.be.false; // No error status should be set.
 
-        // Restore Stubbed methods
+        // Restore stubbed methods.
         getPatientStub.restore();
     });
 
@@ -198,19 +198,19 @@ describe('getPatient Function Test', () => {
             status: sinon.stub().returnsThis()
         };
 
-        // Call getPatient function
+        // Call getPatient function.
         await getPatient(req, res);
 
         // Assertions
         expect(res.status.calledWith(500)).to.be.true;
         expect(res.json.calledWithMatch({ message: '500: Internal Server Error' })).to.be.true;
 
-        // Restore Stubbed Methods
+        // Restore stubbed methods.
         getPatientStub.restore();
     });
 });
 
-// updatePatient (WIP)
+// updatePatient
 describe('updatePatient Function Test', () => {
 
     it("should update a patient's details successfully", async () => {
@@ -255,7 +255,7 @@ describe('updatePatient Function Test', () => {
             status: sinon.stub().returnsThis()
         };
 
-        // Call updatePatient Function
+        // Call updatePatient function.
         await updatePatient(req, res);
 
         // Assertions
@@ -268,39 +268,49 @@ describe('updatePatient Function Test', () => {
         updatePatientStub.restore();
     });
 
-    // it('should return 404 if the patient is not found', async () => {
-    //     const findByIdStub = sinon.stub(PatientRepository, 'updatePatient').resolves(null);
+    it('should return 404 if patient is not found', async () => {
+        // Stub PatientRepository.updatePatient to throw an error.
+        const updatePatientStub = sinon.stub(PatientRepository, 'updatePatient').resolves(null);
 
-    //     const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
-    //     const res = {
-    //         status: sinon.stub().returnsThis(),
-    //         json: sinon.spy()
-    //     };
+        // Mock Request & Response
+        const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
 
-    //     await updatePatient(req, res);
+        // Call updatePatient function.
+        await updatePatient(req, res);
 
-    //     expect(res.status.calledWith(404)).to.be.true;
-    //     expect(res.json.calledWith({ message: '404: Patient Not Found' })).to.be.true;
+        // Assertions
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWith({ message: '404: Patient Not Found' })).to.be.true;
 
-    //     findByIdStub.restore();
-    // });
+        // Restore stubbed methods.
+        updatePatientStub.restore();
+    });
 
-    // it('should return 500 on error', async () => {
-    //     const findByIdStub = sinon.stub(Task, 'findById').throws(new Error('DB Error'));
+    it('should return 500 if an error occurs', async () => {
+        // Stub PatientRepository.updatePatient to throw an error.
+        const updatePatientStub = sinon.stub(PatientRepository, 'updatePatient').throws(new Error('500: Internal Server Error'));
 
-    //     const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
-    //     const res = {
-    //         status: sinon.stub().returnsThis(),
-    //         json: sinon.spy()
-    //     };
+        // Mock Request & Response
+        const req = { params: { id: new mongoose.Types.ObjectId() }, body: {} };
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
 
-    //     await updateTask(req, res);
+        // Call updatePatient function.
+        await updatePatient(req, res);
 
-    //     expect(res.status.calledWith(500)).to.be.true;
-    //     expect(res.json.called).to.be.true;
+        // Assertions
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.called).to.be.true;
 
-    //     findByIdStub.restore();
-    // });
+        // Restore stubbed methods.
+        updatePatientStub.restore();
+    });
 });
 
 // deletePatient (WIP)
