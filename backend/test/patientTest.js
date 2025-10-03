@@ -269,7 +269,7 @@ describe('updatePatient Function Test', () => {
     });
 
     it('should return 404 if patient is not found', async () => {
-        // Stub PatientRepository.updatePatient to throw an error.
+        // Stub PatientRepository.updatePatient to return null.
         const updatePatientStub = sinon.stub(PatientRepository, 'updatePatient').resolves(null);
 
         // Mock Request & Response
@@ -313,83 +313,91 @@ describe('updatePatient Function Test', () => {
     });
 });
 
-// deletePatient (WIP)
-// describe('deletePatient Function Test', () => {
+// deletePatient
+describe('deletePatient Function Test', () => {
 
-//     it('should delete a patient successfully', async () => {
-//         // Mock Request Data
-//         const req = { params: { id: new mongoose.Types.ObjectId().toString() } };
+    it('should delete a patient successfully', async () => {
+        // Mock Request Data
+        const req = {
+            params: { id: new mongoose.Types.ObjectId().toString() },
+            user: { id: new mongoose.Types.ObjectId().toString() }
+        };
 
-//         // Mock Patient found in the database
-//         const patient = { remove: sinon.stub().resolves() };
+        // Mock patient found in the database.
+        const patient = { remove: sinon.stub().resolves() };
 
-//         // Stub PatientRepository.deletePatient to return the mock task
-//         const findByIdStub = sinon.stub(PatientRepository, 'deletePatient').resolves(patient);
+        // Stub PatientRepository.deletePatient to return the mock patient.
+        const deletePatientStub = sinon.stub(PatientRepository, 'deletePatient').resolves(patient);
 
-//         // Mock Response Object
-//         const res = {
-//             status: sinon.stub().returnsThis(),
-//             json: sinon.spy()
-//         };
+        // Mock Response Object
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
 
-//         // Call deletePatient Function
-//         await deletePatient(req, res);
+        // Call deletePatient function.
+        await deletePatient(req, res);
 
-//         // Assertions
-//         expect(findByIdStub.calledOnceWith(req.params.id)).to.be.true;
-//         expect(patient.remove.calledOnce).to.be.true;
-//         expect(res.json.calledWith({ message: 'Patient deleted' })).to.be.true;
+        // Assertions
+        expect(deletePatientStub.calledOnceWith(req.params.id)).to.be.true;
+        expect(res.json.calledWith({ message: 'Patient deleted' })).to.be.true;
 
-//         // Restore Stubbed Methods
-//         findByIdStub.restore();
-//     });
+        // Restore stubbed methods.
+        deletePatientStub.restore();
+    });
 
-//     it('should return 404 if task is not found', async () => {
-//         // Stub Task.findById to return null
-//         const findByIdStub = sinon.stub(Task, 'findById').resolves(null);
+    it('should return 404 if patient is not found', async () => {
+        // Stub PatientRepository.deletePatient to return null.
+        const deletePatientStub = sinon.stub(PatientRepository, 'deletePatient').resolves(null);
 
-//         // Mock request data
-//         const req = { params: { id: new mongoose.Types.ObjectId().toString() } };
+        // Mock Request Data
+        const req = {
+            params: { id: new mongoose.Types.ObjectId().toString() },
+            user: { id: new mongoose.Types.ObjectId().toString() }
+        };
 
-//         // Mock response object
-//         const res = {
-//             status: sinon.stub().returnsThis(),
-//             json: sinon.spy()
-//         };
+        // Mock Response Object
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
 
-//         // Call function
-//         await deleteTask(req, res);
+        // Call deletePatient function.
+        await deletePatient(req, res);
 
-//         // Assertions
-//         expect(findByIdStub.calledOnceWith(req.params.id)).to.be.true;
-//         expect(res.status.calledWith(404)).to.be.true;
-//         expect(res.json.calledWith({ message: 'Task not found' })).to.be.true;
+        // Assertions
+        expect(deletePatientStub.calledOnceWith(req.params.id)).to.be.true;
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWith({ message: '404: Patient Not Found' })).to.be.true;
 
-//         // Restore stubbed methods
-//         findByIdStub.restore();
-//     });
+        // Restore stubbed methods.
+        deletePatientStub.restore();
+    });
 
-//     it('should return 500 if an error occurs', async () => {
-//         // Stub Task.findById to throw an error
-//         const findByIdStub = sinon.stub(Task, 'findById').throws(new Error('DB Error'));
+    it('should return 500 if an error occurs', async () => {
+        // Stub PatientRepository.deletePatient to throw an error
+        const deletePatientStub = sinon.stub(PatientRepository, 'deletePatient').throws(new Error('500: Internal Server Error'));
 
-//         // Mock request data
-//         const req = { params: { id: new mongoose.Types.ObjectId().toString() } };
+        // Mock Request Data
+        const req = {
+            params: { id: new mongoose.Types.ObjectId().toString() },
+            user: { id: new mongoose.Types.ObjectId().toString() }
+        };
 
-//         // Mock response object
-//         const res = {
-//             status: sinon.stub().returnsThis(),
-//             json: sinon.spy()
-//         };
+        // Mock Response Object
+        const res = {
+            status: sinon.stub().returnsThis(),
+            json: sinon.spy()
+        };
 
-//         // Call function
-//         await deleteTask(req, res);
+        // Call deletePatient function.
+        await deletePatient(req, res);
 
-//         // Assertions
-//         expect(res.status.calledWith(500)).to.be.true;
-//         expect(res.json.calledWithMatch({ message: 'DB Error' })).to.be.true;
+        // Assertions
+        expect(res.status.calledWith(500)).to.be.true;
+        expect(res.json.calledWithMatch({ message: '500: Internal Server Error' })).to.be.true;
 
-//         // Restore stubbed methods
-//         findByIdStub.restore();
-//     });
-// });
+        // Restore stubbed methods.
+        deletePatientStub.restore();
+    });
+});
