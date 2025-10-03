@@ -186,6 +186,29 @@ describe('getPatient Function Test', () => {
         getPatientStub.restore();
     });
 
+    it('should return 404 if patient not found', async () => {
+
+        // Stub PatientRepository.getPatient to throw an error.
+        const getPatientStub = sinon.stub(PatientRepository, 'getPatient').resolves(null);
+
+        // Mock Request & Response
+        const req = { params: { id: new mongoose.Types.ObjectId() } };
+        const res = {
+            json: sinon.spy(),
+            status: sinon.stub().returnsThis()
+        };
+
+        // Call getPatient function.
+        await getPatient(req, res);
+
+        // Assertions
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWithMatch({ message: '404: Patient Not Found' })).to.be.true;
+
+        // Restore stubbed methods.
+        getPatientStub.restore();
+    });
+
     it('should return 500 if an error occurs', async () => {
 
         // Stub PatientRepository.getPatient to throw an error.
