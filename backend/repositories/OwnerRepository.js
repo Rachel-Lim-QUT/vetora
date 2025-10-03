@@ -1,4 +1,4 @@
-const BaseRepository = require('./BaseRepository');
+const BaseRepository = require('../classes/repositoryClass');
 const Owner = require('../models/Owner');
 
 class OwnerRepository extends BaseRepository {
